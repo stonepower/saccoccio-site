@@ -1,0 +1,34 @@
+# Dépendances et builds
+node_modules/
+dist/
+.astro/
+# Types générés par `npm run cf-typegen` (wrangler types)
+worker-configuration.d.ts
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+.dev.vars.*
+
+# Variables d'environnement et secrets (ex. EMDASH_ENCRYPTION_KEY)
+.env
+.env*
+
+# EmDash (développement local)
+.emdash/migrations.json
+uploads/
+data.db
+data.db-*
+
+# ⚠️ Ancien site et sauvegardes : contiennent des données personnelles.
+# Ne JAMAIS les versionner.
+website/
+*.sql
+*.tar.gz
+*.zip
+# Exception : les migrations D1 du projet (écrites à la main, sans données).
+!migrations/*.sql
+
+# Divers
+.DS_Store
+*.log
