@@ -10,6 +10,12 @@
 	"vars": {
 		"SITE_ENV": "development",
 		"EMDASH_ADMIN_ENABLED": "true",
+		// Formulaire de contact (docs/formulaire-contact.md) : messages en D1.
+		"CONTACT_MODE": "store",
+		"CONTACT_TO": "saccoccio.tirand.bondil.perrot@notaires.fr",
+		"CONTACT_FROM": "formulaire@saccoccio-et-associes-manosque-notaires.fr",
+		// Clé de test Turnstile « always passes » (publique).
+		"TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
 	},
 	"d1_databases": [
 		{
@@ -33,6 +39,14 @@
 				"SITE_ENV": "staging",
 				// Back-office EmDash fermé (404 sur /_emdash/*).
 				"EMDASH_ADMIN_ENABLED": "false",
+				// Formulaire de contact : messages stockés en D1 (purgés à 30 jours),
+				// aucun e-mail. Voir docs/formulaire-contact.md.
+				"CONTACT_MODE": "store",
+				"CONTACT_TO": "saccoccio.tirand.bondil.perrot@notaires.fr",
+				"CONTACT_FROM": "formulaire@saccoccio-et-associes-manosque-notaires.fr",
+				// Clé publique Turnstile : clé de test « always passes » tant que le
+				// widget n'est pas créé (secret TURNSTILE_SECRET_KEY absent).
+				"TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
 			},
 			"d1_databases": [
 				{
@@ -54,6 +68,16 @@
 				"SITE_ENV": "production",
 				// Back-office EmDash fermé (404 sur /_emdash/*).
 				"EMDASH_ADMIN_ENABLED": "false",
+				// Formulaire de contact : envoi par e-mail (Email Routing). Tant que le
+				// binding CONTACT_EMAIL n'est pas déclaré (DNS pas encore chez
+				// Cloudflare), le formulaire répond « envoi impossible » avec le
+				// téléphone de l'étude. Voir docs/formulaire-contact.md.
+				"CONTACT_MODE": "email",
+				"CONTACT_TO": "saccoccio.tirand.bondil.perrot@notaires.fr",
+				"CONTACT_FROM": "formulaire@saccoccio-et-associes-manosque-notaires.fr",
+				// Clé publique Turnstile : À REMPLACER par la clé du widget de
+				// production (et définir le secret TURNSTILE_SECRET_KEY).
+				"TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
 			},
 			"d1_databases": [
 				{

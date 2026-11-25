@@ -2,9 +2,9 @@
  * Informations publiques de l'étude, reprises de l'ancien site, et
  * navigation commune (en-tête, menu et pied de page).
  *
- * Les pages éditoriales existent (voir src/data/pages.ts). /annonces/,
- * /contact/ et /simulateur-pret/ arrivent dans des PR ultérieures : ces liens
- * répondent 404 pour l'instant, c'est normal.
+ * Les pages éditoriales existent (voir src/data/pages.ts), ainsi que
+ * /contact/. /annonces/ et /simulateur-pret/ arrivent dans des PR
+ * ultérieures : ces liens répondent 404 pour l'instant, c'est normal.
  */
 
 export const ETUDE = {
@@ -72,9 +72,18 @@ export interface Ligne {
 	texte: string;
 }
 
+export interface Horaire {
+	titre: string;
+	lignes: readonly string[];
+}
+
 export interface Bureau {
 	titre: string;
 	lignes: readonly Ligne[];
+	/** Page Contact : intitulé du bureau (« MANOSQUE - Office »…). */
+	intitule: string;
+	/** Page Contact : horaires repris de l'ancienne page. */
+	horaires?: readonly Horaire[];
 }
 
 export interface Site {
@@ -84,7 +93,7 @@ export interface Site {
 	bureaux: readonly Bureau[];
 }
 
-/** Les trois sites de l'étude (pied de page). */
+/** Les trois sites de l'étude (pied de page et page Contact). */
 export const SITES: readonly Site[] = [
 	{
 		ville: "Manosque",
@@ -93,15 +102,35 @@ export const SITES: readonly Site[] = [
 		bureaux: [
 			{
 				titre: "Office notarial",
+				intitule: "MANOSQUE - Office",
 				lignes: [
 					{ icone: "adresse", texte: "29 Avenue Jean Giono - B.P. 103" },
 					{ icone: "adresse", texte: "04101 MANOSQUE CEDEX" },
 					{ icone: "telephone", texte: "04 92 70 70 70" },
 					{ icone: "fax", texte: "Fax : 04 92 70 70 79" },
 				],
+				horaires: [
+					{
+						titre: "Accueil téléphonique",
+						lignes: [
+							"Les lundi et vendredi : 9h30 à 12h00 et 14h00 à 17h00",
+							"Les Mardi, mercredi et jeudi 9h30 à 12h00 et 14h00 à 18h00",
+						],
+					},
+					{
+						titre: "Réception du public",
+						lignes: [
+							"Lundi : 9h-12h et 14h-17h",
+							"Mardi au Jeudi de 8h-12h / 14h-18h",
+							"Vendredi de 8h-12h / 14h-17h",
+							"Le samedi : sur RDV uniquement",
+						],
+					},
+				],
 			},
 			{
 				titre: "Office notarial",
+				intitule: "MANOSQUE - Office",
 				lignes: [
 					{ icone: "adresse", texte: "Chemin des champs de Pruniers" },
 					{ icone: "adresse", texte: "L’Agora Bât E, 04100 Manosque" },
@@ -117,11 +146,22 @@ export const SITES: readonly Site[] = [
 		bureaux: [
 			{
 				titre: "-- Annexe --",
+				intitule: "GRÉOUX-LES-BAINS - Annexe",
 				lignes: [
 					{ icone: "adresse", texte: "237 chemin Sainte Annette" },
 					{ icone: "adresse", texte: "04800 GRÉOUX-LES-BAINS" },
 					{ icone: "telephone", texte: "04 92 70 14 40" },
 					{ icone: "fax", texte: "Fax : 04 92 70 14 49" },
+				],
+				horaires: [
+					{
+						titre: "Accueil téléphonique",
+						lignes: ["Les mardi, jeudi et samedi : 9h00-12h00", "Les mercredi et vendredi : 14h00-16h30"],
+					},
+					{
+						titre: "Réception du public",
+						lignes: ["Lundi au Jeudi : de 8h-12h / 14h-16h30", "Vendredi : 8h-12h/ 14h-16h", "Samedi : sur RDV uniquement"],
+					},
 				],
 			},
 		],
@@ -133,11 +173,19 @@ export const SITES: readonly Site[] = [
 		bureaux: [
 			{
 				titre: "-- Annexe --",
+				intitule: "VALENSOLE - Annexe",
 				lignes: [
 					{ icone: "adresse", texte: "Avenue Segond" },
 					{ icone: "adresse", texte: "04210 VALENSOLE" },
 					{ icone: "telephone", texte: "04 92 70 14 30" },
 					{ icone: "fax", texte: "Fax : 04 92 70 14 32" },
+				],
+				horaires: [
+					{
+						titre: "Accueil téléphonique",
+						lignes: ["Du mardi au vendredi : 9h30-12h30 et 14h00-18h30", "Le samedi : 9h30-12h00"],
+					},
+					{ titre: "Réception du public", lignes: ["du Lundi au Vendredi 9h-12h / 14h-17h"] },
 				],
 			},
 		],

@@ -15,7 +15,7 @@ const reprises = fiches.filter((f) => !/non reprise|redirection seule/i.test(f.s
  * Liens internes vers des pages rendues par le Worker (accueil) ou pas encore
  * créées (PR ultérieures : 404 attendu pour l'instant).
  */
-const HORS_ASSETS = new Set(["/", "/annonces/", "/contact/", "/simulateur-pret/"]);
+const HORS_ASSETS = new Set(["/", "/annonces/", "/simulateur-pret/"]);
 /** Seules images de contenu publiées (aucune photo de personne). */
 const IMAGES_AUTORISEES = /^\/images\/contenu\/(etude_manosque|etude_greoux|etude_valensole|predecesseurs)\.webp$/;
 

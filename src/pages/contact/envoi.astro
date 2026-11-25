@@ -1,0 +1,63 @@
+---
+/**
+ * Traitement du formulaire de contact (POST), rendu par le Worker.
+ *
+ * - Sans JavaScript : succès → redirection 303 vers /contact/?envoye=1 ;
+ *   erreur → la page Contact est réaffichée avec les messages et les champs
+ *   conservés (jamais mise en cache, jamais indexée).
+ * - Avec JavaScript (en-tête Accept: application/json) : réponse JSON
+ *   { statut, message, erreurs? } lue par le script de FormulaireContact.
+ *
+ * Toute autre méthode que POST renvoie vers /contact/. Un POST venu d'un
+ * autre site n'a pas de jeton Turnstile valide pour ce widget : il est refusé.
+ */
+import PageContact from "../../components/PageContact.astro";
+import { TELEPHONE_ETUDE } from "../../data/contact";
+import { codeHttp, type Resultat } from "../../lib/contact";
+import { traiterRequeteContact } from "../../lib/contact-worker";
+
+export const prerender = false;
+
+if (Astro.request.method !== "POST") {
+	return Astro.redirect("/contact/", 303);
+}
+
+const resultat: Resultat = await traiterRequeteContact(Astro.request);
+
+const MESSAGES: Record<Resultat["statut"], string> = {
+	envoye: "Merci, votre message a bien été envoyé à l'étude. Nous vous répondrons dans les meilleurs délais.",
+	invalide: "Le formulaire contient des erreurs : corrigez les champs signalés.",
+	refuse: `La vérification anti-spam a échoué. Réessayez, ou appelez l'étude au ${TELEPHONE_ETUDE}.`,
+	echec: `Votre message n'a pas pu être envoyé pour le moment. Réessayez plus tard ou appelez l'étude au ${TELEPHONE_ETUDE}.`,
+};
+const message = MESSAGES[resultat.statut];
+const enTetes = { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" };
+
+if ((Astro.request.headers.get("Accept") ?? "").includes("application/json")) {
+	return new Response(
+		JSON.stringify({
+			statut: resultat.statut,
+			message,
+			...(resultat.statut === "invalide" ? { erreurs: resultat.erreurs } : {}),
+		}),
+		{ status: codeHttp(resultat), headers: { ...enTetes, "Content-Type": "application/json; charset=utf-8" } },
+	);
+}
+
+if (resultat.statut === "envoye") {
+	return new Response(null, {
+		status: 303,
+		headers: { ...enTetes, Location: "/contact/?envoye=1#message-envoye" },
+	});
+}
+
+Astro.response.status = codeHttp(resultat);
+Astro.response.headers.set("Cache-Control", "no-store");
+---
+
+<PageContact
+	valeurs={resultat.valeurs}
+	erreurs={resultat.statut === "invalide" ? resultat.erreurs : undefined}
+	message={message}
+	noindex
+/>

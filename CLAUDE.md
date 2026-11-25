@@ -64,6 +64,10 @@ Fichiers clés :
 | `src/layouts/Contenu.astro` | Gabarit des pages de contenu (carrousel, fil d'Ariane, sections) |
 | `src/lib/redirections.ts` | Redirections 301 des anciennes URL (appelé par `gate.ts`) |
 | `src/pages/plan-du-site.astro`, `src/pages/sitemap.xml.ts` | Plan du site (prérendu) et sitemap (remplace celui d'EmDash) |
+| `src/pages/contact/`, `src/components/PageContact.astro` | Page Contact (prérendue) et traitement du formulaire (`/contact/envoi/`, Worker) |
+| `src/lib/contact.ts`, `src/lib/mime.ts`, `src/lib/contact-worker.ts` | Formulaire : validation, anti-spam, stockage D1 ou e-mail (voir `docs/formulaire-contact.md`) |
+| `src/pages/politique-de-confidentialite.astro` | Politique de confidentialité (prérendue, à valider par l'étude) |
+| `docs/` | Documentation d'exploitation (formulaire de contact, Turnstile, Email Routing) |
 | `public/documents/` | Les 58 PDF (« La lettre de mon notaire », mentions légales), assets statiques |
 | `tests/` | `npm test` après un build : pages, redirections, bundle du Worker |
 
@@ -151,8 +155,20 @@ poser les ancres du lexique. Une correction de texte se fait dans
   Situation géographique, Coordonnées et Plans d'accès sont hors menu
   (comme sur l'ancien site, ou à valider avec l'étude) mais figurent dans
   `/plan-du-site/` et `sitemap.xml`.
-- `/annonces/`, `/contact/` et `/simulateur-pret/` sont liées mais pas
-  encore créées (404 attendu jusqu'à leurs PR).
+- `/annonces/` et `/simulateur-pret/` sont liées mais pas encore créées
+  (404 attendu jusqu'à leurs PR).
+
+### Formulaire de contact
+
+Voir `docs/formulaire-contact.md`. `/contact/` est prérendue ; le POST va à
+`/contact/envoi/` (Worker). Anti-spam : Turnstile (secret
+`TURNSTILE_SECRET_KEY` sur le Worker, clés de test s'il est absent), champ
+piège, limites de taille. `CONTACT_MODE` : `store` en staging (table D1
+`contact_messages`, purgée à 30 jours à chaque insertion, **jamais
+affichée**), `email` en production via le binding `send_email`
+`CONTACT_EMAIL`, **ajouté seulement à la bascule DNS** (Email Routing actif
+et adresse de l'étude vérifiée). MIME construit à la main (`src/lib/mime.ts`,
+pas de dépendance).
 
 ### Redirections 301
 
@@ -181,7 +197,7 @@ par ex. Cloudflare Access). Le serveur MCP et les polices Google sont
 ### Limite de taille du Worker
 
 Le plan gratuit limite un Worker à **3 Mo compressés**. Le bundle actuel
-fait environ 2,41 Mo (les pages prérendues et les PDF n'y comptent pas) (l'admin EmDash n'est livré qu'en français pour cela :
+fait environ 2,42 Mo (les pages prérendues et les PDF n'y comptent pas) (l'admin EmDash n'est livré qu'en français pour cela :
 `admin.locales: ["fr"]`). Surveiller la ligne `Total Upload … gzip:` du
 `wrangler deploy --dry-run` de la CI à chaque ajout de dépendance.
 
