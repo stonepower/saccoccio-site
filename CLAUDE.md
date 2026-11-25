@@ -45,6 +45,8 @@ Fichiers clés :
 | `src/worker.ts` | Point d'entrée du Worker (template officiel EmDash) |
 | `src/middleware/gate.ts` | Verrou `/_emdash/*` et `X-Robots-Tag` hors production |
 | `src/pages/robots.txt.ts` | `robots.txt` selon l'environnement |
+| `scripts/emdash-migrate.mjs` | Migrations du schéma EmDash en déploiement (cible vérifiée, verrou) |
+| `scripts/smoke-test.sh` | Smoke test après déploiement (dont 503 différé) |
 | `src/live.config.ts` | Chargeur EmDash (ne pas modifier) |
 | `migrations/` | Migrations D1 du projet |
 
@@ -143,10 +145,17 @@ Workflows (`.github/workflows/`) :
 
 - `ci.yml` — chaque PR : typecheck, build et `wrangler deploy --dry-run`
   pour les deux environnements, contrôle de la taille du Worker ;
-- `deploy-staging.yml` — push sur `main` : build, migrations, déploiement,
-  smoke test (`scripts/smoke-test.sh`) ;
+- `deploy-staging.yml` — push sur `main` (ou « Run workflow ») : build,
+  migrations EmDash, migrations du projet, déploiement,
+  `emdash migrate --check`, smoke test (`scripts/smoke-test.sh`). Entrée
+  facultative `take_over_lock_id` (voir « Verrou de migration ») ;
 - `deploy-production.yml` — tag `v*` : sauvegarde chiffrée de la D1,
-  migrations, déploiement, smoke test.
+  migrations EmDash, migrations du projet, déploiement,
+  `emdash migrate --check`, smoke test.
+
+Le smoke test vérifie la page d'accueil, puis la redemande 3 fois à 20 s
+d'intervalle : un 503 (migrations en attente, verrou bloqué) fait échouer
+le job, même s'il apparaît après un premier 200.
 
 ### Sauvegardes de la D1 de production
 
@@ -181,8 +190,7 @@ versionnés, même temporairement, même dans une branche :
 ## Migrations D1
 
 - EmDash gère **lui-même** son schéma (tables `options`, `users`,
-  `_emdash_*`, …) : il applique ses migrations au démarrage du Worker
-  (`migrations.runtime: "auto"`). Ne pas écrire de migration sur ces tables.
+  `_emdash_*`, …). Ne pas écrire de migration sur ces tables.
 - Le dossier `migrations/` (déclaré via `migrations_dir` dans
   `wrangler.jsonc`) est réservé à **nos** tables (par ex. annonces Immonot).
 - Créer une migration :
@@ -196,6 +204,62 @@ versionnés, même temporairement, même dans une branche :
 - Une migration appliquée ne se modifie jamais : on en écrit une nouvelle.
   Les migrations doivent être compatibles avec la version précédente du code
   (le déploiement suit la migration).
+
+### Migrations du schéma EmDash
+
+Le Worker **n'applique plus** les migrations EmDash :
+`migrations: { runtime: "check", dev: "auto" }` dans `astro.config.mjs`.
+En `auto`, la première requête créait environ 90 tables ; sur le plan gratuit
+(10 ms de CPU par requête), le Worker était coupé en pleine migration et
+laissait un verrou, d'où un 503 permanent (« Database migrations are
+required… »). En `check`, le Worker fait une seule requête de statut et
+répond 503 tant que des migrations manquent. `npm run dev` reste en `auto`.
+La variable `EMDASH_MIGRATIONS_MODE` remplacerait ce réglage : ne pas la
+définir sur les environnements déployés.
+
+Les workflows appliquent les migrations avec `scripts/emdash-migrate.mjs`,
+après le build (qui écrit `.emdash/migrations.json`) et **avant**
+`wrangler deploy` :
+
+1. `emdash migrate --status --json --wrangler-config wrangler.jsonc --wrangler-env <env>` ;
+2. vérification que la cible est **exactement** la D1 attendue : nom et UUID
+   écrits en dur dans le workflow (`EXPECTED_D1_NAME`, `EXPECTED_D1_ID`),
+   identiques à `wrangler.jsonc`, au compte et à l'environnement rapportés
+   par EmDash, et fingerprint recalculé par le script
+   (SHA-256 de `{"kind":"d1","identity":[compte, uuid]}`) ;
+3. `emdash migrate --expected-target-fingerprint <fp> …` s'il y a des
+   migrations en attente (le fingerprint n'est donc jamais saisi à la main) ;
+4. après le déploiement : `emdash migrate --check` (code 2 : migrations en
+   attente, code 3 : base migrée par une version plus récente d'EmDash).
+
+Le job échoue sans rien écrire si la cible diffère, si la base contient des
+migrations inconnues (retour à une version plus ancienne d'EmDash), ou si un
+verrou est tenu (voir ci-dessous). Les identifiants sont lus uniquement dans
+`CLOUDFLARE_API_TOKEN` et `CLOUDFLARE_ACCOUNT_ID`.
+
+Avant une mise à jour d'EmDash, relire
+https://docs.emdashcms.com/deployment/updating/ (certaines migrations, comme
+`095_plugin_storage_unique_scope`, ont des contraintes avec du trafic réel).
+
+### Verrou de migration
+
+Une migration interrompue laisse un verrou dans `_emdash_migrations_lock`.
+L'étape « Migrations EmDash » affiche alors
+`Verrou de migration : tenu depuis … (… min), id <id>`.
+
+- **staging** : un verrou de plus de 15 minutes est repris automatiquement
+  (`emdash migrate --take-over-lock <id>`, qui applique ensuite les
+  migrations en attente). Pour un verrou plus récent, attendre ou relancer
+  `deploy-staging` depuis l'onglet Actions (« Run workflow », branche
+  `main`) avec `take_over_lock_id` = l'id affiché. Un id qui ne correspond
+  plus au verrou actuel est refusé.
+- **production** : le workflow ne reprend **jamais** un verrou ; il échoue
+  avec l'id, avant toute migration et tout déploiement. Vérifier d'abord
+  qu'aucune migration ne tourne et que la base est cohérente (sauvegarde du
+  run), puis décider avec le propriétaire du dépôt.
+
+Les migrations EmDash sur D1 ne sont pas transactionnelles : une migration
+coupée en plein milieu peut être partiellement appliquée.
 
 ## Commandes
 

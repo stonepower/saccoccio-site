@@ -5,6 +5,14 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      take_over_lock_id:
+        description: >-
+          Id du verrou de migration EmDash à reprendre (affiché par l'étape
+          « Migrations EmDash »). Laisser vide sinon. Staging uniquement.
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -45,11 +53,31 @@ jobs:
       - name: Build (staging)
         run: CLOUDFLARE_ENV=staging npm run build
 
-      - name: Migrations D1 (staging)
+      # Schéma EmDash (tables options, users, _emdash_*…), appliqué ici et non
+      # plus par le Worker (migrations.runtime: "check"). Le script vérifie
+      # que la cible est bien la D1 ci-dessous avant toute écriture, et
+      # reprend un verrou abandonné (voir scripts/emdash-migrate.mjs).
+      - name: Migrations EmDash (staging)
+        env:
+          EXPECTED_D1_NAME: saccoccio-db-staging
+          EXPECTED_D1_ID: cc9d552e-65cf-46b6-af5c-e98426505cc4
+          TAKE_OVER_LOCK_ID: ${{ inputs.take_over_lock_id }}
+        run: |
+          if [ -n "$TAKE_OVER_LOCK_ID" ]; then
+            node scripts/emdash-migrate.mjs staging --take-over-lock "$TAKE_OVER_LOCK_ID"
+          else
+            node scripts/emdash-migrate.mjs staging
+          fi
+
+      # Nos propres tables (dossier migrations/).
+      - name: Migrations D1 du projet (staging)
         run: npx wrangler d1 migrations apply saccoccio-db-staging --remote --env staging
 
       - name: Déploiement (staging)
         run: npx wrangler deploy --env staging
+
+      - name: Vérification des migrations EmDash (staging)
+        run: npx emdash migrate --check --wrangler-config wrangler.jsonc --wrangler-env staging
 
       - name: Smoke test
         run: scripts/smoke-test.sh "$STAGING_URL" staging
