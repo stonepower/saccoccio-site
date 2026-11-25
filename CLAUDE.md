@@ -130,8 +130,33 @@ Ce compte Cloudflare héberge **d'autres sites clients**. Interdit :
    est exportée avant chaque migration.
 
 Rien n'est installé sur le Mac du propriétaire : tout passe par GitHub
-(PR + Actions) et Cloudflare. Les secrets (`CLOUDFLARE_API_TOKEN`) et
-variables (`CLOUDFLARE_ACCOUNT_ID`) sont dans les environnements GitHub.
+(PR + Actions) et Cloudflare. Les secrets et variables sont dans les
+environnements GitHub :
+
+| Nom | Type | Environnements | Rôle |
+| --- | --- | --- | --- |
+| `CLOUDFLARE_API_TOKEN` | secret | staging, production | Wrangler (Workers, D1, KV, R2) |
+| `CLOUDFLARE_ACCOUNT_ID` | variable | staging, production | ID du compte Cloudflare |
+| `D1_BACKUP_PASSPHRASE` | secret | production | chiffrement GPG des sauvegardes D1 |
+
+Workflows (`.github/workflows/`) :
+
+- `ci.yml` — chaque PR : typecheck, build et `wrangler deploy --dry-run`
+  pour les deux environnements, contrôle de la taille du Worker ;
+- `deploy-staging.yml` — push sur `main` : build, migrations, déploiement,
+  smoke test (`scripts/smoke-test.sh`) ;
+- `deploy-production.yml` — tag `v*` : sauvegarde chiffrée de la D1,
+  migrations, déploiement, smoke test.
+
+### Sauvegardes de la D1 de production
+
+Le dépôt étant public, les artefacts sont téléchargeables par n'importe quel
+compte GitHub : la sauvegarde est donc **chiffrée** (`*.sql.gpg`, conservée
+30 jours). Elle est au format `sqlite3 .dump`, car les tables virtuelles
+FTS5 d'EmDash empêchent l'export au format D1. Pour la lire :
+`gpg -d fichier.sql.gpg > dump.sql`, puis `sqlite3 restauration.db < dump.sql`.
+Le signet D1 Time Travel du moment est joint : il permet aussi
+`npx wrangler d1 time-travel restore saccoccio-db-prod --bookmark=… --env production`.
 
 ### 🚫 Ne jamais merger
 
