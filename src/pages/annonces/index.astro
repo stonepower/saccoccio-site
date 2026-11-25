@@ -1,0 +1,214 @@
+---
+/**
+ * Liste des annonces immobilières (captures annonces-liste-bureau.jpg et
+ * annonces-liste-mobile.jpg, HTML reference/design-kit/pages/
+ * annonces-liste.html), rendue par le Worker : une requête D1 au plus
+ * (catalogue en cache 60 s dans l'isolat), cache HTTP de 5 minutes.
+ *
+ * Recherche en GET (formulaire de l'ancien site) et pagination. « Ma
+ * sélection » et « Alerte mail » ne sont pas repris.
+ */
+import CarteAnnonce from "../../components/CarteAnnonce.astro";
+import RechercheAnnonces from "../../components/RechercheAnnonces.astro";
+import Base from "../../layouts/Base.astro";
+import { libelleTypeBien, prixAffiche, resume } from "../../lib/annonces";
+import { type Annonce, CACHE_HTTP, chargerCatalogue } from "../../lib/annonces-d1";
+import { lieu } from "../../lib/annonces-fiche";
+import { aDesFiltres, correspond, lireCriteres, options, paginer, urlRecherche } from "../../lib/annonces-recherche";
+
+export const prerender = false;
+
+let actives: Annonce[] = [];
+let indisponible = false;
+try {
+	({ actives } = await chargerCatalogue());
+} catch (erreur) {
+	// Table absente (migration non appliquée) ou D1 indisponible.
+	console.error(JSON.stringify({ evenement: "annonces", erreur: String(erreur) }));
+	indisponible = true;
+}
+const criteres = lireCriteres(Astro.url.searchParams);
+const filtre = aDesFiltres(criteres);
+const resultats = filtre ? actives.filter((a) => correspond(a, criteres)) : actives;
+const pagination = paginer(resultats, criteres.page);
+const choix = options(actives);
+
+Astro.response.headers.set("Cache-Control", indisponible ? "no-store" : CACHE_HTTP);
+if (indisponible) Astro.response.status = 503;
+
+const titre =
+	pagination.page > 1
+		? `Annonces immobilières (page ${pagination.page}) – Saccoccio & Associés, notaires`
+		: "Annonces immobilières – Saccoccio & Associés, notaires à Manosque";
+const canonique = new URL(pagination.page > 1 && !filtre ? urlRecherche(criteres) : "/annonces/", Astro.url).href;
+const pluriel = (n: number) => (n > 1 ? "s" : "");
+---
+
+<Base
+	title={titre}
+	description="Maisons, appartements, terrains et commerces à vendre par l'office notarial Saccoccio & Associés à Manosque, Gréoux-les-Bains, Valensole et dans les Alpes-de-Haute-Provence."
+>
+	<link slot="head" rel="canonical" href={canonique} />
+	<h1 class="sr-only">Annonces immobilières de l'office notarial</h1>
+
+	<div class="recherche-bandeau" id="recherche">
+		<div class="conteneur">
+			<RechercheAnnonces options={choix} criteres={criteres} variante="bandeau" />
+		</div>
+	</div>
+
+	<section class="section section-grise annonces" aria-labelledby="titre-annonces">
+		<div class="conteneur">
+			<h2 id="titre-annonces">Annonces immobilières</h2>
+			<div class="annonces-boutons">
+				<a class="btn btn-primaire btn-bloc" href="/annonces/">Toutes nos offres</a>
+			</div>
+
+			<p class="annonces-compte" role="status" hidden={indisponible || pagination.total === 0}>
+				{
+					filtre
+						? `${pagination.total} annonce${pluriel(pagination.total)} correspond${pagination.total > 1 ? "ent" : ""} à votre recherche.`
+						: `${pagination.total} annonce${pluriel(pagination.total)} en ligne.`
+				}
+			</p>
+
+			{
+				indisponible ? (
+					<div class="annonces-vide">
+						<p>
+							<strong>Les annonces sont momentanément indisponibles.</strong>
+						</p>
+						<p>
+							Réessayez dans quelques minutes ou <a href="/contact/">contactez l'étude</a>.
+						</p>
+					</div>
+				) : pagination.total === 0 ? (
+					<div class="annonces-vide">
+						<p>
+							<strong>{filtre ? "Aucune annonce ne correspond à votre recherche." : "Aucune annonce pour le moment."}</strong>
+						</p>
+						<p>
+							{filtre && (
+								<>
+									<a href="/annonces/">Voir toutes nos offres</a> ou{" "}
+								</>
+							)}
+							<a href="/contact/?service=negociation&objet=Je%20souhaite%20acheter">
+								contactez le service négociation
+							</a>{" "}
+							pour être informé des prochains biens.
+						</p>
+					</div>
+				) : (
+					pagination.elements.map((a) => (
+						<CarteAnnonce
+							href={`/annonces/${a.slug}/`}
+							type={libelleTypeBien(a.typeBien)}
+							resume={resume(a.texte)}
+							prix={prixAffiche(a)}
+							photo={a.photos[0] ?? "/images/accueil-annonces.webp"}
+							photoAlt={`${libelleTypeBien(a.typeBien)} à ${lieu(a)}`}
+						/>
+					))
+				)
+			}
+
+			{
+				pagination.pages > 1 && (
+					<nav class="pagination" aria-label="Pages des annonces">
+						{pagination.page > 1 && (
+							<a class="btn" href={urlRecherche(criteres, pagination.page - 1)} rel="prev">
+								« Précédentes
+							</a>
+						)}
+						<ol>
+							{Array.from({ length: pagination.pages }, (_, i) => i + 1).map((n) => (
+								<li>
+									{n === pagination.page ? (
+										<span class="btn btn-primaire" aria-current="page">
+											{n}
+										</span>
+									) : (
+										<a class="btn" href={urlRecherche(criteres, n)}>
+											<span class="sr-only">Page </span>
+											{n}
+										</a>
+									)}
+								</li>
+							))}
+						</ol>
+						{pagination.page < pagination.pages && (
+							<a class="btn" href={urlRecherche(criteres, pagination.page + 1)} rel="next">
+								Suivantes »
+							</a>
+						)}
+					</nav>
+				)
+			}
+		</div>
+	</section>
+</Base>
+
+<style>
+	.recherche-bandeau {
+		padding: 45px 0 30px;
+		border-bottom: 1px solid var(--c-bordure);
+	}
+	.annonces h2 {
+		margin-inline: 15px;
+	}
+	.annonces-boutons {
+		display: grid;
+		gap: 10px var(--gouttiere);
+		margin-bottom: 20px;
+		padding-inline: 15px;
+	}
+	.annonces-boutons .btn {
+		font-family: var(--f-menu);
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+	.annonces-compte {
+		margin: 0 15px 20px;
+		font-family: var(--f-menu);
+		font-size: 13px;
+	}
+	.annonces-vide {
+		margin-bottom: 38px;
+		padding: 40px 30px;
+		background: var(--c-blanc);
+		text-align: center;
+	}
+	.annonces-vide p:last-child {
+		margin-bottom: 0;
+	}
+	.pagination {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 30px;
+		font-family: var(--f-menu);
+	}
+	.pagination ol {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.pagination .btn {
+		min-width: 40px;
+		padding: 6px 12px;
+		border-width: 1px;
+		font-size: 13px;
+	}
+	@media (min-width: 992px) {
+		.annonces-boutons {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

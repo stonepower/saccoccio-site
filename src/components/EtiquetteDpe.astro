@@ -1,0 +1,164 @@
+---
+/**
+ * Étiquette DPE (énergie) ou GES (climat), en CSS : échelle A à G aux
+ * couleurs officielles du DPE 2021, la classe du bien est marquée par sa
+ * valeur. Remplace les pictogrammes de l'ancienne fiche
+ * (reference/design-kit/images/ihm_img_diage-*.png), avec les mêmes textes.
+ */
+import { bornesEchelle, formaterNombre, LETTRES_DPE, type LettreDpe, SEUILS_ENERGIE, SEUILS_GES } from "../lib/annonces";
+
+interface Props {
+	type: "energie" | "ges";
+	valeur: number;
+	lettre: LettreDpe;
+}
+
+const { type, valeur, lettre } = Astro.props;
+const energie = type === "energie";
+const bornes = bornesEchelle(energie ? SEUILS_ENERGIE : SEUILS_GES);
+const unite = energie ? "kWhEP/m².an" : "kgeqCO2/m².an";
+const titre = energie ? "Consommations énergétiques" : "Émissions de gaz à effet de serre";
+---
+
+<figure class:list={["dpe", `dpe-${type}`]}>
+	<figcaption class="dpe-titre">{titre}</figcaption>
+	<p class="sr-only">Classe {lettre} : {formaterNombre(valeur, 1)} {unite}.</p>
+	<p class="dpe-extremite" aria-hidden="true">{energie ? "Logement économe" : "Faible émission de GES"}</p>
+	<ol class="dpe-echelle" aria-hidden="true">
+		{
+			LETTRES_DPE.map((l, i) => (
+				<li class:list={["dpe-classe", `dpe-${l.toLowerCase()}`, { actif: l === lettre }]} style={`--rang: ${i}`}>
+					<span class="dpe-barre">
+						<span class="dpe-bornes">{bornes[i]}</span>
+						<strong>{l}</strong>
+					</span>
+					{l === lettre && <span class="dpe-valeur">{formaterNombre(valeur, 1)}</span>}
+				</li>
+			))
+		}
+	</ol>
+	<p class="dpe-extremite" aria-hidden="true">{energie ? "Logement énergivore" : "Forte émission de GES"}</p>
+	<p class="dpe-notes">
+		{
+			energie
+				? "Consommations énergétiques (en énergie primaire) pour le chauffage, la production d'eau chaude sanitaire et le refroidissement."
+				: "Émissions de gaz à effet de serre (GES) pour le chauffage, la production d'eau chaude sanitaire et le refroidissement."
+		}
+		<br />Indice de mesure : <i>{unite}</i>
+	</p>
+</figure>
+
+<style>
+	/* Couleurs réglementaires des étiquettes (DPE 2021) : propres à ce composant. */
+	.dpe-energie {
+		--dpe-a: #009c6d;
+		--dpe-b: #52b153;
+		--dpe-c: #78bd76;
+		--dpe-d: #f4e70f;
+		--dpe-e: #f0b40f;
+		--dpe-f: #eb8235;
+		--dpe-g: #d7221f;
+	}
+	.dpe-ges {
+		--dpe-a: #a4dbf8;
+		--dpe-b: #8cb4d3;
+		--dpe-c: #7792b1;
+		--dpe-d: #606f8f;
+		--dpe-e: #4d5271;
+		--dpe-f: #393551;
+		--dpe-g: #281b35;
+	}
+	.dpe {
+		margin: 0;
+		padding: 8px 10px 10px;
+		border: 1px solid var(--c-bordure);
+		color: var(--c-titre);
+		font-family: Arial, sans-serif;
+		font-size: 11px;
+		line-height: 1.3;
+	}
+	.dpe-titre {
+		margin-bottom: 6px;
+		font-size: 12px;
+	}
+	.dpe-extremite {
+		margin: 4px 0;
+		font-weight: 700;
+	}
+	.dpe-echelle {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.dpe-classe {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 3px;
+	}
+	.dpe-barre {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: calc(30% + var(--rang) * 9%);
+		padding: 1px 6px;
+		clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+		color: #000;
+		font-weight: 700;
+	}
+	.dpe-barre strong {
+		padding-right: 6px;
+		font-size: 13px;
+	}
+	.dpe-a .dpe-barre {
+		background: var(--dpe-a);
+	}
+	.dpe-b .dpe-barre {
+		background: var(--dpe-b);
+	}
+	.dpe-c .dpe-barre {
+		background: var(--dpe-c);
+	}
+	.dpe-d .dpe-barre {
+		background: var(--dpe-d);
+	}
+	.dpe-e .dpe-barre {
+		background: var(--dpe-e);
+	}
+	.dpe-f .dpe-barre {
+		background: var(--dpe-f);
+	}
+	.dpe-g .dpe-barre {
+		background: var(--dpe-g);
+	}
+	.dpe-ges .dpe-d .dpe-barre,
+	.dpe-ges .dpe-e .dpe-barre,
+	.dpe-ges .dpe-f .dpe-barre,
+	.dpe-ges .dpe-g .dpe-barre,
+	.dpe-energie .dpe-g .dpe-barre {
+		color: var(--c-blanc);
+	}
+	.dpe-classe.actif .dpe-barre {
+		outline: 2px solid #000;
+		outline-offset: 1px;
+	}
+	.dpe-valeur {
+		margin-left: auto;
+		padding: 1px 8px 1px 12px;
+		clip-path: polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%);
+		background: #000;
+		color: var(--c-blanc);
+		font-weight: 700;
+	}
+	.dpe-notes {
+		margin: 8px 0 0;
+		font-size: 10px;
+		line-height: 1.3;
+	}
+	@media print {
+		.dpe {
+			print-color-adjust: exact;
+			-webkit-print-color-adjust: exact;
+		}
+	}
+</style>

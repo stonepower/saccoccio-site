@@ -211,8 +211,22 @@ const etat = (champ: keyof Erreurs): { "aria-invalid"?: "true"; "aria-describedb
 		champ.closest(".formulaire-champ")?.appendChild(p);
 	}
 
+	// Liens « Contactez-nous à propos de cette annonce », « Vous souhaitez
+	// acheter »… (/contact/?service=negociation&objet=…) : objet repris en
+	// tête du message et négociatrice présélectionnée. La page est prérendue :
+	// le préremplissage se fait ici, en texte brut (textContent / value).
+	const params = new URLSearchParams(location.search);
+	const objet = params.get("objet")?.replace(/[\r\n]+/g, " ").trim().slice(0, 200);
+	const message = form?.querySelector<HTMLTextAreaElement>("textarea[name=message]");
+	if (objet && message && !message.value) message.value = `Objet : ${objet}\n\n`;
+	const choix = [...(form?.querySelectorAll<HTMLOptionElement>("select[name=destinataire] option") ?? [])];
+	if (params.get("service") === "negociation" && !choix.some((o) => o.selected && o.value)) {
+		const option = choix.find((o) => o.text.startsWith("Négociat"));
+		if (option) option.selected = true;
+	}
+
 	// Retour d'un envoi sans JavaScript (redirection vers ?envoye=1).
-	if (succes && new URLSearchParams(location.search).get("envoye") === "1") {
+	if (succes && params.get("envoye") === "1") {
 		succes.hidden = false;
 		succes.focus();
 	}

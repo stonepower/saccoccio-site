@@ -1,0 +1,2416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EchangeNotaire>
+  <CrpCen id="04025" codeNs="0000010172" editeur="NS" logiciel="EspacePro" version="1.0" nomNotaire="SAS NOTAIRES EXPERTS SUD04 - Mes Philippe SACCOCCIO, Sophie CASANOVA-TIRAND, Vincent BONDIL et Claire CHOUQUET" adresseNotaire="29 avenue Jean Giono" codpostNotaire="04100" villeNotaire="MANOSQUE" email="negociation.04025@notaires.fr" info="">
+    <Clef id="0000010172__w17567318563254440" isCoupDeCoeur="false" insee="04230" codePostal="04210" ville="Valensole" departement="04" typeVente="VENT" codeSousNature="0201" libelleSousNature="Maison individuelle" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1789656171000" refClient="025/1912" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>280280.0</PVB>
+      <PNV>267000.0</PNV>
+      <fraisActe>21676.39</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>13280.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>Maison à vendre à Valensole (04210) en Alpes-de-Haute-Provence (04): Située sur la commune de Valensole, dans un quartier calme non loin du centre-ville, cette villa de plain-pied d'env 125,69 m² comprend: une entrée, un séjour-salon ouvrant sur une véranda et une terrasse couverte, une cuisine avec cellier, un couloir desservant un WC, placards, une salle d'eau, 3 chambres et un garage attenant. En sous-sol/rez-de-jardin : un atelier/chaufferie d'env 49 m² et cave/vide-sanitaire. La surface du terrain de 1 819 m² offre un espace extérieur important permettant différents usages selon les besoins du futur acquéreur. PLU : zone Uc. La maison datant de 1971, il y a lieu d'apporter des travaux de modernisation.    La commune de Valensole se situe au coeur du plateau de Valensole, secteur connu pour ses paysages agricoles et ses champs de lavande. La ville dispose des commodités courantes avec bus, écoles, commerces et services. Elle se trouve à proximité de plusieurs points d'intérêt du territoire, notamment les Gorges du Verdon, le lac d'Esparron-de-Verdon, Manosque et Gréoux-les-Bains. L'accès aux axes de circulation du secteur permet de rejoindre les communes voisines et les services du bassin de vie.  Contactez notre office notarial pour obtenir de plus amples renseignements sur cette maison à vendre à Valensole.</Annonce>
+      <AnnonceAnglais>Maison à vendre à Valensole (04210) en Alpes-de-Haute-Provence (04): Située sur la commune de Valensole, dans un quartier calme non loin du centre-ville, cette villa de plain-pied d'env 125,69 m² comprend: une entrée, un séjour-salon ouvrant sur une véranda et une terrasse couverte, une cuisine avec cellier, un couloir desservant un WC, placards, une salle d'eau, 3 chambres et un garage attenant. En sous-sol/rez-de-jardin : un atelier/chaufferie d'env 49 m² et cave/vide-sanitaire. La surface du terrain de 1 819 m² offre un espace extérieur important permettant différents usages selon les besoins du futur acquéreur. PLU : zone Uc. La maison datant de 1971, il y a lieu d'apporter des travaux de modernisation.La commune de Valensole se situe au coeur du plateau de Valensole, secteur connu pour ses paysages agricoles et ses champs de lavande. La ville dispose des commodités courantes avec bus, écoles, commerces et services. Elle se trouve à proximité de plusieurs points d'intérêt du territoire, notamment les Gorges du Verdon, le lac d'Esparron-de-Verdon, Manosque et Gréoux-les-Bains. L'accès aux axes de circulation du secteur permet de rejoindre les communes voisines et les services du bassin de vie.Contactez notre office notarial pour obtenir de plus amples renseignements sur cette maison à vendre à Valensole.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/d/w17567318563254440_1756733115483.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/k/w17567318563254440_1756733089288.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/a/w17567318563254440_1756732855966.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/w/w17567318563254440_1756732838325.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/b/w17567318563254440_1756733001471.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/o/w17567318563254440_1756733077987.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/z/w17567318563254440_1756732872503.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/c/w17567318563254440_1756732890741.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/v/w17567318563254440_1756732898675.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/5/w17567318563254440_1756732930468.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/d/w17567318563254440_1756732938962.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/n/w17567318563254440_1756732943763.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/r/w17567318563254440_1756733027040.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/u/w17567318563254440_1756733039436.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/x/w17567318563254440_1756733133666.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/e/w17567318563254440_1756733083998.jpg</Photo>
+      <Photo id="16">http://photos.immonotpro.com/photos/n/w17567318563254440_1756732803268.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>fuel,climReversible,cheminee</TypeChauffage>
+      <SurfaceTerrain>1819 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>1819</SurfaceTerrainDouble>
+      <SurfaceHabitable>125.69</SurfaceHabitable>
+      <SurfaceSejour>38.63</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>245.0</dpeNrj>
+      <dpeGes>56.0</dpeGes>
+      <dpeDate>23/07/2025</dpeDate>
+      <dpeLettre>E</dpeLettre>
+      <gesLettre>E</gesLettre>
+      <nrjLettre>E</nrjLettre>
+      <coutAnnMin>3430.0</coutAnnMin>
+      <coutAnnMax>4720.0</coutAnnMax>
+      <dateRefCout>2024</dateRefCout>
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>A rafraichir</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1388.0</TaxeFonciere>
+      <Balcon>true</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>true</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>true</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>SE</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.97</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w16178668356243269" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263822000" dateCreation="1617865237000" refClient="025/1749" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>103480.0</PVB>
+      <PNV>97000.0</PNV>
+      <fraisActe>8629.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>6480.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>166</CoproprieteNombreLots>
+      <CoproprieteCharges>3432</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-Les-Bains (04) - Alpes de Haute Provence: Superbe appartement meublé d'env 34 m² situé au rez-de-chaussée, comprenant: un séjour avec coin cuisine ouvrant une terrasse et jardinet, une chambre et une salle d'eau avec WC + une place de parking privée. Résidence sécurisée et confort Odalys avec bail commercial en cours. Proche commodités. Idéal investissement locatif.</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-Les-Bains (04) - Alpes de Haute Provence: Superbe appartement meublé d'env 34 m² situé au rez-de-chaussée, comprenant: un séjour avec coin cuisine ouvrant une terrasse et jardinet, une chambre et une salle d'eau avec WC + une place de parking privée. Résidence sécurisée et confort Odalys avec bail commercial en cours. Proche commodités. Idéal investissement locatif.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/6/w16178668356243269_1617867478019.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/w/w16178668356243269_1617867493696.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/s/w16178668356243269_1617867512549.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/e/w16178668356243269_1617867515989.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/h/w16178668356243269_1617867519649.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/v/w16178668356243269_1617867500050.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/k/w16178668356243269_1617867505262.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/8/w16178668356243269_1617867510123.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/x/w16178668356243269_1758093307336.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/9/w16178668356243269_1758093326066.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/e/w16178668356243269_1758093334931.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,individuel</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>33.99</SurfaceHabitable>
+      <SurfaceSejour>18.31</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>2</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>227.0</dpeNrj>
+      <dpeGes>6.0</dpeGes>
+      <dpeDate>18/04/2025</dpeDate>
+      <dpeLettre>D</dpeLettre>
+      <gesLettre>A</gesLettre>
+      <nrjLettre>D</nrjLettre>
+      <coutAnnMin>680.0</coutAnnMin>
+      <coutAnnMax>980.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>1</NbreChambres>
+      <Meuble>Oui</Meuble>
+      <Etat>Excellent</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>992.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>true</parking>
+      <nb_parkings>1</nb_parkings>
+      <cave>false</cave>
+      <piscine>true</piscine>
+      <jardin>true</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>1</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>true</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>NO</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.76</Latitude>
+      <Longitude>5.88</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17792887274617698" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0206" libelleSousNature="Maison de ville" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1782112537000" refClient="025/1940" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>143000.0</PVB>
+      <PNV>135000.0</PNV>
+      <fraisActe>11933.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>8000.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) -  Alpes-de-Haute-Provence: Maison de ville située au centre ville de Manosque, comprenant au rez-de-chaussée: une entrée, un cellier et un garage d'env 23 m². Au 1er étage : un T2 d'env 30,24 m². Au 2éme étage : un T2 d'env 30 m². Au 3éme étage : une pièce de rangement  donnant sur une terrasse d'env 31 m². En sous-sol : une cave voûtée.  Idéal investissement locatif. PLU : zone UH1.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) -  Alpes-de-Haute-Provence: Maison de ville située au centre ville de Manosque, comprenant au rez-de-chaussée: une entrée, un cellier et un garage d'env 23 m². Au 1er étage : un T2 d'env 30,24 m². Au 2éme étage : un T2 d'env 30 m². Au 3éme étage : une pièce de rangement  donnant sur une terrasse d'env 31 m². En sous-sol : une cave voûtée.Idéal investissement locatif. PLU : zone UH1.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/8/w17792887274617698_1779289295992.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/t/w17792887274617698_1779289278780.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/g/w17792887274617698_1779289286947.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/o/w17792887274617698_1779289282978.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/k/w17792887274617698_1779289295030.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/b/w17792887274617698_1779289467540.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/e/w17792887274617698_1779289461356.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/m/w17792887274617698_1779289451743.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/4/w17792887274617698_1779289472031.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/b/w17792887274617698_1779289477229.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/n/w17792887274617698_1779289478339.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/3/w17792887274617698_1779289272236.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/h/w17792887274617698_1779289275002.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/g/w17792887274617698_1779289483143.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/3/w17792887274617698_1779289266452.jpg</Photo>
+      <Quartier>Centre ville</Quartier>
+      <Pays />
+      <TypeChauffage>electricite</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>71.0</SurfaceHabitable>
+      <SurfaceSejour>17.06</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>252.0</dpeNrj>
+      <dpeGes>10.0</dpeGes>
+      <dpeDate>30/04/2026</dpeDate>
+      <dpeLettre>D</dpeLettre>
+      <gesLettre>B</gesLettre>
+      <nrjLettre>D</nrjLettre>
+      <coutAnnMin>783.0</coutAnnMin>
+      <coutAnnMax>1059.0</coutAnnMax>
+      <dateRefCout>2022</dateRefCout>
+      <NbreChambres>1</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1331.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>3</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>true</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>2</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>2</WC>
+      <colocation>false</colocation>
+      <orientation>O</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.78</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17913820858906843" isCoupDeCoeur="false" insee="04230" codePostal="04210" ville="Valensole" departement="04" typeVente="VENT" codeSousNature="0206" libelleSousNature="Maison de ville" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263820000" dateCreation="1791381735000" refClient="025/1958" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>205400.0</PVB>
+      <PNV>195000.0</PNV>
+      <fraisActe>16363.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>10400.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre à Valensole (04210), Alpes-de-Haute-Provence: Jolie maison de village d'env 94 m² de 2004 comprenant : un salon-séjour avec coin cuisine. A l'étage: un dégagement desservant un placard, une chambre, une SDE et un WC. Au 2éme: 2 chambres. Plus un garage indépendant d'env 31 m² et 15 m² en mezzanine. Le garage a été raccordé en 2023 aux réseaux Electrique, Eau et Assainissement. Toiture refaite en 2019.  Cette maison peut aussi constituer une opportunité idéale pour un investissement locatif.   La commune de Valensole se situe au coeur du plateau de Valensole, secteur connu pour ses paysages agricoles et ses champs de lavande. La ville dispose des commodités courantes avec bus, écoles, commerces et services. Elle se trouve à proximité de plusieurs points d'intérêt du territoire, notamment les Gorges du Verdon, le lac d'Esparron-de-Verdon, Manosque et Gréoux-les-Bains.      L'accès aux axes de circulation du secteur permet de rejoindre les communes voisines et les services du bassin de vie.  Contactez notre office notarial pour obtenir de plus amples renseignements sur cette maison à vendre à Valensole.</Annonce>
+      <AnnonceAnglais>A vendre à Valensole (04210), Alpes-de-Haute-Provence: Jolie maison de village d'env 94 m² de 2004 comprenant : un salon-séjour avec coin cuisine. A l'étage: un dégagement desservant un placard, une chambre, une SDE et un WC. Au 2éme: 2 chambres. Plus un garage indépendant d'env 31 m² et 15 m² en mezzanine. Le garage a été raccordé en 2023 aux réseaux Electrique, Eau et Assainissement. Toiture refaite en 2019.Cette maison peut aussi constituer une opportunité idéale pour un investissement locatif. La commune de Valensole se situe au coeur du plateau de Valensole, secteur connu pour ses paysages agricoles et ses champs de lavande. La ville dispose des commodités courantes avec bus, écoles, commerces et services. Elle se trouve à proximité de plusieurs points d'intérêt du territoire, notamment les Gorges du Verdon, le lac d'Esparron-de-Verdon, Manosque et Gréoux-les-Bains.    L'accès aux axes de circulation du secteur permet de rejoindre les communes voisines et les services du bassin de vie.Contactez notre office notarial pour obtenir de plus amples renseignements sur cette maison à vendre à Valensole.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/c/w17913820858906843_1791383010498.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/k/w17913820858906843_1791383015000.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/o/w17913820858906843_1791383004858.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/y/w17913820858906843_1791382994964.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/t/w17913820858906843_1791382978488.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/n/w17913820858906843_1791383000934.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/0/w17913820858906843_1791382964506.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/1/w17913820858906843_1791382928111.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/j/w17913820858906843_1791382959204.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/v/w17913820858906843_1791383025627.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/b/w17913820858906843_1791383030221.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/l/w17913820858906843_1791383034052.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/k/w17913820858906843_1791383044567.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>94.11</SurfaceHabitable>
+      <SurfaceSejour>36.68</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>158.0</dpeNrj>
+      <dpeGes>6.0</dpeGes>
+      <dpeDate>12/05/2026</dpeDate>
+      <dpeLettre>C</dpeLettre>
+      <gesLettre>B</gesLettre>
+      <nrjLettre>C</nrjLettre>
+      <coutAnnMin>1390.0</coutAnnMin>
+      <coutAnnMax>1930.0</coutAnnMax>
+      <dateRefCout>2021</dateRefCout>
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1012.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>2</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>E</orientation>
+      <cuisine>true</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.98</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17793686979998348" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0513" libelleSousNature="Local Professionnel et commercial" typeBien="FMCO" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1779367914000" refClient="025/1941" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>1666600.0</PVB>
+      <PNV>1600000.0</PNV>
+      <fraisActe>120104.96</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>66600.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence: Dans une zone industrielle, un bâtiment d'env 240 m² à usage de bureaux et d'entrepôts soumis à un bail commercial concernant l'activité pour la station de lavage. Le bail pouvant être résilier. Le tout édifié sur un terrain clôturé d'env 1 698 m². PLU : zone UE1.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence: Dans une zone industrielle, un bâtiment d'env 240 m² à usage de bureaux et d'entrepôts soumis à un bail commercial concernant l'activité pour la station de lavage. Le bail pouvant être résilier. Le tout édifié sur un terrain clôturé d'env 1 698 m². PLU : zone UE1.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/w/w17793686979998348_1781620621880.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/g/w17793686979998348_1781620638603.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/t/w17793686979998348_1781620631780.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/1/w17793686979998348_1781530422206.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/b/w17793686979998348_1781530446020.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/j/w17793686979998348_1784740888569.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/2/w17793686979998348_1784740894929.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/o/w17793686979998348_1784740906231.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/x/w17793686979998348_1784740918075.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/w/w17793686979998348_1784740927008.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage />
+      <SurfaceTerrain>1698 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>1698</SurfaceTerrainDouble>
+      <SurfaceHabitable>170.0</SurfaceHabitable>
+      <SurfaceSejour />
+      <Assainissement />
+      <TypeAssainissement />
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece />
+      <ExempteDpe>true</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj />
+      <dpeGes />
+      <dpeDate />
+      <dpeLettre />
+      <gesLettre />
+      <nrjLettre />
+      <coutAnnMin />
+      <coutAnnMax />
+      <dateRefCout />
+      <NbreChambres>0</NbreChambres>
+      <Meuble />
+      <Etat />
+      <TaxeHabitation />
+      <TaxeFonciere />
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>11</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>true</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation />
+      <cuisine>true</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.82</Latitude>
+      <Longitude>5.79</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds>240.0</surfaceFonds>
+    </Clef>
+    <Clef id="0000010172__w17924152604126064" isCoupDeCoeur="false" insee="04197" codePostal="04220" ville="Sainte-Tulle" departement="04" typeVente="VENT" codeSousNature="0201" libelleSousNature="Maison individuelle" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263820000" dateCreation="1792412948000" refClient="025/1960" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>257400.0</PVB>
+      <PNV>245000.0</PNV>
+      <fraisActe>20054.99</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>12400.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Sainte-Tulle (04) - Alpes de Haute Provence : Villa d'env 103,46 m² à moderniser, comprenant : une entrée, une cuisine avec cellier, un salon-séjour, un dégagement, un WC, une chambre avec une SDE. A l'étage : un couloir desservant 2 chambres, une SDE, un WC et placards.   Edifiée sur un terrain clos et arboré d'env 382 m² avec 2 abris rangement. Zone PLU : UC    La commune de Sainte-Tulle offre un accès aux commodités du quotidien avec la présence de bus, d'écoles, de commerces et de services. La situation géographique permet de rejoindre les secteurs proches du bassin de Manosque et les axes de circulation du territoire, avec un accès aux équipements et services de la commune et des environs.  Contactez notre office notarial pour obtenir de plus amples renseignements sur maison à vendre à Sainte-Tulle.</Annonce>
+      <AnnonceAnglais>A vendre - Sainte-Tulle (04) - Alpes de Haute Provence : Villa d'env 103,46 m² à moderniser, comprenant : une entrée, une cuisine avec cellier, un salon-séjour, un dégagement, un WC, une chambre avec une SDE. A l'étage : un couloir desservant 2 chambres, une SDE, un WC et placards. Edifiée sur un terrain clos et arboré d'env 382 m² avec 2 abris rangement. Zone PLU : UCLa commune de Sainte-Tulle offre un accès aux commodités du quotidien avec la présence de bus, d'écoles, de commerces et de services. La situation géographique permet de rejoindre les secteurs proches du bassin de Manosque et les axes de circulation du territoire, avec un accès aux équipements et services de la commune et des environs.Contactez notre office notarial pour obtenir de plus amples renseignements sur maison à vendre à Sainte-Tulle.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/c/w17924152604126064_1793972939618.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/c/w17924152604126064_1793972915677.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/d/w17924152604126064_1793972148300.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/g/w17924152604126064_1793972918942.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/t/w17924152604126064_1793972175321.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/4/w17924152604126064_1793972145285.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/w/w17924152604126064_1793972975454.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/i/w17924152604126064_1793972979830.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/c/w17924152604126064_1793972995136.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/9/w17924152604126064_1793972987763.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/i/w17924152604126064_1793972997874.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/x/w17924152604126064_1793973005500.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/v/w17924152604126064_1793973020437.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/s/w17924152604126064_1793973026442.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/f/w17924152604126064_1793973032386.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/l/w17924152604126064_1793972133367.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,climReversible,individuel</TypeChauffage>
+      <SurfaceTerrain>382 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>382</SurfaceTerrainDouble>
+      <SurfaceHabitable>103.46</SurfaceHabitable>
+      <SurfaceSejour>22.94</SurfaceSejour>
+      <Assainissement>individuel</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>167.0</dpeNrj>
+      <dpeGes>6.0</dpeGes>
+      <dpeDate>06/10/2026</dpeDate>
+      <dpeLettre>C</dpeLettre>
+      <gesLettre>B</gesLettre>
+      <nrjLettre>C</nrjLettre>
+      <coutAnnMin>1610.0</coutAnnMin>
+      <coutAnnMax>2230.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>A rafraichir</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1600.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>true</parking>
+      <nb_parkings>1</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>true</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>1</nb_etages>
+      <etageEleve>true</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>2</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>2</WC>
+      <colocation>false</colocation>
+      <orientation>EO</orientation>
+      <cuisine>true</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.79</Latitude>
+      <Longitude>5.76</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17443793553761218" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263822000" dateCreation="1744378903000" refClient="025/1898" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>91000.0</PVB>
+      <PNV>85000.0</PNV>
+      <fraisActe>7805.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>6000.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>24</CoproprieteNombreLots>
+      <CoproprieteCharges>560</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:  T2 d'env 30,85 m² situé au 2éme étage sans ascenseur, comprenant:  une entrée, un séjour avec coin cuisine, une SDE avec WC, placard et une chambre. Idéal investissement locatif.</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:  T2 d'env 30,85 m² situé au 2éme étage sans ascenseur, comprenant:  une entrée, un séjour avec coin cuisine, une SDE avec WC, placard et une chambre. Idéal investissement locatif.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/j/w17443793553761218_1744379459136.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/4/w17443793553761218_1744379475499.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/8/w17443793553761218_1744379470141.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/0/w17443793553761218_1744379457694.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/7/w17443793553761218_1744379446422.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/2/w17443793553761218_1744379427097.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/j/w17443793553761218_1744379440647.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/y/w17443793553761218_1744379483813.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>30.85</SurfaceHabitable>
+      <SurfaceSejour>12.84</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>2</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>342.0</dpeNrj>
+      <dpeGes>11.0</dpeGes>
+      <dpeDate>17/04/2025</dpeDate>
+      <dpeLettre>E</dpeLettre>
+      <gesLettre>B</gesLettre>
+      <nrjLettre>E</nrjLettre>
+      <coutAnnMin>870.0</coutAnnMin>
+      <coutAnnMax>1200.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>1</NbreChambres>
+      <Meuble>Oui</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>371.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>2</etage>
+      <nb_etages>2</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>E</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.75</Latitude>
+      <Longitude>5.89</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17751131106226276" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1775112511000" refClient="025/1933" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>163800.0</PVB>
+      <PNV>155000.0</PNV>
+      <fraisActe>13410.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>8800.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>28</CoproprieteNombreLots>
+      <CoproprieteCharges>940</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence:  Appartement T4 d'env 93,93 m², spacieux, lumineux et offrant une jolie vue dégagée, il se situe proche du centre-ville. Au 3éme étage sans ascenseur, il se compose : d'une entrée, une cuisine avec loggia, un cellier, un salon-séjour ouvrant sur un balcon, un couloir desservant une SDB, un WC et 3 chambres. Résidence sécurisée avec parking collectif.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence:  Appartement T4 d'env 93,93 m², spacieux, lumineux et offrant une jolie vue dégagée, il se situe proche du centre-ville. Au 3éme étage sans ascenseur, il se compose : d'une entrée, une cuisine avec loggia, un cellier, un salon-séjour ouvrant sur un balcon, un couloir desservant une SDB, un WC et 3 chambres. Résidence sécurisée avec parking collectif.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/t/w17751131106226276_1775113463367.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/b/w17751131106226276_1775113470974.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/d/w17751131106226276_1775113476781.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/g/w17751131106226276_1775113481400.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/x/w17751131106226276_1775113487204.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/c/w17751131106226276_1775113502520.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/8/w17751131106226276_1775113492934.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/3/w17751131106226276_1775113431168.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/5/w17751131106226276_1775113437592.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/9/w17751131106226276_1775113445201.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/o/w17751131106226276_1775113449113.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/e/w17751131106226276_1775113456557.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage />
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>93.93</SurfaceHabitable>
+      <SurfaceSejour>22.7</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>true</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj />
+      <dpeGes />
+      <dpeDate />
+      <dpeLettre />
+      <gesLettre />
+      <nrjLettre />
+      <coutAnnMin />
+      <coutAnnMax />
+      <dateRefCout />
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1502.0</TaxeFonciere>
+      <Balcon>true</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>3</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>true</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>S</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.78</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17817001585898084" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0212" libelleSousNature="Villa" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1781699453000" refClient="025/1944" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>501800.0</PVB>
+      <PNV>480000.0</PNV>
+      <fraisActe>37406.02</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>21800.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-les-Bains (04): Jolie propriété située dans un quartier calme, composée de 2 villas: Villa n°1 de plain-pied d'env 88,85 m², comprenant: une entrée, un coin bureau, une cuisine ouverte sur salon-séjour, un cellier et un dégagement desservant un placard, une SDE avec WC et 2 chambres dont 1 avec dressing. Et une petite maison n°2 indépendante d'env 48,18 m² de type 2 actuellement loué env 800 EUR/mois.  Edifiée sur un terrain clos d'env 690 m² avec une terrasse couverte d'env 70 m², un atelier d'env 31 m², un garage avec WC d'env 25m².</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-les-Bains (04): Jolie propriété située dans un quartier calme, composée de 2 villas: Villa n°1 de plain-pied d'env 88,85 m², comprenant: une entrée, un coin bureau, une cuisine ouverte sur salon-séjour, un cellier et un dégagement desservant un placard, une SDE avec WC et 2 chambres dont 1 avec dressing. Et une petite maison n°2 indépendante d'env 48,18 m² de type 2 actuellement loué env 800 EUR/mois.Edifiée sur un terrain clos d'env 690 m² avec une terrasse couverte d'env 70 m², un atelier d'env 31 m², un garage avec WC d'env 25m².</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/j/w17817001585898084_1781700293324.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/x/w17817001585898084_1781700336828.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/s/w17817001585898084_1781700325378.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/y/w17817001585898084_1781700321789.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/h/w17817001585898084_1781700415275.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/1/w17817001585898084_1781700396731.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/s/w17817001585898084_1781700375169.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/r/w17817001585898084_1781700393948.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/x/w17817001585898084_1781700367863.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/2/w17817001585898084_1781700464705.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/9/w17817001585898084_1781700457000.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/y/w17817001585898084_1781700436596.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/k/w17817001585898084_1781700446432.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/6/w17817001585898084_1781700279026.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/v/w17817001585898084_1781700309960.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/p/w17817001585898084_1781700239449.jpg</Photo>
+      <Photo id="16">http://photos.immonotpro.com/photos/8/w17817001585898084_1781700218883.jpg</Photo>
+      <Photo id="17">http://photos.immonotpro.com/photos/n/w17817001585898084_1781700252186.jpg</Photo>
+      <Photo id="18">http://photos.immonotpro.com/photos/c/w17817001585898084_1781700244525.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,climReversible,individuel</TypeChauffage>
+      <SurfaceTerrain>690 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>690</SurfaceTerrainDouble>
+      <SurfaceHabitable>137.03</SurfaceHabitable>
+      <SurfaceSejour>43.0</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>5</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>101.0</dpeNrj>
+      <dpeGes>3.0</dpeGes>
+      <dpeDate />
+      <dpeLettre>B</dpeLettre>
+      <gesLettre>A</gesLettre>
+      <nrjLettre>B</nrjLettre>
+      <coutAnnMin>870.0</coutAnnMin>
+      <coutAnnMax>1230.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>2</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>2527.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>2</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>3</WC>
+      <colocation>false</colocation>
+      <orientation>SO</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>true</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.75</Latitude>
+      <Longitude>5.87</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17897348665923102" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263820000" dateCreation="1789735864000" refClient="025/1956" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>137800.0</PVB>
+      <PNV>130000.0</PNV>
+      <fraisActe>11563.99</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>7800.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>false</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>55</CoproprieteNombreLots>
+      <CoproprieteCharges>680</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:    T2 meublé d'env 30,33 m², situé dans une résidence calme avec ascenseur, cet appartement est au rdc comprenant: une entrée avec placard, un salon-séjour avec un coin cuisine ouvrant sur un balcon, une SDE avec WC et une chambre avec placard. Idéal investissement locatif.  La commune de Gréoux-les-Bains offre des services, des commerces et des arrêts de bus à proximité. Elle se situe dans un secteur recherché pour ses thermes, son centre-ville, et son accès aux espaces naturels des Alpes-de-Haute-Provence. La localisation permet également de rejoindre les axes vers Manosque, le Verdon et le lac d'Esparron.  Pour toute demande d'information complémentaire, de visite ou de dossier, contactez notre office notarial pour obtenir de plus amples renseignements sur cet appartement à vendre à Gréoux-les-Bains.</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:  T2 meublé d'env 30,33 m², situé dans une résidence calme avec ascenseur, cet appartement est au rdc comprenant: une entrée avec placard, un salon-séjour avec un coin cuisine ouvrant sur un balcon, une SDE avec WC et une chambre avec placard. Idéal investissement locatif.La commune de Gréoux-les-Bains offre des services, des commerces et des arrêts de bus à proximité. Elle se situe dans un secteur recherché pour ses thermes, son centre-ville, et son accès aux espaces naturels des Alpes-de-Haute-Provence. La localisation permet également de rejoindre les axes vers Manosque, le Verdon et le lac d'Esparron.Pour toute demande d'information complémentaire, de visite ou de dossier, contactez notre office notarial pour obtenir de plus amples renseignements sur cet appartement à vendre à Gréoux-les-Bains.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/a/w17897348665923102_1790066791306.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/9/w17897348665923102_1790066793721.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/c/w17897348665923102_1790066775076.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/7/w17897348665923102_1790066800384.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/d/w17897348665923102_1790066785819.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/4/w17897348665923102_1790066805696.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/9/w17897348665923102_1790066809588.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/a/w17897348665923102_1790066814405.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/e/w17897348665923102_1790066825882.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/9/w17897348665923102_1790066819956.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,climReversible</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>30.33</SurfaceHabitable>
+      <SurfaceSejour>13.49</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>2</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>272.0</dpeNrj>
+      <dpeGes>10.0</dpeGes>
+      <dpeDate>01/06/2023</dpeDate>
+      <dpeLettre>E</dpeLettre>
+      <gesLettre>B</gesLettre>
+      <nrjLettre>E</nrjLettre>
+      <coutAnnMin>650.0</coutAnnMin>
+      <coutAnnMax>920.0</coutAnnMax>
+      <dateRefCout>2021</dateRefCout>
+      <NbreChambres>1</NbreChambres>
+      <Meuble>Oui</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation>423.0</TaxeHabitation>
+      <TaxeFonciere>774.0</TaxeFonciere>
+      <Balcon>true</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>true</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>1</etage>
+      <nb_etages>4</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>true</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>true</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>E</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.76</Latitude>
+      <Longitude>5.88</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17738457795621287" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1773844745000" refClient="025/1931" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>169000.0</PVB>
+      <PNV>160000.0</PNV>
+      <fraisActe>13778.99</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>9000.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>95</CoproprieteNombreLots>
+      <CoproprieteCharges>680</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence : Spacieux et lumineux appartement de type 4 d'env 82,07 m², situé au 3éme étage sans ascenseur dans une résidence sécurisée et proche centre ville. Il se compose d'une entrée, un salon-séjour donnant sur un balcon, une cuisine, un WC, une SDB, une buanderie, un cellier et 3 chambres. Cave en sous-sol.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence : Spacieux et lumineux appartement de type 4 d'env 82,07 m², situé au 3éme étage sans ascenseur dans une résidence sécurisée et proche centre ville. Il se compose d'une entrée, un salon-séjour donnant sur un balcon, une cuisine, un WC, une SDB, une buanderie, un cellier et 3 chambres. Cave en sous-sol.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/k/w17738457795621287_1773847193700.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/b/w17738457795621287_1773846578703.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/k/w17738457795621287_1773847169245.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/q/w17738457795621287_1773847188364.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/d/w17738457795621287_1773847183497.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/l/w17738457795621287_1773846546165.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/v/w17738457795621287_1773846553010.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/w/w17738457795621287_1773846557572.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/o/w17738457795621287_1773846564141.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/v/w17738457795621287_1773846568277.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>gaz,central,collectif</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>82.07</SurfaceHabitable>
+      <SurfaceSejour>19.77</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>190.0</dpeNrj>
+      <dpeGes>41.0</dpeGes>
+      <dpeDate>25/10/2025</dpeDate>
+      <dpeLettre>D</dpeLettre>
+      <gesLettre>D</gesLettre>
+      <nrjLettre>D</nrjLettre>
+      <coutAnnMin>1240.0</coutAnnMin>
+      <coutAnnMax>1720.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Excellent</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1575.0</TaxeFonciere>
+      <Balcon>true</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>true</parking>
+      <nb_parkings>1</nb_parkings>
+      <cave>true</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>3</etage>
+      <nb_etages>3</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>true</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>0</WC>
+      <colocation>false</colocation>
+      <orientation>S</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.82</Latitude>
+      <Longitude>5.78</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17907722803961893" isCoupDeCoeur="false" insee="04230" codePostal="04210" ville="Valensole" departement="04" typeVente="VENT" codeSousNature="0206" libelleSousNature="Maison de ville" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263820000" dateCreation="1790772007000" refClient="025/1957" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>366600.0</PVB>
+      <PNV>350000.0</PNV>
+      <fraisActe>27809.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>16600.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>Maison à vendre à Valensole (04210) en Alpes-de-Haute-Provence: Maison d'habitation composé de 2 appartements située dans le village. Elle se compose :   - un 1er appartement lumineux d'env 100 m² au 1er étage comprenant: une entrée, une cuisine, un salon, un couloir desservant un WC, une SDE, 2 chambres et un dressing.  - un 2éme appartement d'env 64 m² comprenant au rdc: un salon-séjour, une cuisine, une SDE avec WC. A l'étage: 2 chambres.  - un grand garage d'env 70 m² au rdc avec un accès à une pièce habitable d'env 28 m², une pièce indépendante à usage de buanderie d'env 12 m² ouvrant sur une terrasse d'env 15 m².  La configuration de la maison permet d'envisager différents aménagements selon les besoins de l'acquéreur, il peut aussi constituer une opportunité idéale pour un investissement locatif.   La commune de Valensole se situe au coeur du plateau de Valensole, secteur connu pour ses paysages agricoles et ses champs de lavande. La ville dispose des commodités courantes avec bus, écoles, commerces et services. Elle se trouve à proximité de plusieurs points d'intérêt du territoire, notamment les Gorges du Verdon, le lac d'Esparron-de-Verdon, Manosque et Gréoux-les-Bains.</Annonce>
+      <AnnonceAnglais>Maison à vendre à Valensole (04210) en Alpes-de-Haute-Provence: Maison d'habitation composé de 2 appartements située dans le village. Elle se compose : - un 1er appartement lumineux d'env 100 m² au 1er étage comprenant: une entrée, une cuisine, un salon, un couloir desservant un WC, une SDE, 2 chambres et un dressing.- un 2éme appartement d'env 64 m² comprenant au rdc: un salon-séjour, une cuisine, une SDE avec WC. A l'étage: 2 chambres.- un grand garage d'env 70 m² au rdc avec un accès à une pièce habitable d'env 28 m², une pièce indépendante à usage de buanderie d'env 12 m² ouvrant sur une terrasse d'env 15 m².La configuration de la maison permet d'envisager différents aménagements selon les besoins de l'acquéreur, il peut aussi constituer une opportunité idéale pour un investissement locatif. La commune de Valensole se situe au coeur du plateau de Valensole, secteur connu pour ses paysages agricoles et ses champs de lavande. La ville dispose des commodités courantes avec bus, écoles, commerces et services. Elle se trouve à proximité de plusieurs points d'intérêt du territoire, notamment les Gorges du Verdon, le lac d'Esparron-de-Verdon, Manosque et Gréoux-les-Bains.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/c/w17907722803961893_1790861125456.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/y/w17907722803961893_1790861407009.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/4/w17907722803961893_1790861423824.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/u/w17907722803961893_1790861440964.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/8/w17907722803961893_1790861447111.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/2/w17907722803961893_1790861431927.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/3/w17907722803961893_1790861452568.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/w/w17907722803961893_1790861456519.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/8/w17907722803961893_1790861436128.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/4/w17907722803961893_1790861151248.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/7/w17907722803961893_1790861208869.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/s/w17907722803961893_1790861203550.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/9/w17907722803961893_1790861229110.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/1/w17907722803961893_1790861382222.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/8/w17907722803961893_1790861235474.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/j/w17907722803961893_1790861249129.jpg</Photo>
+      <Photo id="16">http://photos.immonotpro.com/photos/2/w17907722803961893_1790861153620.jpg</Photo>
+      <Photo id="17">http://photos.immonotpro.com/photos/n/w17907722803961893_1790861155395.jpg</Photo>
+      <Photo id="18">http://photos.immonotpro.com/photos/4/w17907722803961893_1790861157809.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,fuel,climReversible</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>165.08</SurfaceHabitable>
+      <SurfaceSejour>33.18</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece />
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>212.0</dpeNrj>
+      <dpeGes>45.0</dpeGes>
+      <dpeDate>11/09/2026</dpeDate>
+      <dpeLettre>D</dpeLettre>
+      <gesLettre>D</gesLettre>
+      <nrjLettre>D</nrjLettre>
+      <coutAnnMin>2470.0</coutAnnMin>
+      <coutAnnMax>3410.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>4</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>2084.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>2</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>2</WC>
+      <colocation>false</colocation>
+      <orientation>SO</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.98</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17766929033771298" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0201" libelleSousNature="Maison individuelle" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1776692784000" refClient="025/1936" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>221000.0</PVB>
+      <PNV>210000.0</PNV>
+      <fraisActe>18209.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>11000.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence : Maison d'habitation d'env 95,63 m² à moderniser comprenant au rez-de-chaussée : un garage, un atelier et un cellier; A l'étage : une véranda, une entrée, un salon-séjour, une cuisine, un couloir desservant une SDE, un  WC, placards et 3 chambres. Edifiée sur un terrain clos et arboré d'env 415 m². Proche centre ville et commodités.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence : Maison d'habitation d'env 95,63 m² à moderniser comprenant au rez-de-chaussée : un garage, un atelier et un cellier; A l'étage : une véranda, une entrée, un salon-séjour, une cuisine, un couloir desservant une SDE, un  WC, placards et 3 chambres. Edifiée sur un terrain clos et arboré d'env 415 m². Proche centre ville et commodités.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/v/w17766929033771298_1776693014955.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/l/w17766929033771298_1776692984363.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/u/w17766929033771298_1776692994855.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/9/w17766929033771298_1776692974216.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/1/w17766929033771298_1776692936365.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/s/w17766929033771298_1776692922770.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/m/w17766929033771298_1776692951368.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/j/w17766929033771298_1776692961398.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/h/w17766929033771298_1776692955354.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/w/w17766929033771298_1776693000686.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/d/w17766929033771298_1776693021756.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/n/w17766929033771298_1776693029092.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/h/w17766929033771298_1776693041523.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>fuel,climReversible</TypeChauffage>
+      <SurfaceTerrain>415 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>415</SurfaceTerrainDouble>
+      <SurfaceHabitable>95.63</SurfaceHabitable>
+      <SurfaceSejour>27.05</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>294.0</dpeNrj>
+      <dpeGes>79.0</dpeGes>
+      <dpeDate>05/05/2026</dpeDate>
+      <dpeLettre>F</dpeLettre>
+      <gesLettre>F</gesLettre>
+      <nrjLettre>F</nrjLettre>
+      <coutAnnMin>3440.0</coutAnnMin>
+      <coutAnnMax>4710.0</coutAnnMax>
+      <dateRefCout>2022</dateRefCout>
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>A rafraichir</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1791.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>true</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>true</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>E</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.77</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17594862452496668" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1759485264000" refClient="025/1915" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>122200.0</PVB>
+      <PNV>115000.0</PNV>
+      <fraisActe>10456.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>7200.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>135</CoproprieteNombreLots>
+      <CoproprieteCharges>971</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:  T2 meublé d'env 36,37 m², situé dans une résidence calme et proche centre ville, au 2éme étage avec ascenseur, comprenant: une entrée, placard, une cuisine fermée, un séjour, une salle de bains avec WC et une chambre avec placard. Idéal investissement locatif.</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:  T2 meublé d'env 36,37 m², situé dans une résidence calme et proche centre ville, au 2éme étage avec ascenseur, comprenant: une entrée, placard, une cuisine fermée, un séjour, une salle de bains avec WC et une chambre avec placard. Idéal investissement locatif.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/5/w17594862452496668_1759486376588.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/v/w17594862452496668_1759486403605.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/1/w17594862452496668_1759486453011.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/6/w17594862452496668_1759486314019.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/3/w17594862452496668_1759486384307.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/n/w17594862452496668_1759486433946.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,individuel</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>36.37</SurfaceHabitable>
+      <SurfaceSejour>12.44</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>2</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>282.0</dpeNrj>
+      <dpeGes>9.0</dpeGes>
+      <dpeDate>17/09/2025</dpeDate>
+      <dpeLettre>E</dpeLettre>
+      <gesLettre>E</gesLettre>
+      <nrjLettre>E</nrjLettre>
+      <coutAnnMin>855.0</coutAnnMin>
+      <coutAnnMax>1157.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>1</NbreChambres>
+      <Meuble>Oui</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation>362.0</TaxeHabitation>
+      <TaxeFonciere>660.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>true</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>2</etage>
+      <nb_etages>3</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>E</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.75</Latitude>
+      <Longitude>5.88</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17893720558567791" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0109" libelleSousNature="Studio" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1789371413000" refClient="025/1955" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>69900.0</PVB>
+      <PNV>65000.0</PNV>
+      <fraisActe>6764.03</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>4900.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>102</CoproprieteNombreLots>
+      <CoproprieteCharges>609</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:    Studio meublé d'env 19,38 m², situé dans une résidence calme, au 2éme étage avec ascenseur, comprenant: un salon-séjour avec un coin cuisine et placard ouvrant sur un balcon et une SDB avec WC. Idéal investissement locatif.    La commune de Gréoux-les-Bains offre des services, des commerces et des arrêts de bus à proximité. Elle se situe dans un secteur recherché pour ses thermes, son centre-ville, et son accès aux espaces naturels des Alpes-de-Haute-Provence. La localisation permet également de rejoindre les axes vers Manosque, le Verdon et le lac d'Esparron.  Pour toute demande d'information complémentaire, de visite ou de dossier, contactez notre office notarial pour obtenir de plus amples renseignements sur cet appartement à vendre à Gréoux-les-Bains.</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence:  Studio meublé d'env 19,38 m², situé dans une résidence calme, au 2éme étage avec ascenseur, comprenant: un salon-séjour avec un coin cuisine et placard ouvrant sur un balcon et une SDB avec WC. Idéal investissement locatif.La commune de Gréoux-les-Bains offre des services, des commerces et des arrêts de bus à proximité. Elle se situe dans un secteur recherché pour ses thermes, son centre-ville, et son accès aux espaces naturels des Alpes-de-Haute-Provence. La localisation permet également de rejoindre les axes vers Manosque, le Verdon et le lac d'Esparron.Pour toute demande d'information complémentaire, de visite ou de dossier, contactez notre office notarial pour obtenir de plus amples renseignements sur cet appartement à vendre à Gréoux-les-Bains.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/n/w17893720558567791_1789373380141.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/9/w17893720558567791_1789373371856.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/o/w17893720558567791_1789373347734.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/u/w17893720558567791_1789373368088.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/h/w17893720558567791_1789373369196.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/a/w17893720558567791_1789373386569.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/p/w17893720558567791_1789373393719.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/u/w17893720558567791_1789373399358.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/s/w17893720558567791_1789373405566.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>climReversible</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>19.38</SurfaceHabitable>
+      <SurfaceSejour>15.65</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>1</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>198.0</dpeNrj>
+      <dpeGes>5.0</dpeGes>
+      <dpeDate>08/04/2025</dpeDate>
+      <dpeLettre>C</dpeLettre>
+      <gesLettre>A</gesLettre>
+      <nrjLettre>C</nrjLettre>
+      <coutAnnMin>390.0</coutAnnMin>
+      <coutAnnMax>600.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>0</NbreChambres>
+      <Meuble>Oui</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>513.0</TaxeFonciere>
+      <Balcon>true</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>true</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>2</etage>
+      <nb_etages>4</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>SO</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.75</Latitude>
+      <Longitude>5.89</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17654651462995638" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0109" libelleSousNature="Studio" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1765464920000" refClient="025/1924" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>113880.0</PVB>
+      <PNV>107000.0</PNV>
+      <fraisActe>9855.94</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>6880.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>176</CoproprieteNombreLots>
+      <CoproprieteCharges>780</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence: Spacieux et lumineux studio d'env 40,18 m², situé au 1er étage avec ascenseur dans une résidence sécurisée et proche centre ville. Il se compose d&amp;#8217;une cuisine donnant sur un séjour, une salle d'eau et un WC. Orientation: Nord-Est.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence: Spacieux et lumineux studio d'env 40,18 m², situé au 1er étage avec ascenseur dans une résidence sécurisée et proche centre ville. Il se compose d&amp;#8217;une cuisine donnant sur un séjour, une salle d'eau et un WC. Orientation: Nord-Est.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/o/w17654651462995638_1765468030247.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/q/w17654651462995638_1765468070528.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/m/w17654651462995638_1765468035260.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/z/w17654651462995638_1765468073927.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/v/w17654651462995638_1765467985414.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/l/w17654651462995638_1765468019434.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/i/w17654651462995638_1765468080417.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,climReversible,individuel</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>40.18</SurfaceHabitable>
+      <SurfaceSejour>20.41</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>1</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>292.0</dpeNrj>
+      <dpeGes>13.0</dpeGes>
+      <dpeDate>11/11/2019</dpeDate>
+      <dpeLettre>E</dpeLettre>
+      <gesLettre>C</gesLettre>
+      <nrjLettre>E</nrjLettre>
+      <coutAnnMin>0.0</coutAnnMin>
+      <coutAnnMax>0.0</coutAnnMax>
+      <dateRefCout>0</dateRefCout>
+      <NbreChambres>0</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>964.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>true</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>1</etage>
+      <nb_etages>4</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>true</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>true</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>NE</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.78</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w1777477601137680" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0701" libelleSousNature="Terrain à bâtir" typeBien="TEBA" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1777477337000" refClient="025/1937" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>228280.0</PVB>
+      <PNV>217000.0</PNV>
+      <fraisActe>17983.57</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>11280.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence: Sur les hauteurs de Manosque, situé dans un quartier calme, un terrain à bâtir d'env 1 210 m² clôturé avec portail, une piscine et un abri d'été d'env 70 m² offrant une magnifique vue sur Manosque. Le tout a viabiliser et libre constructeur. Etude G1 ok. PLU: zone UH3.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence: Sur les hauteurs de Manosque, situé dans un quartier calme, un terrain à bâtir d'env 1 210 m² clôturé avec portail, une piscine et un abri d'été d'env 70 m² offrant une magnifique vue sur Manosque. Le tout a viabiliser et libre constructeur. Etude G1 ok. PLU: zone UH3.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/n/w1777477601137680_1777533500249.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/8/w1777477601137680_1777533527512.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/q/w1777477601137680_1777533549940.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/w/w1777477601137680_1777533559139.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/0/w1777477601137680_1777533482230.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/s/w1777477601137680_1777533518875.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/c/w1777477601137680_1777533535177.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/p/w1777477601137680_1777533541883.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/0/w1777477601137680_1777533510757.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage />
+      <SurfaceTerrain>1210 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>1210</SurfaceTerrainDouble>
+      <SurfaceHabitable />
+      <SurfaceSejour />
+      <Assainissement />
+      <TypeAssainissement />
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece />
+      <ExempteDpe>true</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj />
+      <dpeGes />
+      <dpeDate />
+      <dpeLettre />
+      <gesLettre />
+      <nrjLettre />
+      <coutAnnMin />
+      <coutAnnMax />
+      <dateRefCout />
+      <NbreChambres>0</NbreChambres>
+      <Meuble />
+      <Etat />
+      <TaxeHabitation />
+      <TaxeFonciere />
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>0</WC>
+      <colocation>false</colocation>
+      <orientation />
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.79</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17867183380493098" isCoupDeCoeur="false" insee="04245" codePostal="04130" ville="Volx" departement="04" typeVente="VENT" codeSousNature="0201" libelleSousNature="Maison individuelle" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1786718058000" refClient="025/1952" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>512200.0</PVB>
+      <PNV>490000.0</PNV>
+      <fraisActe>38144.98</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>22200.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Volx (04) - Alpes de Haute Provence: Superbe villa lumineuse d'env 160 m² offrant de beaux volumes, elle se situe dans un quartier calme et proche des commodités, comprenant au rdc:  une belle entrée donnant sur un salon, un séjour et une cuisine avec cellier-buanderie ouvrant sur une terrasse, un vestiaire et WC, une suite parentale avec dressing et SDE. A l'étage : un dégagement desservant une salle de bains avec douche, un WC et 3 chambres avec placard.   Edifiée sur un terrain clos et arboré d'env 707 m² avec un abri voiture, une belle cuisine d'été couverte avec piscine et son local rangement, une cave en sous-sol, arrosage automatique et accès au canal de Manosque.</Annonce>
+      <AnnonceAnglais>A vendre - Volx (04) - Alpes de Haute Provence: Superbe villa lumineuse d'env 160 m² offrant de beaux volumes, elle se situe dans un quartier calme et proche des commodités, comprenant au rdc:  une belle entrée donnant sur un salon, un séjour et une cuisine avec cellier-buanderie ouvrant sur une terrasse, un vestiaire et WC, une suite parentale avec dressing et SDE. A l'étage : un dégagement desservant une salle de bains avec douche, un WC et 3 chambres avec placard. Edifiée sur un terrain clos et arboré d'env 707 m² avec un abri voiture, une belle cuisine d'été couverte avec piscine et son local rangement, une cave en sous-sol, arrosage automatique et accès au canal de Manosque.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/1/w17867183380493098_1787214993521.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/n/w17867183380493098_1787214924896.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/b/w17867183380493098_1787214968903.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/u/w17867183380493098_1787214878135.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/d/w17867183380493098_1787214902366.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/k/w17867183380493098_1787214905020.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/i/w17867183380493098_1787215011145.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/x/w17867183380493098_1787214916335.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/n/w17867183380493098_1787214909775.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/k/w17867183380493098_1787214914008.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/0/w17867183380493098_1787215031710.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/3/w17867183380493098_1787215043357.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/f/w17867183380493098_1787215066210.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/a/w17867183380493098_1787215134208.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/n/w17867183380493098_1787215137717.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/z/w17867183380493098_1787215143361.jpg</Photo>
+      <Photo id="16">http://photos.immonotpro.com/photos/f/w17867183380493098_1787215056581.jpg</Photo>
+      <Photo id="17">http://photos.immonotpro.com/photos/0/w17867183380493098_1787215023436.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>pompeChaleurAirEau,cheminee</TypeChauffage>
+      <SurfaceTerrain>707 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>707</SurfaceTerrainDouble>
+      <SurfaceHabitable>160.5</SurfaceHabitable>
+      <SurfaceSejour>24.2</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>5</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>77.0</dpeNrj>
+      <dpeGes>3.0</dpeGes>
+      <dpeDate>21/02/2026</dpeDate>
+      <dpeLettre>B</dpeLettre>
+      <gesLettre>A</gesLettre>
+      <nrjLettre>B</nrjLettre>
+      <coutAnnMin>1180.0</coutAnnMin>
+      <coutAnnMax>1650.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>4</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Excellent</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>3040.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>true</piscine>
+      <jardin>true</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>1</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>true</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>true</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>3</WC>
+      <colocation>false</colocation>
+      <orientation>S</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>true</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.87</Latitude>
+      <Longitude>5.84</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17702027084268366" isCoupDeCoeur="false" insee="04230" codePostal="04210" ville="Valensole" departement="04" typeVente="VENT" codeSousNature="0201" libelleSousNature="Maison individuelle" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1770202211000" refClient="025/1928" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>647400.0</PVB>
+      <PNV>620000.0</PNV>
+      <fraisActe>47743.97</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>27400.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>Superbe villa d'env 153 m² offrant de beaux volumes, elle se situe dans un quartier calme et résidentiel, comprenant:  -	Au rez-de chaussée: une entrée avec placard, un salon-séjour avec son cuisine et son cellier ouvrant sur une véranda et une terrasse couverte, un WC;   -	Au rez-de-jardin: une chambre, une salle d'eau avec WC, une buanderie avec un accès à l'extérieur, une chaufferie et une cav:  -	Au demi-niveau: un dégagement desservant une salle de bains avec douche, un WC et 2 chambres dont 1 pouvant être séparé pour redevenir une 3éme chambre.  Edifiée sur un terrain arboré et clos d'env 2 223 m² avec un garage avec local technique et coin cuisine avec terrasse couverte, une piscine chauffée et sécurisée,  un chalet climatisé aménagé en salle de billard, un sauna et un grand abri voiture-rangement.</Annonce>
+      <AnnonceAnglais>Superbe villa d'env 153 m² offrant de beaux volumes, elle se situe dans un quartier calme et résidentiel, comprenant:-	Au rez-de chaussée: une entrée avec placard, un salon-séjour avec son cuisine et son cellier ouvrant sur une véranda et une terrasse couverte, un WC; -	Au rez-de-jardin: une chambre, une salle d'eau avec WC, une buanderie avec un accès à l'extérieur, une chaufferie et une cav:-	Au demi-niveau: un dégagement desservant une salle de bains avec douche, un WC et 2 chambres dont 1 pouvant être séparé pour redevenir une 3éme chambre.Edifiée sur un terrain arboré et clos d'env 2 223 m² avec un garage avec local technique et coin cuisine avec terrasse couverte, une piscine chauffée et sécurisée,  un chalet climatisé aménagé en salle de billard, un sauna et un grand abri voiture-rangement.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/9/w17702027084268366_1770731301076.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/4/w17702027084268366_1770731262858.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/9/w17702027084268366_1770731278113.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/m/w17702027084268366_1770731298474.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/2/w17702027084268366_1770731304468.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/4/w17702027084268366_1770731284944.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/c/w17702027084268366_1770731241198.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/u/w17702027084268366_1770731313049.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/y/w17702027084268366_1770731855167.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/5/w17702027084268366_1770731307623.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/j/w17702027084268366_1770731862513.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/0/w17702027084268366_1770731310482.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/b/w17702027084268366_1770731850535.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/d/w17702027084268366_1770731858744.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/k/w17702027084268366_1770731316023.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/y/w17702027084268366_1770731281207.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,central,fuel,climReversible,pompeChaleurAirEau,individuel</TypeChauffage>
+      <SurfaceTerrain>2223 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>2223</SurfaceTerrainDouble>
+      <SurfaceHabitable>152.97</SurfaceHabitable>
+      <SurfaceSejour>47.0</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>5</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>95.0</dpeNrj>
+      <dpeGes>3.0</dpeGes>
+      <dpeDate>29/01/2026</dpeDate>
+      <dpeLettre>B</dpeLettre>
+      <gesLettre>A</gesLettre>
+      <nrjLettre>B</nrjLettre>
+      <coutAnnMin>1370.0</coutAnnMin>
+      <coutAnnMax>1900.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>4</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Excellent</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>2055.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>true</piscine>
+      <jardin>true</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>1</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>true</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>3</WC>
+      <colocation>false</colocation>
+      <orientation>S</orientation>
+      <cuisine>true</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>true</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.98</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17177500089217414" isCoupDeCoeur="false" insee="04230" codePostal="04210" ville="Valensole" departement="04" typeVente="VENT" codeSousNature="0701" libelleSousNature="Terrain à bâtir" typeBien="TEBA" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263822000" dateCreation="1717749821000" refClient="025/1864" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>262600.0</PVB>
+      <PNV>250000.0</PNV>
+      <fraisActe>18825.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>12600.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Valensole (04) - Alpes de Haute Provence: Un terrain à bâtir d'env 2 597 m² situé dans un quartier agréable et proche du centre-ville. Ce terrain est déjà divisé en 2 lots de 1 173 m² et 1 424 m² avec chacun leur entrée indépendante.  Viabilités et raccordement à prévoir. Etude G1: ok // PLU: Zone Uc: CES: 30% -COS: Non réglementé</Annonce>
+      <AnnonceAnglais>A vendre - Valensole (04) - Alpes de Haute Provence: Un terrain à bâtir d'env 2 597 m² situé dans un quartier agréable et proche du centre-ville. Ce terrain est déjà divisé en 2 lots de 1 173 m² et 1 424 m² avec chacun leur entrée indépendante.Viabilités et raccordement à prévoir. Etude G1: ok // PLU: Zone Uc: CES: 30% -COS: Non réglementé</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/z/w17177500089217414_1718032512468.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/t/w17177500089217414_1718032542151.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/n/w17177500089217414_1718032563662.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/t/w17177500089217414_1718032577909.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/w/w17177500089217414_1718032600717.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage />
+      <SurfaceTerrain>2597 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>2597</SurfaceTerrainDouble>
+      <SurfaceHabitable />
+      <SurfaceSejour />
+      <Assainissement />
+      <TypeAssainissement />
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece />
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>0.0</dpeNrj>
+      <dpeGes>0.0</dpeGes>
+      <dpeDate />
+      <dpeLettre />
+      <gesLettre />
+      <nrjLettre />
+      <coutAnnMin>0.0</coutAnnMin>
+      <coutAnnMax>0.0</coutAnnMax>
+      <dateRefCout>0</dateRefCout>
+      <NbreChambres>0</NbreChambres>
+      <Meuble />
+      <Etat />
+      <TaxeHabitation />
+      <TaxeFonciere />
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>0</WC>
+      <colocation>false</colocation>
+      <orientation />
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.82</Latitude>
+      <Longitude>5.95</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17867158342921195" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1786714455000" refClient="025/1951" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>137800.0</PVB>
+      <PNV>130000.0</PNV>
+      <fraisActe>11563.99</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>7800.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>34</CoproprieteNombreLots>
+      <CoproprieteCharges>1468</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence : Appartement très lumineux de type 4 d'env 79,44 m², au 4éme et dernier étage, situé proche du centre ville, comprenant: une entrée, un cellier, une cuisine ouverte sur salon-séjour donnant sur un balcon offrant une jolie vue dégagée, un couloir desservant un WC, une SDB et 3 chambres. Cave en sous-sol, Parking collectif. Absence d'ascenseur.  L'appartement était en cours de rénovation, le DPE ayant été fait avant les travaux.</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence : Appartement très lumineux de type 4 d'env 79,44 m², au 4éme et dernier étage, situé proche du centre ville, comprenant: une entrée, un cellier, une cuisine ouverte sur salon-séjour donnant sur un balcon offrant une jolie vue dégagée, un couloir desservant un WC, une SDB et 3 chambres. Cave en sous-sol, Parking collectif. Absence d'ascenseur.L'appartement était en cours de rénovation, le DPE ayant été fait avant les travaux.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/h/w17867158342921195_1786716094558.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/f/w17867158342921195_1786716102157.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/n/w17867158342921195_1786716089871.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/7/w17867158342921195_1786716098680.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/y/w17867158342921195_1786716118585.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/8/w17867158342921195_1786716124125.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/v/w17867158342921195_1786716041213.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/d/w17867158342921195_1786716055158.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/t/w17867158342921195_1786716059597.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/w/w17867158342921195_1786716074175.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/w/w17867158342921195_1786716071005.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/d/w17867158342921195_1786716085179.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/h/w17867158342921195_1786716113200.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos//b/w17867158342921195_1786716168880.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/o/w17867158342921195_1786716135507.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,climReversible</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>79.44</SurfaceHabitable>
+      <SurfaceSejour>29.3</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>291.0</dpeNrj>
+      <dpeGes>40.0</dpeGes>
+      <dpeDate>21/07/2023</dpeDate>
+      <dpeLettre>E</dpeLettre>
+      <gesLettre>D</gesLettre>
+      <nrjLettre>E</nrjLettre>
+      <coutAnnMin>1590.0</coutAnnMin>
+      <coutAnnMax>2230.0</coutAnnMax>
+      <dateRefCout>2021</dateRefCout>
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1395.0</TaxeFonciere>
+      <Balcon>true</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>4</etage>
+      <nb_etages>4</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>S</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>true</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.82</Latitude>
+      <Longitude>5.78</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17936079463811759" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0206" libelleSousNature="Maison de ville" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263820000" dateCreation="1793607946000" refClient="025/1961" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>143000.0</PVB>
+      <PNV>135000.0</PNV>
+      <fraisActe>11933.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>8000.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>false</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence: Située au coeur du village, jolie petite maison de village d'env 56,70 m², rénovée en 2012 (bardage bois) comprenant: un salon avec cuisine ouverte et cellier. Au 1er étage: une chambre, une salle d'eau avec WC. Au 2éme étage: une chambre et une terrasse offrant une jolie vue dégagée.    Gréoux-les-Bains est une commune située dans le sud du département, à proximité de plusieurs points d'intérêt liés à la vie locale et aux déplacements du quotidien. La commune est connue pour ses thermes, son centre historique et son environnement proche du Verdon, avec des accès vers les secteurs de Manosque, du lac d'Esparron et du plateau de Valensole.  Ce bien immobilier peut répondre à un besoin de résidence principale, de résidence secondaire ou d'investissement locatif, selon le projet de l'acquéreur. La configuration en 3 pièces avec 2 chambres permet d'envisager différents usages selon les besoins d'occupation.  Contactez notre office notarial pour obtenir de plus amples renseignements sur maison à vendre à Gréoux-les-Bains.</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-les-Bains (04) - Alpes de Haute Provence: Située au coeur du village, jolie petite maison de village d'env 56,70 m², rénovée en 2012 (bardage bois) comprenant: un salon avec cuisine ouverte et cellier. Au 1er étage: une chambre, une salle d'eau avec WC. Au 2éme étage: une chambre et une terrasse offrant une jolie vue dégagée.Gréoux-les-Bains est une commune située dans le sud du département, à proximité de plusieurs points d'intérêt liés à la vie locale et aux déplacements du quotidien. La commune est connue pour ses thermes, son centre historique et son environnement proche du Verdon, avec des accès vers les secteurs de Manosque, du lac d'Esparron et du plateau de Valensole.Ce bien immobilier peut répondre à un besoin de résidence principale, de résidence secondaire ou d'investissement locatif, selon le projet de l'acquéreur. La configuration en 3 pièces avec 2 chambres permet d'envisager différents usages selon les besoins d'occupation.Contactez notre office notarial pour obtenir de plus amples renseignements sur maison à vendre à Gréoux-les-Bains.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/j/w17936079463811759_1793607946405.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/m/w17936079463811759_1793607946665.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/g/w17936079463811759_1793607946878.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/o/w17936079463811759_1793607947045.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/l/w17936079463811759_1793607947203.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/v/w17936079463811759_1793607947361.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/d/w17936079463811759_1793607947555.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/x/w17936079463811759_1793607947755.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,climReversible</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>56.7</SurfaceHabitable>
+      <SurfaceSejour>20.0</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>3</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>170.0</dpeNrj>
+      <dpeGes>6.0</dpeGes>
+      <dpeDate>24/10/2026</dpeDate>
+      <dpeLettre>C</dpeLettre>
+      <gesLettre>B</gesLettre>
+      <nrjLettre>C</nrjLettre>
+      <coutAnnMin>940.0</coutAnnMin>
+      <coutAnnMax>1310.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>2</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere />
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>2</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>true</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>1</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>S</orientation>
+      <cuisine>true</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.75</Latitude>
+      <Longitude>5.88</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17763462237705278" isCoupDeCoeur="false" insee="04070" codePostal="04000" ville="Digne-les-Bains" departement="04" typeVente="VENT" codeSousNature="0701" libelleSousNature="Terrain à bâtir" typeBien="TEBA" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1776346088000" refClient="025/1934" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>371800.0</PVB>
+      <PNV>355000.0</PNV>
+      <fraisActe>28177.98</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>16800.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Digne-les-Bains (04) - Alpes de Haute Provence: Un terrain constructible d'env 3 725 m² à viabiliser et  libre constructeur. PLU: zone en partie 1AUpm et UC. CU positif du 01/04/2026 pour un lotissement de 5 à 6 parcelles ou pour la construction d'un immeuble collectif.  Etude G1 en cours.</Annonce>
+      <AnnonceAnglais>A vendre - Digne-les-Bains (04) - Alpes de Haute Provence: Un terrain constructible d'env 3 725 m² à viabiliser et  libre constructeur. PLU: zone en partie 1AUpm et UC. CU positif du 01/04/2026 pour un lotissement de 5 à 6 parcelles ou pour la construction d'un immeuble collectif.  Etude G1 en cours.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/z/w17763462237705278_1776425594566.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/t/w17763462237705278_1776425597396.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/6/w17763462237705278_1776425619399.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/n/w17763462237705278_1776425609644.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage />
+      <SurfaceTerrain>3725 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>3725</SurfaceTerrainDouble>
+      <SurfaceHabitable />
+      <SurfaceSejour />
+      <Assainissement />
+      <TypeAssainissement />
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece />
+      <ExempteDpe>true</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj />
+      <dpeGes />
+      <dpeDate />
+      <dpeLettre />
+      <gesLettre />
+      <nrjLettre />
+      <coutAnnMin />
+      <coutAnnMax />
+      <dateRefCout />
+      <NbreChambres>0</NbreChambres>
+      <Meuble />
+      <Etat />
+      <TaxeHabitation />
+      <TaxeFonciere />
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>false</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>0</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>0</WC>
+      <colocation>false</colocation>
+      <orientation />
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>44.09</Latitude>
+      <Longitude>6.21</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17865268991864862" isCoupDeCoeur="false" insee="04230" codePostal="04210" ville="Valensole" departement="04" typeVente="VENT" codeSousNature="0206" libelleSousNature="Maison de ville" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1786526730000" refClient="025/1949" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>215800.0</PVB>
+      <PNV>205000.0</PNV>
+      <fraisActe>17101.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>10800.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Valensole (04) -  Alpes-de-Haute-Provence: Très jolie maison de village d'env 123,73 m² offrant de beaux volumes, elle se compose :  Au rez-de-chaussée: une cuisine, un salon, un dégagement, un WC et une SDE ;  A l'étage : un dégagement desservant une SDE avec WC et 2 chambres dont 1 ouvrant sur un balcon d'env 8 m².   En sous-sol/rez-de-rue : une chambre ou bureau, une buanderie et une très jolie cave voûtée en pierre d'env 19 m².  Le tout avec une remise d'env 38 m² à usage de garage juste en face de la maison.</Annonce>
+      <AnnonceAnglais>A vendre - Valensole (04) -  Alpes-de-Haute-Provence: Très jolie maison de village d'env 123,73 m² offrant de beaux volumes, elle se compose :Au rez-de-chaussée: une cuisine, un salon, un dégagement, un WC et une SDE ;A l'étage : un dégagement desservant une SDE avec WC et 2 chambres dont 1 ouvrant sur un balcon d'env 8 m². En sous-sol/rez-de-rue : une chambre ou bureau, une buanderie et une très jolie cave voûtée en pierre d'env 19 m².Le tout avec une remise d'env 38 m² à usage de garage juste en face de la maison.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/o/w17865268991864862_1786537677595.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/y/w17865268991864862_1786537684143.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/1/w17865268991864862_1786537687838.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/n/w17865268991864862_1786537691590.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/n/w17865268991864862_1786537712498.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/8/w17865268991864862_1786537704920.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/9/w17865268991864862_1786537700005.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/6/w17865268991864862_1786537724655.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/2/w17865268991864862_1786537716205.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/w/w17865268991864862_1786537720734.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/l/w17865268991864862_1786537696169.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/c/w17865268991864862_1786537738384.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/h/w17865268991864862_1786537763684.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/z/w17865268991864862_1786537746270.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/v/w17865268991864862_1786537750964.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/7/w17865268991864862_1786537760871.jpg</Photo>
+      <Photo id="16">http://photos.immonotpro.com/photos/n/w17865268991864862_1786537736470.jpg</Photo>
+      <Photo id="17">http://photos.immonotpro.com/photos/4/w17865268991864862_1786537668076.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite,cheminee</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>123.73</SurfaceHabitable>
+      <SurfaceSejour>19.18</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>4</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>220.0</dpeNrj>
+      <dpeGes>8.0</dpeGes>
+      <dpeDate>30/06/2026</dpeDate>
+      <dpeLettre>D</dpeLettre>
+      <gesLettre>D</gesLettre>
+      <nrjLettre>D</nrjLettre>
+      <coutAnnMin>2440.0</coutAnnMin>
+      <coutAnnMax>3302.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>3</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>1136.0</TaxeFonciere>
+      <Balcon>true</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>1</nb_garages>
+      <etage>0</etage>
+      <nb_etages>2</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>true</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>true</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>2</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>2</WC>
+      <colocation>false</colocation>
+      <orientation>O</orientation>
+      <cuisine>true</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.98</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17746179925611786" isCoupDeCoeur="false" insee="04112" codePostal="04100" ville="Manosque" departement="04" typeVente="VENT" codeSousNature="0500" libelleSousNature="Immeuble" typeBien="IMMR" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263821000" dateCreation="1774617493000" refClient="025/1932" modeNego="NV" chargeNego="A" garage="true">
+      <PVB>522600.0</PVB>
+      <PNV>500000.0</PNV>
+      <fraisActe>38883.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>22600.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Manosque (04) - Alpes de Haute Provence: Immeuble de rapport nécessitant des travaux de rénovation, proche centre ville, composé :  1)	Un local commercial d'env 98 m² au rdc, soumis à un bail commercial depuis le 1er janvier 2023 pour une durée de 6 ans et d'un loyer mensuel de 980 EUR HC.  2)	Un garage d'env 54 m² pour 3 voitures avec toit terrasse.  3)	Immeuble d'env 300 m² à rénover comprenant: au rdc: une cave voûtée, une douche, un WC. Au 1er étage : pour une surface d'env 104 m² composé d'un palier avec WC, un T3 donnant sur le toit terrasse du garage, un balcon et un accès sur le jardin. Au demi-niveau : un accès donnant sur une 2éme terrasse et un autre donnant accès en ss-sol / rdc à une cave-chaufferie. Au 2éme étage : pour une surface d'env 80 m² composé d'un palier et d'un T3 donnant sur une 3éme terrasse. Au 3éme étage : plusieurs pièces pour une surface d'env 81 m².  Il est édifié sur un terrain clos d'env 429 m².  // PLU: zone UH1</Annonce>
+      <AnnonceAnglais>A vendre - Manosque (04) - Alpes de Haute Provence: Immeuble de rapport nécessitant des travaux de rénovation, proche centre ville, composé :1)	Un local commercial d'env 98 m² au rdc, soumis à un bail commercial depuis le 1er janvier 2023 pour une durée de 6 ans et d'un loyer mensuel de 980 EUR HC.2)	Un garage d'env 54 m² pour 3 voitures avec toit terrasse.3)	Immeuble d'env 300 m² à rénover comprenant: au rdc: une cave voûtée, une douche, un WC. Au 1er étage : pour une surface d'env 104 m² composé d'un palier avec WC, un T3 donnant sur le toit terrasse du garage, un balcon et un accès sur le jardin. Au demi-niveau : un accès donnant sur une 2éme terrasse et un autre donnant accès en ss-sol / rdc à une cave-chaufferie. Au 2éme étage : pour une surface d'env 80 m² composé d'un palier et d'un T3 donnant sur une 3éme terrasse. Au 3éme étage : plusieurs pièces pour une surface d'env 81 m².Il est édifié sur un terrain clos d'env 429 m².  // PLU: zone UH1</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/p/w17746179925611786_1774618068357.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/n/w17746179925611786_1774618118680.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/0/w17746179925611786_1774618113507.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/k/w17746179925611786_1774618038946.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/b/w17746179925611786_1774618036386.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/i/w17746179925611786_1774618043350.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/4/w17746179925611786_1774618048121.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/9/w17746179925611786_1774618050250.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/e/w17746179925611786_1774618054890.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/i/w17746179925611786_1774618080529.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/o/w17746179925611786_1774618087355.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/n/w17746179925611786_1774618097702.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/w/w17746179925611786_1774618148923.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/d/w17746179925611786_1774618167115.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/f/w17746179925611786_1774618176292.jpg</Photo>
+      <Photo id="15">http://photos.immonotpro.com/photos/n/w17746179925611786_1774618180695.jpg</Photo>
+      <Photo id="16">http://photos.immonotpro.com/photos/v/w17746179925611786_1774618185939.jpg</Photo>
+      <Photo id="17">http://photos.immonotpro.com/photos/a/w17746179925611786_1774618213243.jpg</Photo>
+      <Photo id="18">http://photos.immonotpro.com/photos/h/w17746179925611786_1774618092996.jpg</Photo>
+      <Quartier>Centre ville</Quartier>
+      <Pays />
+      <TypeChauffage>electricite,central,fuel,cheminee</TypeChauffage>
+      <SurfaceTerrain>429 m2</SurfaceTerrain>
+      <SurfaceTerrainDouble>429</SurfaceTerrainDouble>
+      <SurfaceHabitable>398.0</SurfaceHabitable>
+      <SurfaceSejour />
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>15</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>273.0</dpeNrj>
+      <dpeGes>44.0</dpeGes>
+      <dpeDate>02/03/2026</dpeDate>
+      <dpeLettre>E</dpeLettre>
+      <gesLettre>D</gesLettre>
+      <nrjLettre>E</nrjLettre>
+      <coutAnnMin>8680.0</coutAnnMin>
+      <coutAnnMax>11790.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>0</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>A rénover</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>4075.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>false</piscine>
+      <jardin>true</jardin>
+      <nb_garages>3</nb_garages>
+      <etage>0</etage>
+      <nb_etages>2</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>true</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>0</WC>
+      <colocation>false</colocation>
+      <orientation>S</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.82</Latitude>
+      <Longitude>5.78</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17580330859271455" isCoupDeCoeur="false" insee="04094" codePostal="04800" ville="Gréoux-les-Bains" departement="04" typeVente="VENT" codeSousNature="0100" libelleSousNature="Appartement" typeBien="APPT" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263822000" dateCreation="1758031289000" refClient="025/1914" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>98280.0</PVB>
+      <PNV>92000.0</PNV>
+      <fraisActe>8979.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>6280.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>true</Copropriete>
+      <CoproprieteNombreLots>166</CoproprieteNombreLots>
+      <CoproprieteCharges>3264</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Gréoux-Les-Bains (04) - Alpes de Haute Provence: Appartement meublé de type 2 d'env 37,53 m²  bien agencé, situé au 1er étage sur 2 comprenant: un séjour avec coin cuisine ouvrant une terrasse, une chambre avec placard,  une salle de bains et un WC. Une place de stationnement privée.   Accès à 2 piscines extérieures, 1 piscine intérieure chauffée + salle de sport, laverie, Parc ...    Résidence haut de gamme sécurisée et confort Odalys avec avenant au bail commercial du 25/08/2017 pour une durée de 9ans et 8mois soit jusqu'au 31/10/2026 (Possibilité de dénoncer le bail au cours de la tacite prolongation, à tout moment, dans le respect d'un préavis de 6 mois, et pour le dernier jour du trimestre civil).   Proche commodités, station balnéaire et Casino réputés de Gréoux, accès rapide lacs et gorges du Verdon. Idéal investissement locatif tout au long de l'année. Proche commodités. Idéal investissement locatif.     Loyer annuel actuel H.T de 5 563EUR (soit 6 119EUR TTC) réévalué annuellement, charges trimestrielles ~215EUR, Odalys s'occupe de l'entretien, des loyers, des locations ... pas de contraintes.   Bonus : 2 semaines d'occupation propriétaire par an ou bourse d'échange sur toute la France.</Annonce>
+      <AnnonceAnglais>A vendre - Gréoux-Les-Bains (04) - Alpes de Haute Provence: Appartement meublé de type 2 d'env 37,53 m²  bien agencé, situé au 1er étage sur 2 comprenant: un séjour avec coin cuisine ouvrant une terrasse, une chambre avec placard,  une salle de bains et un WC. Une place de stationnement privée. Accès à 2 piscines extérieures, 1 piscine intérieure chauffée + salle de sport, laverie, Parc ...Résidence haut de gamme sécurisée et confort Odalys avec avenant au bail commercial du 25/08/2017 pour une durée de 9ans et 8mois soit jusqu'au 31/10/2026 (Possibilité de dénoncer le bail au cours de la tacite prolongation, à tout moment, dans le respect d'un préavis de 6 mois, et pour le dernier jour du trimestre civil). Proche commodités, station balnéaire et Casino réputés de Gréoux, accès rapide lacs et gorges du Verdon. Idéal investissement locatif tout au long de l'année. Proche commodités. Idéal investissement locatif. Loyer annuel actuel H.T de 5 563EUR (soit 6 119EUR TTC) réévalué annuellement, charges trimestrielles ~215EUR, Odalys s'occupe de l'entretien, des loyers, des locations ... pas de contraintes. Bonus : 2 semaines d'occupation propriétaire par an ou bourse d'échange sur toute la France.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/h/w17580330859271455_1762785114538.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/r/w17580330859271455_1762785028866.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/i/w17580330859271455_1762785158232.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/a/w17580330859271455_1762784990338.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/i/w17580330859271455_1762785123779.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/j/w17580330859271455_1762785168161.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/n/w17580330859271455_1762785172961.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/1/w17580330859271455_1762785006534.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/h/w17580330859271455_1758033539307.jpg</Photo>
+      <Photo id="9">http://photos.immonotpro.com/photos/l/w17580330859271455_1758033553825.jpg</Photo>
+      <Photo id="10">http://photos.immonotpro.com/photos/e/w17580330859271455_1758033558280.jpg</Photo>
+      <Photo id="11">http://photos.immonotpro.com/photos/5/w17580330859271455_1758033689523.jpg</Photo>
+      <Photo id="12">http://photos.immonotpro.com/photos/4/w17580330859271455_1758033695646.jpg</Photo>
+      <Photo id="13">http://photos.immonotpro.com/photos/z/w17580330859271455_1758033704316.jpg</Photo>
+      <Photo id="14">http://photos.immonotpro.com/photos/z/w17580330859271455_1758033713065.jpg</Photo>
+      <Quartier />
+      <Pays />
+      <TypeChauffage>electricite</TypeChauffage>
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>37.53</SurfaceHabitable>
+      <SurfaceSejour>22.95</SurfaceSejour>
+      <Assainissement>collectif</Assainissement>
+      <TypeAssainissement>tout_a_l_egout</TypeAssainissement>
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>2</NbrePiece>
+      <ExempteDpe>false</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj>179.0</dpeNrj>
+      <dpeGes>25.0</dpeGes>
+      <dpeDate>24/10/2025</dpeDate>
+      <dpeLettre>C</dpeLettre>
+      <gesLettre>C</gesLettre>
+      <nrjLettre>C</nrjLettre>
+      <coutAnnMin>610.0</coutAnnMin>
+      <coutAnnMax>890.0</coutAnnMax>
+      <dateRefCout>2023</dateRefCout>
+      <NbreChambres>1</NbreChambres>
+      <Meuble>Oui</Meuble>
+      <Etat>Bon</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>872.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>true</Terrasse>
+      <has_ascenseur>true</has_ascenseur>
+      <parking>true</parking>
+      <nb_parkings>1</nb_parkings>
+      <cave>false</cave>
+      <piscine>true</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>1</etage>
+      <nb_etages>2</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>1</SalleDeBains>
+      <WC>1</WC>
+      <colocation>false</colocation>
+      <orientation>SO</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.76</Latitude>
+      <Longitude>5.88</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+    <Clef id="0000010172__w17921382616439649" isCoupDeCoeur="false" insee="04230" codePostal="04210" ville="Valensole" departement="04" typeVente="VENT" codeSousNature="0206" libelleSousNature="Maison de ville" typeBien="MAIS" tel="00.00.00.00.00" nomNego="Prénom NOM" mailNego="negociation.04025@notaires.fr" afficheCommune="true" affichePrix="true" flag="U" dateMAJ="1794263820000" dateCreation="1792138035000" refClient="025/1959" modeNego="NV" chargeNego="A" garage="false">
+      <PVB>22000.0</PVB>
+      <PNV>20000.0</PNV>
+      <fraisActe>3314.0</fraisActe>
+      <HonorairesEtatDesLieux />
+      <fraisNego>2000.0</fraisNego>
+      <Commentaire_Prix />
+      <diagEtatRisque>true</diagEtatRisque>
+      <Copropriete>false</Copropriete>
+      <CoproprieteNombreLots>0</CoproprieteNombreLots>
+      <CoproprieteCharges>0</CoproprieteCharges>
+      <CoproprieteProcedure>false</CoproprieteProcedure>
+      <CoproprieteNomination />
+      <Annonce>A vendre - Valensole (04) - Alpes-de-Haute-Provence: Située au coeur du centre ville, une remise en pierre à rénover sur 2 niveaux d'env 33 m² au sol et une cave.    Le bien se situe sur la commune de Valensole, localité du plateau de Valensole, dans un secteur desservi par les services de proximité. Les commodités indiquées comprennent les bus, les écoles, les commerces, les services et le centre-ville. La présence de ces éléments permet un accès aux besoins du quotidien à l'échelle de la commune.  Valensole est une commune des Alpes-de-Haute-Provence connue pour son territoire rural, ses activités agricoles et son environnement de plateau. La ville dispose d'équipements et de services de proximité, ainsi que d'un accès aux axes reliant les communes du secteur. Le centre-ville regroupe les commerces et services utiles à la vie courante.  Contactez notre office notarial pour obtenir de plus amples renseignements sur maison à vendre à Valensole.</Annonce>
+      <AnnonceAnglais>A vendre - Valensole (04) - Alpes-de-Haute-Provence: Située au coeur du centre ville, une remise en pierre à rénover sur 2 niveaux d'env 33 m² au sol et une cave.Le bien se situe sur la commune de Valensole, localité du plateau de Valensole, dans un secteur desservi par les services de proximité. Les commodités indiquées comprennent les bus, les écoles, les commerces, les services et le centre-ville. La présence de ces éléments permet un accès aux besoins du quotidien à l'échelle de la commune.Valensole est une commune des Alpes-de-Haute-Provence connue pour son territoire rural, ses activités agricoles et son environnement de plateau. La ville dispose d'équipements et de services de proximité, ainsi que d'un accès aux axes reliant les communes du secteur. Le centre-ville regroupe les commerces et services utiles à la vie courante.Contactez notre office notarial pour obtenir de plus amples renseignements sur maison à vendre à Valensole.</AnnonceAnglais>
+      <Photo id="0">http://photos.immonotpro.com/photos/m/w17921382616439649_1792142164140.jpg</Photo>
+      <Photo id="1">http://photos.immonotpro.com/photos/5/w17921382616439649_1792142948714.jpg</Photo>
+      <Photo id="2">http://photos.immonotpro.com/photos/n/w17921382616439649_1792144615593.jpg</Photo>
+      <Photo id="3">http://photos.immonotpro.com/photos/z/w17921382616439649_1792144285308.jpg</Photo>
+      <Photo id="4">http://photos.immonotpro.com/photos/w/w17921382616439649_1792144574221.jpg</Photo>
+      <Photo id="5">http://photos.immonotpro.com/photos/b/w17921382616439649_1792144283912.jpg</Photo>
+      <Photo id="6">http://photos.immonotpro.com/photos/e/w17921382616439649_1792144592546.jpg</Photo>
+      <Photo id="7">http://photos.immonotpro.com/photos/9/w17921382616439649_1792144603592.jpg</Photo>
+      <Photo id="8">http://photos.immonotpro.com/photos/h/w17921382616439649_1792144588522.jpg</Photo>
+      <Quartier>Centre ville</Quartier>
+      <Pays />
+      <TypeChauffage />
+      <SurfaceTerrain />
+      <SurfaceTerrainDouble />
+      <SurfaceHabitable>40.0</SurfaceHabitable>
+      <SurfaceSejour />
+      <Assainissement>sans_assainissement</Assainissement>
+      <TypeAssainissement />
+      <DateAssainissement>null</DateAssainissement>
+      <NbrePiece>2</NbrePiece>
+      <ExempteDpe>true</ExempteDpe>
+      <DpeVierge>false</DpeVierge>
+      <dpeNrj />
+      <dpeGes />
+      <dpeDate />
+      <dpeLettre />
+      <gesLettre />
+      <nrjLettre />
+      <coutAnnMin />
+      <coutAnnMax />
+      <dateRefCout />
+      <NbreChambres>0</NbreChambres>
+      <Meuble>Non</Meuble>
+      <Etat>A rénover</Etat>
+      <TaxeHabitation />
+      <TaxeFonciere>114.0</TaxeFonciere>
+      <Balcon>false</Balcon>
+      <Terrasse>false</Terrasse>
+      <has_ascenseur>false</has_ascenseur>
+      <parking>false</parking>
+      <nb_parkings>0</nb_parkings>
+      <cave>true</cave>
+      <piscine>false</piscine>
+      <jardin>false</jardin>
+      <nb_garages>0</nb_garages>
+      <etage>0</etage>
+      <nb_etages>1</nb_etages>
+      <etageEleve>false</etageEleve>
+      <dernierEtage>false</dernierEtage>
+      <sousSol>false</sousSol>
+      <plainPied>false</plainPied>
+      <climatisation>false</climatisation>
+      <cheminee>false</cheminee>
+      <grenier>false</grenier>
+      <is_acces_handicapes>false</is_acces_handicapes>
+      <nb_salle_d_eau>0</nb_salle_d_eau>
+      <SalleDeBains>0</SalleDeBains>
+      <WC>0</WC>
+      <colocation>false</colocation>
+      <orientation>SE</orientation>
+      <cuisine>false</cuisine>
+      <cuisineEquipee>false</cuisineEquipee>
+      <cuisineOuverte>false</cuisineOuverte>
+      <animauxAutorises>false</animauxAutorises>
+      <courantHauteTension>false</courantHauteTension>
+      <cablageStructure>false</cablageStructure>
+      <Latitude>43.83</Latitude>
+      <Longitude>5.98</Longitude>
+      <Adresse>[adresse retirée]</Adresse>
+      <surfaceFonds />
+    </Clef>
+  </CrpCen>
+</EchangeNotaire>
+

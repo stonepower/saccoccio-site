@@ -21,9 +21,11 @@ propriétaire du dépôt) :
 - nouvelles URLs optimisées pour le SEO, avec redirections 301 depuis les
   anciennes (`src/lib/redirections.ts`, d'après `urls.csv` du kit) ;
 - **pas de back-office pour l'instant** ;
-- annonces immobilières Immonot importées chaque nuit depuis un XML (PR
-  ultérieure). Leurs photos restent hébergées chez Immonot et ne vont **pas**
-  dans R2.
+- annonces immobilières Immonot importées depuis un XML, par différence
+  (`scripts/import-annonces.mjs`, workflow `import-annonces.yml`, voir
+  `docs/annonces.md`). Leurs photos restent hébergées chez Immonot et ne vont
+  **pas** dans R2. La source nocturne (Worker programmé) viendra quand Immonot
+  aura indiqué où déposer le fichier.
 
 ## Stack
 
@@ -69,7 +71,13 @@ Fichiers clés :
 | `src/pages/politique-de-confidentialite.astro` | Politique de confidentialité (prérendue, à valider par l'étude) |
 | `docs/` | Documentation d'exploitation (formulaire de contact, Turnstile, Email Routing) |
 | `public/documents/` | Les 58 PDF (« La lettre de mon notaire », mentions légales), assets statiques |
-| `tests/` | `npm test` après un build : pages, redirections, bundle du Worker |
+| `src/pages/annonces/` | Liste `/annonces/` et fiches `/annonces/<slug>/` (Worker, une requête D1 au plus) |
+| `src/lib/annonces*.ts` | Annonces : formats et slugs (`annonces.ts`, partagé avec l'import), lecture D1 en cache 60 s, recherche, fiche |
+| `src/components/RechercheAnnonces.astro`, `EtiquetteDpe.astro` | Formulaire « Rechercher un logement », étiquettes DPE / GES en CSS |
+| `src/data/communes.ts` | Centre des communes (carte à l'échelle de la commune) |
+| `scripts/import-annonces.mjs`, `scripts/annonces/` | Import du flux Immonot : XML, normalisation, différence, SQL, sources |
+| `reference/annonces-kit/` | Kit annonces : 3 flux XML anonymisés et leur README (format, libellés) |
+| `tests/` | `npm test` après un build : pages, redirections, bundle du Worker, import et rendu des annonces |
 
 ## Design
 
@@ -155,8 +163,8 @@ poser les ancres du lexique. Une correction de texte se fait dans
   Situation géographique, Coordonnées et Plans d'accès sont hors menu
   (comme sur l'ancien site, ou à valider avec l'étude) mais figurent dans
   `/plan-du-site/` et `sitemap.xml`.
-- `/annonces/` et `/simulateur-pret/` sont liées mais pas encore créées
-  (404 attendu jusqu'à leurs PR).
+- `/simulateur-pret/` est liée mais pas encore créée (404 attendu jusqu'à
+  sa PR). `/annonces/` est rendue par le Worker (voir « Annonces »).
 
 ### Formulaire de contact
 
@@ -169,6 +177,17 @@ affichée**), `email` en production via le binding `send_email`
 `CONTACT_EMAIL`, **ajouté seulement à la bascule DNS** (Email Routing actif
 et adresse de l'étude vérifiée). MIME construit à la main (`src/lib/mime.ts`,
 pas de dépendance).
+
+### Annonces immobilières
+
+Voir `docs/annonces.md`. Table D1 `annonces` (`migrations/0002_annonces.sql`),
+alimentée par `scripts/import-annonces.mjs` (workflow `import-annonces.yml`,
+lancé à la main pour l'instant ; production depuis un tag `v*`, avec
+approbation). **Jamais** d'`<Adresse>` ni de coordonnées plus précises que la
+commune ; le négociateur (nom, téléphone, e-mail du flux) est affiché.
+Garde-fous de l'import : flux absent, vide, invalide ou < 50 % des annonces
+actives → rien n'est modifié. Les pages lisent un catalogue en une requête
+D1 (`batch`), gardé 60 s dans l'isolat. Annonce retirée : 410.
 
 ### Redirections 301
 
@@ -197,7 +216,7 @@ par ex. Cloudflare Access). Le serveur MCP et les polices Google sont
 ### Limite de taille du Worker
 
 Le plan gratuit limite un Worker à **3 Mo compressés**. Le bundle actuel
-fait environ 2,42 Mo (les pages prérendues et les PDF n'y comptent pas) (l'admin EmDash n'est livré qu'en français pour cela :
+fait environ 2,44 Mo (les pages prérendues et les PDF n'y comptent pas) (l'admin EmDash n'est livré qu'en français pour cela :
 `admin.locales: ["fr"]`). Surveiller la ligne `Total Upload … gzip:` du
 `wrangler deploy --dry-run` de la CI à chaque ajout de dépendance.
 
@@ -272,6 +291,9 @@ environnements GitHub :
 
 Workflows (`.github/workflows/`) :
 
+- `import-annonces.yml` — manuel (`workflow_dispatch`) ou
+  `repository_dispatch` : import des annonces d'un fichier du kit dans la D1
+  de l'environnement choisi (voir `docs/annonces.md`) ;
 - `ci.yml` — chaque PR : typecheck, build et `wrangler deploy --dry-run`
   pour les deux environnements, contrôle de la taille du Worker, `npm test` ;
 - `deploy-staging.yml` — push sur `main` (ou « Run workflow ») : build,

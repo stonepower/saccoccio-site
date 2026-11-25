@@ -1,0 +1,113 @@
+name: import-annonces
+
+# Import des annonces Immonot dans la D1 (table annonces), par différence.
+# Voir docs/annonces.md.
+#
+# - Lancement manuel (« Run workflow ») : environnement et fichier du kit
+#   (reference/annonces-kit/xml/) à importer, simulation possible.
+# - repository_dispatch (type « import-annonces ») : PRÉPARÉ pour le futur
+#   Worker programmé (cron), qui n'existe pas encore. La source réelle du
+#   flux (FTP, SFTP, URL) est inconnue : en attendant, seul un fichier du
+#   kit est accepté (client_payload.fichier).
+#
+# Production : environnement GitHub « production » existant, donc soumis à
+# l'approbation de stonepower ET limité aux tags v* : lancer le workflow
+# depuis un tag (« Use workflow from » → Tags → v…).
+on:
+  workflow_dispatch:
+    inputs:
+      environnement:
+        description: Environnement cible
+        type: choice
+        options: [staging, production]
+        default: staging
+      fichier:
+        description: Fichier de reference/annonces-kit/xml/ à importer
+        type: choice
+        options:
+          - 04025_20261124011818.xml
+          - 04025_20261110011816.xml
+          - 04025_20261001011818.xml
+        default: 04025_20261124011818.xml
+      simulation:
+        description: Simulation (--dry-run) – affiche +N ~N −N sans rien écrire
+        type: boolean
+        default: false
+  repository_dispatch:
+    types: [import-annonces]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: import-annonces-${{ inputs.environnement || github.event.client_payload.environnement || 'staging' }}
+  cancel-in-progress: false
+
+env:
+  WRANGLER_SEND_METRICS: "false"
+
+jobs:
+  import:
+    name: import (${{ inputs.environnement || github.event.client_payload.environnement || 'staging' }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: ${{ inputs.environnement || github.event.client_payload.environnement || 'staging' }}
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+      # Valeurs venues de l'extérieur : passées par l'environnement, jamais
+      # interpolées dans les scripts.
+      CIBLE: ${{ inputs.environnement || github.event.client_payload.environnement || 'staging' }}
+      FICHIER: ${{ inputs.fichier || github.event.client_payload.fichier }}
+      SIMULATION: ${{ inputs.simulation && 'true' || github.event.client_payload.simulation && 'true' || 'false' }}
+    steps:
+      - name: Vérification des paramètres
+        run: |
+          case "$CIBLE" in
+            staging) echo "BASE_D1=saccoccio-db-staging" >> "$GITHUB_ENV" ;;
+            production)
+              if [ "$GITHUB_REF_TYPE" != "tag" ] || [[ "$GITHUB_REF_NAME" != v* ]]; then
+                echo "::error::L'import en production se lance depuis un tag v* (référence actuelle : $GITHUB_REF)."
+                exit 1
+              fi
+              echo "BASE_D1=saccoccio-db-prod" >> "$GITHUB_ENV" ;;
+            *) echo "::error::Environnement inconnu : $CIBLE (staging ou production)."; exit 1 ;;
+          esac
+          if ! [[ "$FICHIER" =~ ^04025_[0-9]{14}\.xml$ ]]; then
+            echo "::error::Fichier invalide : « $FICHIER » (attendu : un fichier 04025_AAAAMMJJhhmmss.xml du kit)."
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Installation
+        run: npm ci
+
+      # La table est créée par la migration 0002, appliquée par le workflow
+      # de déploiement : l'import ne modifie jamais le schéma.
+      - name: Vérification de la table annonces
+        run: |
+          if ! npx wrangler d1 execute "$BASE_D1" --remote --env "$CIBLE" --command "SELECT count(*) AS n FROM annonces" > /dev/null; then
+            echo "::error::Table annonces absente de $BASE_D1 : déployer d'abord la version qui contient migrations/0002_annonces.sql."
+            exit 1
+          fi
+
+      # Point de restauration (D1 Time Travel) noté avant toute écriture.
+      - name: Signet Time Travel
+        if: env.SIMULATION != 'true'
+        run: npx wrangler d1 time-travel info "$BASE_D1" --env "$CIBLE" || true
+
+      - name: Simulation (différence)
+        run: node scripts/import-annonces.mjs --env "$CIBLE" --source fichier --fichier "reference/annonces-kit/xml/$FICHIER" --dry-run
+
+      - name: Import
+        if: env.SIMULATION != 'true'
+        run: node scripts/import-annonces.mjs --env "$CIBLE" --source fichier --fichier "reference/annonces-kit/xml/$FICHIER"

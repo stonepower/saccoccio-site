@@ -1,0 +1,131 @@
+---
+/**
+ * Formulaire « Rechercher un logement » (en GET vers /annonces/), comme
+ * l'ancien site : département, ville et type (valeurs présentes dans les
+ * annonces), prix « entre » et « et » (paliers de l'ancien site).
+ *
+ * Variantes : « bandeau » (haut de la liste, 3 colonnes, capture
+ * annonces-liste-bureau.jpg) et « colonne » (colonne latérale de la fiche,
+ * capture annonce-detail-bureau.jpg).
+ */
+import { formaterPrix, PALIERS_PRIX, PRIX_MAX_PLUS } from "../lib/annonces";
+import type { Criteres, Options } from "../lib/annonces-recherche";
+
+interface Props {
+	options: Options;
+	criteres?: Criteres;
+	variante: "bandeau" | "colonne";
+	/** Préfixe des id (deux formulaires sur une même page restent distincts). */
+	id?: string;
+}
+
+const { options, criteres, variante, id = "recherche" } = Astro.props;
+const listes = [
+	{ nom: "departement", libelle: "Département", choix: options.departements, valeur: criteres?.departement },
+	{ nom: "ville", libelle: "Ville", choix: options.villes, valeur: criteres?.ville },
+	{ nom: "type", libelle: "Type", choix: options.types, valeur: criteres?.type },
+];
+const prixMin = PALIERS_PRIX.map((p) => ({ valeur: String(p), libelle: formaterPrix(p) }));
+const prixMax = [
+	...PALIERS_PRIX.filter((p) => p > 0).map((p) => ({ valeur: String(p), libelle: formaterPrix(p) })),
+	{ valeur: PRIX_MAX_PLUS, libelle: `> ${formaterPrix(1_000_000)}` },
+];
+const titreId = `${id}-titre`;
+---
+
+<section class:list={["recherche", `recherche-${variante}`]} aria-labelledby={titreId}>
+	{variante === "bandeau" ? <h2 id={titreId}>Rechercher un logement</h2> : <h3 id={titreId}>Rechercher un logement</h3>}
+	<form class="recherche-grille" action="/annonces/" method="get">
+		{
+			listes.map((l) => (
+				<div>
+					<label class="sr-only" for={`${id}-${l.nom}`}>
+						{l.libelle}
+					</label>
+					<select class="champ champ-recherche" id={`${id}-${l.nom}`} name={l.nom}>
+						<option value="">{l.libelle}</option>
+						<option value="">Indifférent</option>
+						{l.choix.map((c) => (
+							<option value={c.valeur} selected={c.valeur === l.valeur}>
+								{c.libelle}
+							</option>
+						))}
+					</select>
+				</div>
+			))
+		}
+		<div>
+			<label class="sr-only" for={`${id}-prix-min`}>Prix minimum</label>
+			<select class="champ champ-recherche" id={`${id}-prix-min`} name="prix_min">
+				<option value="">Entre</option>
+				{
+					prixMin.map((p) => (
+						<option value={p.valeur} selected={criteres?.prixMin !== null && String(criteres?.prixMin) === p.valeur}>
+							{p.libelle}
+						</option>
+					))
+				}
+			</select>
+		</div>
+		<div>
+			<label class="sr-only" for={`${id}-prix-max`}>Prix maximum</label>
+			<select class="champ champ-recherche" id={`${id}-prix-max`} name="prix_max">
+				<option value="">Et</option>
+				{
+					prixMax.map((p) => (
+						<option value={p.valeur} selected={criteres?.prixMax !== null && String(criteres?.prixMax) === p.valeur}>
+							{p.libelle}
+						</option>
+					))
+				}
+			</select>
+		</div>
+		<div>
+			<button type="submit" class="btn btn-primaire btn-bloc">Rechercher</button>
+		</div>
+	</form>
+</section>
+
+<style>
+	.recherche h2 {
+		margin-bottom: 25px;
+	}
+	.recherche h3 {
+		margin-bottom: 20px;
+		font-size: 13px;
+	}
+	.recherche-grille {
+		display: grid;
+		gap: 15px var(--gouttiere);
+	}
+	.champ-recherche {
+		height: 40px;
+		padding-inline: 15px;
+		border-color: var(--c-bordure);
+		color: var(--c-texte);
+		font-family: var(--f-menu);
+		font-size: 13px;
+	}
+	.recherche .btn-primaire {
+		height: 40px;
+		font-family: var(--f-menu);
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+	.recherche-bandeau .recherche-grille {
+		grid-template-columns: 1fr 1fr;
+	}
+	.recherche-colonne {
+		padding: 22px 15px 25px;
+		background: var(--c-blanc);
+	}
+	.recherche-colonne .recherche-grille {
+		gap: 15px;
+	}
+	@media (min-width: 768px) {
+		.recherche-bandeau .recherche-grille {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>
