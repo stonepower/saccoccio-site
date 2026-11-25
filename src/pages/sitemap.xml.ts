@@ -7,7 +7,7 @@ import { PAGES } from "../data/pages";
  * (workers.dev aujourd'hui, domaine plus tard) ; aucun accès à la D1.
  * Seules les pages publiées sont listées (pas de pages à venir).
  */
-const CHEMINS = ["/", ...PAGES.map((p) => p.url), "/contact/", "/politique-de-confidentialite/", "/plan-du-site/"];
+const CHEMINS = ["/", ...PAGES.map((p) => p.url), "/contact/", "/simulateur-pret/", "/politique-de-confidentialite/", "/plan-du-site/"];
 
 export const GET: APIRoute = ({ url }) => {
 	const lignes = CHEMINS.map((chemin) => `  <url><loc>${new URL(chemin, url.origin).href}</loc></url>`);

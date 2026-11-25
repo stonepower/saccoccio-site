@@ -1,0 +1,648 @@
+---
+/**
+ * Simulateur de prêt immobilier à taux fixe (prérendu : aucun calcul dans le
+ * Worker). Le calcul tourne dans le navigateur (src/lib/pret.ts, sans
+ * dépendance) ; sans JavaScript, un message explique comment obtenir une
+ * simulation. Le code du simulateur de l'ancien site (copyright tiers) n'est
+ * pas repris : seuls ses fonctions (calcul de l'échéance, calcul inverse du
+ * montant, tableau d'amortissement) sont reproduites.
+ *
+ * Préremplissage : /simulateur-pret/?montant=245000 (lien depuis une fiche
+ * d'annonce) remplit le montant emprunté et lance le calcul.
+ */
+import Contenu from "../layouts/Contenu.astro";
+import { LIMITES, PERIODICITES } from "../lib/pret";
+
+export const prerender = true;
+---
+
+<Contenu
+	title="Simulateur de prêt immobilier – Saccoccio & Associés, notaires à Manosque"
+	description="Calculez la mensualité d'un prêt immobilier à taux fixe, le coût des intérêts et de l'assurance, ou le montant que vous pouvez emprunter, avec le tableau d'amortissement."
+	h1="Simulateur de prêt"
+	ariane={[{ label: "Simulateur de prêt" }]}
+>
+	<section class="contenu-section section-blanche simulateur">
+		<div class="conteneur">
+			<div class="encart">
+				<p class="simulateur-intro">
+					Estimez la mensualité d'un prêt immobilier à taux fixe et son coût total, ou, à partir d'une mensualité
+					souhaitée, le montant que vous pouvez emprunter.
+				</p>
+
+				<noscript>
+					<p class="simulateur-sans-js">
+						Le simulateur fait ses calculs dans votre navigateur : il nécessite JavaScript, qui semble désactivé.
+						Activez-le pour l'utiliser, ou <a href="/contact/">contactez l'office notarial</a> pour une étude de
+						votre projet.
+					</p>
+				</noscript>
+
+				<form class="simulateur-formulaire" id="simulateur" novalidate hidden data-simulateur>
+					<p class="simulateur-resume-erreurs" id="resume-erreurs" role="alert" tabindex="-1" hidden></p>
+
+					<fieldset class="simulateur-mode">
+						<legend>Que souhaitez-vous calculer ?</legend>
+						<label>
+							<input type="radio" name="mode" value="echeance" checked /> La mensualité, pour un montant emprunté
+						</label>
+						<label>
+							<input type="radio" name="mode" value="capital" /> Le montant empruntable, pour une mensualité souhaitée
+						</label>
+					</fieldset>
+
+					<div class="simulateur-champs">
+						<div class="simulateur-champ" data-mode="echeance">
+							<label for="sim-montant">Montant emprunté (€)</label>
+							<input
+								class="champ"
+								id="sim-montant"
+								name="montant"
+								type="text"
+								inputmode="decimal"
+								autocomplete="off"
+								value="200 000"
+								aria-describedby="aide-montant"
+							/>
+							<p class="aide" id="aide-montant">Par exemple 200 000.</p>
+						</div>
+						<div class="simulateur-champ" data-mode="capital" hidden>
+							<label for="sim-echeance">Mensualité souhaitée (€)</label>
+							<input
+								class="champ"
+								id="sim-echeance"
+								name="echeanceSouhaitee"
+								type="text"
+								inputmode="decimal"
+								autocomplete="off"
+								value="1 000"
+								aria-describedby="aide-echeance"
+							/>
+							<p class="aide" id="aide-echeance">Par échéance, assurance comprise si vous indiquez un taux d'assurance.</p>
+						</div>
+						<div class="simulateur-champ">
+							<label for="sim-taux">Taux nominal annuel (%)</label>
+							<input
+								class="champ"
+								id="sim-taux"
+								name="taux"
+								type="text"
+								inputmode="decimal"
+								autocomplete="off"
+								value="3,5"
+								aria-describedby="aide-taux"
+							/>
+							<p class="aide" id="aide-taux">Taux fixe hors assurance, par exemple 3,5. Valeur d'exemple, à remplacer.</p>
+						</div>
+						<div class="simulateur-champ">
+							<label for="sim-duree">Durée</label>
+							<div class="simulateur-duree">
+								<input
+									class="champ"
+									id="sim-duree"
+									name="duree"
+									type="text"
+									inputmode="numeric"
+									autocomplete="off"
+									value="20"
+									aria-describedby="aide-duree"
+								/>
+								<select class="champ" id="sim-unite" name="unite" aria-label="Unité de la durée">
+									<option value="ans" selected>ans</option>
+									<option value="mois">mois</option>
+								</select>
+							</div>
+							<p class="aide" id="aide-duree">En années ou en mois, {LIMITES.dureeMaxAnnees} ans au plus.</p>
+						</div>
+						<div class="simulateur-champ">
+							<label for="sim-periodicite">Périodicité des remboursements</label>
+							<select class="champ" id="sim-periodicite" name="periodicite">
+								{PERIODICITES.map((p) => <option value={String(p.valeur)} selected={p.valeur === 12}>{p.libelle}</option>)}
+							</select>
+						</div>
+						<div class="simulateur-champ">
+							<label for="sim-assurance">Assurance emprunteur (% par an, facultatif)</label>
+							<input
+								class="champ"
+								id="sim-assurance"
+								name="assurance"
+								type="text"
+								inputmode="decimal"
+								autocomplete="off"
+								aria-describedby="aide-assurance"
+							/>
+							<p class="aide" id="aide-assurance">En % du capital emprunté par an, par exemple 0,30.</p>
+						</div>
+					</div>
+
+					<p class="simulateur-envoi">
+						<button class="btn btn-primaire" type="submit">Calculer</button>
+					</p>
+				</form>
+
+				<section class="simulateur-resultats" id="resultats" aria-labelledby="titre-resultats" hidden>
+					<h2 id="titre-resultats">Résultat de la simulation</h2>
+					<div aria-live="polite" aria-atomic="true">
+						<p class="simulateur-hypotheses" data-hypotheses></p>
+						<dl class="simulateur-chiffres" data-chiffres></dl>
+						<p class="simulateur-note" data-note hidden></p>
+					</div>
+
+					<details class="simulateur-tableau" data-tableau>
+						<summary>Récapitulatif par année</summary>
+						<div class="tableau-defilant">
+							<table>
+								<caption class="sr-only">Récapitulatif du prêt par année</caption>
+								<thead>
+									<tr>
+										<th scope="col">Année</th>
+										<th scope="col">Capital remboursé</th>
+										<th scope="col">Intérêts</th>
+										<th scope="col">Assurance</th>
+										<th scope="col">Total versé</th>
+										<th scope="col">Capital restant dû</th>
+									</tr>
+								</thead>
+								<tbody data-annees></tbody>
+							</table>
+						</div>
+					</details>
+
+					<details class="simulateur-tableau" data-tableau>
+						<summary>Tableau d'amortissement par échéance</summary>
+						<div class="tableau-defilant">
+							<table>
+								<caption class="sr-only">Tableau d'amortissement par échéance</caption>
+								<thead>
+									<tr>
+										<th scope="col">Échéance</th>
+										<th scope="col">Capital remboursé</th>
+										<th scope="col">Intérêts</th>
+										<th scope="col">Assurance</th>
+										<th scope="col">Montant versé</th>
+										<th scope="col">Capital restant dû</th>
+									</tr>
+								</thead>
+								<tbody data-echeances></tbody>
+							</table>
+						</div>
+					</details>
+
+					<p class="simulateur-imprimer">
+						<button class="btn" type="button" data-imprimer>Imprimer la simulation</button>
+					</p>
+				</section>
+
+				<div class="simulateur-mentions">
+					<p>
+						<strong>Simulation indicative, non contractuelle ; elle ne constitue pas une offre de prêt.</strong>{" "}
+						Calcul à taux fixe et à échéances constantes, avec un taux périodique proportionnel au taux annuel. Les
+						frais de dossier, de garantie et de notaire ne sont pas compris.
+					</p>
+					<p>
+						<strong
+							>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous
+							engager.</strong
+						>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</Contenu>
+
+<script>
+	import { amortir, capitalEmpruntable, PERIODICITES, validerSaisie } from "../lib/pret";
+	import type { ErreursSaisie, Mode, Saisie, SaisieValide, UniteDuree } from "../lib/pret";
+
+	const form = document.querySelector<HTMLFormElement>("[data-simulateur]");
+	const resultats = document.querySelector<HTMLElement>("#resultats");
+
+	const euros = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" });
+	const eurosRonds = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+	const nombre = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 3 });
+	const NOMS_CHAMPS: Record<keyof ErreursSaisie, string> = {
+		montant: "sim-montant",
+		echeanceSouhaitee: "sim-echeance",
+		taux: "sim-taux",
+		duree: "sim-duree",
+		assurance: "sim-assurance",
+	};
+
+	if (form && resultats) {
+		form.hidden = false;
+		const valeur = (nom: string) => (form.elements.namedItem(nom) as HTMLInputElement | HTMLSelectElement | null)?.value ?? "";
+		const modeActuel = (): Mode => (valeur("mode") === "capital" ? "capital" : "echeance");
+
+		/** Affiche le champ de montant ou d'échéance selon le mode choisi. */
+		const majMode = () => {
+			form.querySelectorAll<HTMLElement>("[data-mode]").forEach((el) => {
+				el.hidden = el.dataset.mode !== modeActuel();
+			});
+		};
+		form.querySelectorAll('input[name="mode"]').forEach((r) => r.addEventListener("change", majMode));
+
+		// Préremplissage : ?montant=245000 (fiche d'annonce).
+		const montantUrl = new URLSearchParams(location.search).get("montant");
+		const champMontant = form.querySelector<HTMLInputElement>("#sim-montant");
+		if (montantUrl && champMontant && /^\d{1,9}([.,]\d{1,2})?$/.test(montantUrl.trim())) {
+			const n = Number(montantUrl.trim().replace(",", "."));
+			if (n > 0) champMontant.value = nombre.format(n);
+		}
+
+		const effacerErreurs = () => {
+			form.querySelectorAll(".erreur-champ").forEach((e) => e.remove());
+			form.querySelectorAll("[aria-invalid]").forEach((c) => {
+				c.removeAttribute("aria-invalid");
+				const aide = c.getAttribute("aria-describedby")?.split(" ")[0];
+				if (aide) c.setAttribute("aria-describedby", aide);
+			});
+			const resume = form.querySelector<HTMLElement>("#resume-erreurs");
+			if (resume) resume.hidden = true;
+		};
+
+		const afficherErreurs = (erreurs: ErreursSaisie) => {
+			let premier: HTMLElement | null = null;
+			for (const [cle, message] of Object.entries(erreurs) as [keyof ErreursSaisie, string][]) {
+				const champ = form.querySelector<HTMLElement>(`#${NOMS_CHAMPS[cle]}`);
+				if (!champ) continue;
+				const p = document.createElement("p");
+				p.className = "erreur-champ";
+				p.id = `erreur-${NOMS_CHAMPS[cle]}`;
+				p.textContent = message;
+				champ.setAttribute("aria-invalid", "true");
+				champ.setAttribute("aria-describedby", `${champ.getAttribute("aria-describedby") ?? ""} ${p.id}`.trim());
+				champ.closest(".simulateur-champ")?.appendChild(p);
+				premier ??= champ;
+			}
+			const resume = form.querySelector<HTMLElement>("#resume-erreurs");
+			if (resume) {
+				const n = Object.keys(erreurs).length;
+				resume.textContent =
+					n > 1 ? `La saisie contient ${n} erreurs : corrigez les champs signalés.` : "La saisie contient une erreur : corrigez le champ signalé.";
+				resume.hidden = false;
+			}
+			premier?.focus();
+		};
+
+		const cellule = (ligne: HTMLTableRowElement, texte: string, entete = false) => {
+			const c = document.createElement(entete ? "th" : "td");
+			if (entete) c.setAttribute("scope", "row");
+			c.textContent = texte;
+			ligne.appendChild(c);
+		};
+
+		const ajouterChiffre = (dl: Element, terme: string, montant: string, important = false) => {
+			const div = document.createElement("div");
+			if (important) div.className = "important";
+			const dt = document.createElement("dt");
+			dt.textContent = terme;
+			const dd = document.createElement("dd");
+			dd.textContent = montant;
+			div.appendChild(dt);
+			div.appendChild(dd);
+			dl.appendChild(div);
+		};
+
+		const afficher = (v: SaisieValide) => {
+			const capital =
+				v.mode === "capital"
+					? capitalEmpruntable(v.montant, v.tauxAnnuel, v.nbEcheances, v.periodicite, v.tauxAssurance)
+					: v.montant;
+			const r = amortir({
+				capital,
+				tauxAnnuel: v.tauxAnnuel,
+				nbEcheances: v.nbEcheances,
+				periodicite: v.periodicite,
+				tauxAssurance: v.tauxAssurance,
+			});
+			const per = PERIODICITES.find((p) => p.valeur === v.periodicite) ?? PERIODICITES[0];
+			const mois = (v.nbEcheances * 12) / v.periodicite;
+			const duree = mois % 12 === 0 ? `${mois / 12} an${mois > 12 ? "s" : ""}` : `${mois} mois`;
+
+			const hypotheses = resultats.querySelector("[data-hypotheses]");
+			if (hypotheses)
+				hypotheses.textContent =
+					`${v.mode === "capital" ? `Pour une échéance de ${euros.format(v.montant)} au plus, ` : ""}` +
+					`taux de ${nombre.format(v.tauxAnnuel)} % sur ${duree} (${v.nbEcheances} échéances, périodicité ${per.libelle.toLowerCase()})` +
+					`${v.tauxAssurance > 0 ? `, assurance de ${nombre.format(v.tauxAssurance)} % par an` : ", sans assurance"}.`;
+
+			const dl = resultats.querySelector("[data-chiffres]");
+			if (dl) {
+				dl.replaceChildren();
+				ajouterChiffre(dl, v.mode === "capital" ? "Montant empruntable" : "Montant emprunté", v.mode === "capital" ? eurosRonds.format(capital) : euros.format(capital), v.mode === "capital");
+				ajouterChiffre(dl, `${per.echeance} hors assurance`, euros.format(r.echeance), v.mode === "echeance");
+				ajouterChiffre(dl, `${per.echeance} avec assurance`, euros.format(r.echeanceAvecAssurance), true);
+				ajouterChiffre(dl, "Assurance par échéance", euros.format(r.assurance));
+				ajouterChiffre(dl, "Coût total des intérêts", euros.format(r.coutInterets));
+				ajouterChiffre(dl, "Coût de l'assurance", euros.format(r.coutAssurance));
+				ajouterChiffre(dl, "Coût total du crédit", euros.format(r.coutTotal), true);
+				ajouterChiffre(dl, "Total remboursé (capital et coût du crédit)", euros.format(r.totalVerse));
+			}
+
+			const note = resultats.querySelector<HTMLElement>("[data-note]");
+			if (note) {
+				note.hidden = r.derniereEcheance === r.echeance || capital === 0;
+				note.textContent = `Dernière échéance ajustée à ${euros.format(r.derniereEcheance)} hors assurance (arrondis au centime).`;
+			}
+
+			const tbodyAnnees = resultats.querySelector("[data-annees]");
+			if (tbodyAnnees) {
+				const f = document.createDocumentFragment();
+				for (const a of r.annees) {
+					const tr = document.createElement("tr");
+					cellule(tr, String(a.annee), true);
+					for (const m of [a.capitalAmorti, a.interets, a.assurance, a.verse, a.capitalRestant]) cellule(tr, euros.format(m));
+					f.appendChild(tr);
+				}
+				tbodyAnnees.replaceChildren(f);
+			}
+
+			const tbody = resultats.querySelector("[data-echeances]");
+			if (tbody) {
+				const f = document.createDocumentFragment();
+				for (const l of r.lignes) {
+					if (v.periodicite > 1 && (l.numero - 1) % v.periodicite === 0) {
+						const tr = document.createElement("tr");
+						tr.className = "ligne-annee";
+						const th = document.createElement("th");
+						th.colSpan = 6;
+						th.scope = "rowgroup";
+						th.textContent = `Année ${l.annee}`;
+						tr.appendChild(th);
+						f.appendChild(tr);
+					}
+					const tr = document.createElement("tr");
+					cellule(tr, String(l.numero), true);
+					for (const m of [l.capitalAmorti, l.interets, l.assurance, l.echeance + l.assurance, l.capitalRestant])
+						cellule(tr, euros.format(m));
+					f.appendChild(tr);
+				}
+				tbody.replaceChildren(f);
+			}
+
+			resultats.hidden = false;
+		};
+
+		const calculer = (focusResultats: boolean) => {
+			effacerErreurs();
+			const saisie: Saisie = {
+				mode: modeActuel(),
+				montant: valeur("montant"),
+				echeanceSouhaitee: valeur("echeanceSouhaitee"),
+				taux: valeur("taux"),
+				duree: valeur("duree"),
+				unite: (valeur("unite") === "mois" ? "mois" : "ans") as UniteDuree,
+				periodicite: valeur("periodicite"),
+				assurance: valeur("assurance"),
+			};
+			const v = validerSaisie(saisie);
+			if (!v.ok) {
+				resultats.hidden = true;
+				afficherErreurs(v.erreurs);
+				return;
+			}
+			afficher(v.valeurs);
+			if (focusResultats) resultats.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+		};
+
+		form.addEventListener("submit", (e) => {
+			e.preventDefault();
+			calculer(true);
+		});
+		majMode();
+		calculer(false);
+
+		// Impression : tableaux dépliés, puis remis dans leur état.
+		let ouverts: boolean[] = [];
+		const tableaux = () => [...resultats.querySelectorAll<HTMLDetailsElement>("[data-tableau]")];
+		addEventListener("beforeprint", () => {
+			ouverts = tableaux().map((d) => d.open);
+			tableaux().forEach((d) => (d.open = true));
+		});
+		addEventListener("afterprint", () => tableaux().forEach((d, i) => (d.open = ouverts[i] ?? false)));
+		resultats.querySelector("[data-imprimer]")?.addEventListener("click", () => print());
+	}
+</script>
+
+<style>
+	.simulateur-intro {
+		margin-bottom: 30px;
+	}
+	.simulateur-sans-js,
+	.simulateur-resume-erreurs {
+		padding: 10px 15px;
+		border-left: 4px solid var(--c-bordeaux);
+		background: var(--c-gris);
+	}
+	.simulateur-resume-erreurs {
+		color: var(--c-bordeaux);
+		font-weight: 700;
+	}
+	.simulateur-mode {
+		margin: 0 0 20px;
+		padding: 0;
+		border: 0;
+	}
+	.simulateur-mode legend {
+		margin-bottom: 5px;
+		padding: 0;
+		color: var(--c-titre);
+		font-weight: 700;
+	}
+	.simulateur-mode label {
+		display: flex;
+		gap: 8px;
+		align-items: baseline;
+		margin: 0;
+		font-weight: 400;
+		font-size: 14px;
+	}
+	.simulateur-champs {
+		display: grid;
+		gap: 0 var(--gouttiere);
+	}
+	@media (min-width: 768px) {
+		.simulateur-champs {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	.simulateur-champ {
+		margin-bottom: 15px;
+	}
+	.simulateur-champ[hidden] {
+		display: none;
+	}
+	.simulateur-champ label {
+		display: block;
+	}
+	.simulateur-duree {
+		display: flex;
+		gap: 8px;
+	}
+	.simulateur-duree select {
+		width: auto;
+	}
+	.aide {
+		margin: 4px 0 0;
+		font-size: 12px;
+		line-height: 1.5;
+	}
+	.erreur-champ {
+		margin: 4px 0 0;
+		color: var(--c-bordeaux);
+		font-size: 13px;
+		font-weight: 700;
+		line-height: 1.5;
+	}
+	.champ[aria-invalid="true"] {
+		border-color: var(--c-bordeaux);
+	}
+	.simulateur-envoi {
+		margin: 5px 0 30px;
+	}
+	.simulateur-envoi .btn {
+		min-width: 160px;
+	}
+
+	.simulateur-resultats {
+		margin-bottom: 30px;
+		padding-top: 30px;
+		border-top: 1px solid var(--c-bordure);
+	}
+	.simulateur-resultats h2 {
+		margin-bottom: 15px;
+		color: var(--c-bordeaux);
+		font-size: 18px;
+	}
+	.simulateur-chiffres {
+		display: grid;
+		gap: 10px var(--gouttiere);
+		margin: 0 0 20px;
+	}
+	@media (min-width: 768px) {
+		.simulateur-chiffres {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	.simulateur-chiffres :global(div) {
+		display: flex;
+		justify-content: space-between;
+		gap: 10px;
+		padding: 6px 0;
+		border-bottom: 1px solid var(--c-bordure);
+	}
+	.simulateur-chiffres :global(dt) {
+		font-weight: 400;
+	}
+	.simulateur-chiffres :global(dd) {
+		margin: 0;
+		color: var(--c-titre);
+		font-weight: 700;
+		white-space: nowrap;
+	}
+	.simulateur-chiffres :global(.important dd) {
+		color: var(--c-bordeaux);
+		font-size: 16px;
+	}
+	.simulateur-note {
+		font-size: 12px;
+	}
+
+	.simulateur-tableau {
+		margin-bottom: 15px;
+		border: 1px solid var(--c-bordure);
+	}
+	.simulateur-tableau summary {
+		padding: 8px 15px;
+		background: var(--c-gris);
+		color: var(--c-titre);
+		font-weight: 700;
+		cursor: pointer;
+	}
+	.tableau-defilant {
+		max-width: 100%;
+		overflow-x: auto;
+	}
+	.simulateur-tableau table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 13px;
+		font-variant-numeric: tabular-nums;
+	}
+	.simulateur-tableau :global(th),
+	.simulateur-tableau :global(td) {
+		padding: 4px 10px;
+		border-bottom: 1px solid var(--c-bordure);
+		text-align: right;
+		white-space: nowrap;
+	}
+	.simulateur-tableau thead th {
+		color: var(--c-titre);
+		white-space: normal;
+		vertical-align: bottom;
+	}
+	.simulateur-tableau :global(tbody th) {
+		font-weight: 400;
+	}
+	.simulateur-tableau :global(.ligne-annee th) {
+		padding-top: 10px;
+		background: var(--c-gris);
+		color: var(--c-titre);
+		font-weight: 700;
+		text-align: left;
+	}
+
+	.simulateur-mentions {
+		padding-top: 20px;
+		border-top: 1px solid var(--c-bordure);
+		font-size: 13px;
+	}
+	.simulateur-mentions p {
+		margin-bottom: 10px;
+	}
+
+	@media print {
+		:global(.entete),
+		:global(.pied),
+		:global(.carrousel),
+		:global(.fil-ariane),
+		:global(.lien-evitement),
+		.simulateur-intro,
+		.simulateur-mode,
+		.simulateur-champs,
+		.simulateur-envoi,
+		.simulateur-imprimer {
+			display: none !important;
+		}
+		:global(body),
+		:global(.section-grise) {
+			background: var(--c-blanc);
+			color: #000;
+		}
+		.simulateur-resultats {
+			padding-top: 0;
+			border-top: 0;
+		}
+		.simulateur-tableau {
+			border: 0;
+		}
+		.simulateur-tableau summary {
+			padding: 0;
+			background: none;
+			list-style: none;
+		}
+		.simulateur-tableau summary::-webkit-details-marker {
+			display: none;
+		}
+		.simulateur-tableau thead {
+			display: table-header-group;
+		}
+		.simulateur-tableau tr {
+			break-inside: avoid;
+		}
+		.tableau-defilant {
+			overflow: visible;
+		}
+	}
+</style>
