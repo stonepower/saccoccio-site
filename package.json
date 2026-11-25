@@ -17,6 +17,8 @@
     "@astrojs/cloudflare": "14.4.9",
     "@astrojs/react": "7.1.9",
     "@emdash-cms/cloudflare": "1.6.0",
+    "@fontsource/lato": "5.3.0",
+    "@fontsource/raleway": "5.3.0",
     "astro": "7.4.13",
     "emdash": "1.6.0",
     "react": "19.2.4",
@@ -26,6 +28,7 @@
     "@astrojs/check": "0.9.12",
     "@cloudflare/workers-types": "5.20261124.2",
     "@types/node": "24.19.2",
+    "sharp": "0.35.5",
     "typescript": "6.0.3",
     "wrangler": "4.168.0"
   }

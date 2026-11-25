@@ -1,0 +1,50 @@
+---
+/**
+ * Fil d'Ariane (absent de l'ancien site : ajouté pour la navigation et le
+ * SEO). Le dernier élément est la page courante, sans lien.
+ */
+interface Props {
+	elements: readonly { label: string; href?: string }[];
+}
+
+const { elements } = Astro.props;
+---
+
+<nav class="fil-ariane" aria-label="Fil d'Ariane">
+	<ol>
+		<li><a href="/">Accueil</a></li>
+		{
+			elements.map((el, i) => (
+				<li>
+					{el.href && i < elements.length - 1 ? (
+						<a href={el.href}>{el.label}</a>
+					) : (
+						<span aria-current="page">{el.label}</span>
+					)}
+				</li>
+			))
+		}
+	</ol>
+</nav>
+
+<style>
+	.fil-ariane ol {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 0 0 10px;
+		padding: 0;
+		list-style: none;
+		font-size: 12px;
+	}
+	.fil-ariane li + li::before {
+		content: "›";
+		margin: 0 8px;
+		color: #999;
+	}
+	.fil-ariane a {
+		color: var(--c-texte);
+	}
+	.fil-ariane [aria-current] {
+		color: var(--c-bordeaux);
+	}
+</style>

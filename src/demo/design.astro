@@ -1,0 +1,312 @@
+---
+/**
+ * Page de démonstration du gabarit, servie sur /_design/ (route injectée
+ * dans astro.config.mjs : Astro ignore les fichiers de src/pages/ dont le nom
+ * commence par « _ »). Jamais indexée. Textes factices : les vraies pages
+ * arrivent avec l'import des contenus.
+ */
+import CarteAnnonce from "../components/CarteAnnonce.astro";
+import Carrousel from "../components/Carrousel.astro";
+import FilAriane from "../components/FilAriane.astro";
+import FormulaireContact from "../components/FormulaireContact.astro";
+import { ETUDE } from "../data/site";
+import Base from "../layouts/Base.astro";
+
+const sousMenu = ["Historique", "Fonctions", "Profession notaire", "L'équipe", "Lexique", "Tarifs", "Prédécesseurs"];
+const lorem =
+	"Texte de démonstration. Le notaire conseille les familles, les entreprises et les collectivités, rédige les actes authentiques et en assure la conservation. Ce paragraphe montre le rendu du texte courant dans une page de contenu.";
+const prix = ["Entre", "Et"];
+const options = { Département: ["04"], Ville: ["Manosque", "Gréoux-les-Bains", "Valensole"], Type: ["Maison", "Appartement", "Terrain"] };
+---
+
+<Base
+	title="Démonstration du gabarit – Saccoccio & Associés"
+	description="Page de démonstration du gabarit du site : page de contenu, carte d'annonce et formulaire de contact."
+	noindex
+>
+	<div class="demo-bandeau">
+		<div class="conteneur">
+			Page de démonstration du gabarit (non indexée) : textes factices. Sections&nbsp;:
+			<a href="#page-contenu">page de contenu</a>,&#32;<a href="#annonces">annonces</a>,&#32;<a href="#contact"
+				>contact</a
+			>.
+		</div>
+	</div>
+
+	<!-- ===== Gabarit « page de contenu » (capture page-contenu) ===== -->
+	<Carrousel />
+
+	<div id="page-contenu" class="section-grise contenu">
+		<div class="conteneur">
+			<FilAriane elements={[{ label: "L'office notarial", href: "/office-notarial/" }, { label: "Historique" }]} />
+			<h1>Titre de la page</h1>
+			<nav class="sous-nav" aria-label="Sections de la page">
+				{sousMenu.map((s) => <a class="btn btn-primaire" href="#page-contenu">{s}</a>)}
+			</nav>
+		</div>
+		<section class="contenu-section">
+			<div class="conteneur">
+				<h1 class="contenu-titre">Titre de section</h1>
+				<div class="contenu-texte">
+					<h2>Premier intertitre</h2>
+					<p>{lorem}</p>
+					<p>{lorem}</p>
+					<h2>Deuxième intertitre</h2>
+					<p>{lorem}</p>
+					<ul>
+						<li>Premier élément de liste</li>
+						<li>Deuxième élément, <a href="#page-contenu">avec un lien</a></li>
+					</ul>
+					<h3>Sous-intertitre</h3>
+					<p>{lorem}</p>
+				</div>
+			</div>
+		</section>
+		<section class="contenu-section section-blanche">
+			<div class="conteneur">
+				<h1 class="contenu-titre">Section sur fond blanc</h1>
+				<div class="contenu-texte">
+					<h2>Intertitre</h2>
+					<p>{lorem}</p>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<!-- ===== Gabarit « liste des annonces » (capture annonces-liste) ===== -->
+	<section id="annonces" class="recherche" aria-labelledby="titre-recherche">
+		<div class="conteneur">
+			<h2 id="titre-recherche">Rechercher un logement</h2>
+			<form class="recherche-grille" action="#annonces" method="get">
+				{
+					Object.entries(options).map(([nom, valeurs]) => (
+						<div>
+							<label class="sr-only" for={`recherche-${nom}`}>{nom}</label>
+							<select class="champ champ-recherche" id={`recherche-${nom}`}>
+								<option value="">{nom}</option>
+								<option value="">Indifférent</option>
+								{valeurs.map((v) => <option>{v}</option>)}
+							</select>
+						</div>
+					))
+				}
+				{
+					prix.map((nom) => (
+						<div>
+							<label class="sr-only" for={`recherche-${nom}`}>Prix : {nom.toLowerCase()}</label>
+							<select class="champ champ-recherche" id={`recherche-${nom}`}>
+								<option value="">{nom}</option>
+								<option>100 000 €</option>
+								<option>200 000 €</option>
+							</select>
+						</div>
+					))
+				}
+				<div>
+					<button type="submit" class="btn btn-primaire btn-bloc">Rechercher</button>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<section class="section section-grise annonces" aria-labelledby="titre-annonces">
+		<div class="conteneur">
+			<h2 id="titre-annonces">Annonces immobilières</h2>
+			<div class="annonces-boutons">
+				<a class="btn btn-primaire btn-bloc" href="#annonces">Toutes nos offres</a>
+				<a class="btn btn-primaire btn-bloc" href="#annonces">Ma sélection</a>
+				<a class="btn btn-primaire btn-bloc" href="#annonces">Alerte mail</a>
+			</div>
+			<CarteAnnonce
+				href="#annonces"
+				type="Maison"
+				resume="Annonce de démonstration : maison de plain-pied d'environ 120 m² comprenant une entrée, un séjour-salon ouvrant sur une terrasse, une cuisine, trois chambres et une salle d'eau [...]"
+				prix="250 000,00 € FAI"
+				photo="/images/accueil-annonces.webp"
+				photoAlt="Photo de démonstration"
+			/>
+		</div>
+	</section>
+
+	<!-- ===== Gabarit « contact » (capture contact) ===== -->
+	<section id="contact" class="section contact" aria-labelledby="titre-contact">
+		<div class="conteneur contact-grille">
+			<div>
+				<h2 id="titre-contact" class="sr-only">Nous contacter</h2>
+				<div class="carte-emplacement" role="img" aria-label="Emplacement réservé au plan d'accès">
+					Plan d'accès (à venir, sans Google Maps)
+				</div>
+				<div class="contact-sites">
+					{
+						["Manosque - Office", "Gréoux-les-Bains - Annexe", "Valensole - Annexe"].map((titre) => (
+							<div>
+								<p>
+									<strong>{titre}</strong>
+									<br />
+									Adresse de démonstration
+									<br />
+									04000 VILLE
+								</p>
+								<p>
+									<strong>Tél.</strong> 04 00 00 00 00
+									<br />
+									<strong>Fax.</strong> 04 00 00 00 00
+								</p>
+								<p>
+									<strong>Accueil téléphonique</strong>
+									<br />
+									Du lundi au vendredi : 9h00-12h00 et 14h00-17h00
+								</p>
+							</div>
+						))
+					}
+				</div>
+				<FormulaireContact
+					action="/_design/#contact"
+					contacts={["Notaire - Prénom NOM", "Clerc de notaire - Prénom NOM", "Secrétariat"]}
+				/>
+			</div>
+			<aside class="contact-cote" aria-label="Interlocuteurs">
+				<h3>Notaires</h3>
+				<ul>{ETUDE.notaires.map((n) => <li>{n}</li>)}</ul>
+				<h3>Service négociation</h3>
+				<ul>
+					<li>Prénom NOM</li>
+					<li>Portable : 06 00 00 00 00</li>
+					<li>Email : negociation@example.fr</li>
+				</ul>
+			</aside>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.demo-bandeau {
+		padding: 8px 0;
+		background: #fff8d6;
+		border-bottom: 1px solid #e8dca0;
+		font-size: 13px;
+	}
+
+	/* Page de contenu */
+	.contenu {
+		padding-top: 40px;
+	}
+	.sous-nav {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 4px;
+		padding: 30px 0 40px;
+		font-family: var(--f-menu);
+	}
+	.sous-nav .btn {
+		padding: 6px 10px;
+		font-family: var(--f-menu);
+		font-size: 13px;
+	}
+	.contenu-section {
+		padding: 10px 0 30px;
+	}
+	.contenu-section.section-blanche {
+		padding-top: 40px;
+	}
+	.contenu-titre {
+		margin-bottom: 30px;
+	}
+	.contenu-texte {
+		padding-left: 15px;
+	}
+	.contenu-texte h2 {
+		margin-bottom: 30px;
+	}
+	.contenu-texte ul {
+		margin: 0 0 20px;
+	}
+
+	/* Annonces */
+	.recherche {
+		padding: 45px 0 30px;
+		border-bottom: 1px solid var(--c-bordure);
+	}
+	.recherche h2 {
+		margin-bottom: 25px;
+	}
+	.recherche-grille {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 15px var(--gouttiere);
+	}
+	.champ-recherche {
+		height: 40px;
+		padding-inline: 15px;
+		border-color: var(--c-bordure);
+		color: var(--c-texte);
+	}
+	.recherche .btn-primaire {
+		height: 40px;
+		font-size: 13px;
+	}
+	.annonces-boutons {
+		display: grid;
+		gap: 10px var(--gouttiere);
+		margin-bottom: 40px;
+	}
+	.annonces-boutons .btn {
+		font-family: var(--f-menu);
+		font-size: 13px;
+	}
+	@media (min-width: 768px) {
+		.recherche-grille {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	@media (min-width: 992px) {
+		.annonces-boutons {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	/* Contact */
+	.contact-grille {
+		display: grid;
+		gap: 40px var(--gouttiere);
+	}
+	.carte-emplacement {
+		display: grid;
+		place-items: center;
+		min-height: 330px;
+		margin-bottom: 30px;
+		background: #e5e3df;
+		color: #888;
+	}
+	.contact-sites {
+		display: grid;
+		gap: 0 var(--gouttiere);
+		font-size: 13px;
+		line-height: 1.5;
+	}
+	.contact-sites strong {
+		color: var(--c-texte);
+	}
+	.contact-cote h3 {
+		margin: 10px 0 25px;
+		font-size: 22px;
+	}
+	.contact-cote ul {
+		margin: 0 0 40px;
+		padding: 0 0 0 4px;
+		list-style: none;
+		font-size: 13px;
+	}
+	@media (min-width: 768px) {
+		.contact-sites {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	@media (min-width: 992px) {
+		.contact-grille {
+			grid-template-columns: 3fr 1fr;
+		}
+	}
+</style>

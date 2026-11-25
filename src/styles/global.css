@@ -1,0 +1,295 @@
+/*
+ * Feuille de style commune du site (écrite pour ce projet : ni Bootstrap ni
+ * fichiers du thème d'origine). Elle reproduit le rendu de l'ancien site,
+ * d'après reference/design-kit/ (captures et styles mesurés).
+ *
+ * Conventions (voir CLAUDE.md, « CSS ») :
+ * - couleurs, polices et tailles dans les variables ci-dessous ;
+ * - styles propres à un composant dans le <style> du composant (portée Astro) ;
+ * - ici : base, typographie, conteneur, boutons, formulaires, utilitaires.
+ */
+
+:root {
+	/* Couleurs */
+	--c-bordeaux: #76022b; /* liens, boutons principaux */
+	--c-bandeau: #9e093c; /* bandeau haut (couleur des captures) */
+	--c-texte: #666;
+	--c-titre: #333;
+	--c-menu: #777;
+	--c-gris: #eee; /* fond des sections grises */
+	--c-bordure: #ddd;
+	--c-pied: #111;
+	--c-pied-texte: #ccc;
+	--c-blanc: #fff;
+
+	/* Polices (auto-hébergées, sous-ensemble latin : voir Base.astro) */
+	--f-texte: "Raleway", "Helvetica Neue", Arial, sans-serif;
+	--f-menu: "Lato", "Helvetica Neue", Arial, sans-serif;
+
+	/* Grille : conteneur 750 / 970 / 1170 px, gouttière de 30 px */
+	--gouttiere: 30px;
+	--conteneur: 100%;
+}
+
+@media (min-width: 768px) {
+	:root {
+		--conteneur: 750px;
+	}
+}
+@media (min-width: 992px) {
+	:root {
+		--conteneur: 970px;
+	}
+}
+@media (min-width: 1200px) {
+	:root {
+		--conteneur: 1170px;
+	}
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--c-blanc);
+	color: var(--c-texte);
+	font-family: var(--f-texte);
+	font-size: 14px;
+	line-height: 1.8;
+	overflow-x: hidden;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: middle;
+	border: 0;
+}
+
+a {
+	color: var(--c-bordeaux);
+	text-decoration: none;
+}
+a:hover,
+amain:focus {
+	outline: none;
+}
+
+:focus-visible {
+	text-decoration: underline;
+}
+
+:focus-visible {
+	outline: 2px solid var(--c-bordeaux);
+	outline-offset: 2px;
+}
+
+p {
+	margin: 0 0 20px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	margin: 0 0 20px;
+	color: var(--c-titre);
+	font-family: var(--f-texte);
+	font-weight: 700;
+	line-height: 1.1;
+	text-transform: uppercase;
+}
+h1 {
+	font-size: 20px;
+	color: var(--c-bordeaux);
+}
+h2 {
+	font-size: 22px;
+	margin-bottom: 32px;
+}
+h3 {
+	font-size: 18px;
+}
+h4 {
+	font-size: 12px;
+}
+
+address {
+	font-style: normal;
+}
+
+hr {
+	margin: 0;
+	border: 0;
+	border-top: 1px solid var(--c-bordure);
+}
+
+/* ---------- Conteneur ---------- */
+
+.conteneur {
+	width: var(--conteneur);
+	margin-inline: auto;
+	padding-inline: calc(var(--gouttiere) / 2);
+}
+
+/* Grille simple : .grille.grille-3 = 3 colonnes à partir de 992 px */
+.grille {
+	display: grid;
+	gap: 0 var(--gouttiere);
+}
+@media (min-width: 992px) {
+	.grille-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+	padding: 54px 0 30px;
+}
+.section-grise {
+	background: var(--c-gris);
+}
+.section-blanche {
+	background: var(--c-blanc);
+}
+
+/* ---------- Boutons ---------- */
+
+.btn {
+	display: inline-block;
+	padding: 13px 20px;
+	border: 2px solid var(--c-titre);
+	background: var(--c-blanc);
+	color: var(--c-titre);
+	font-family: var(--f-texte);
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 20px;
+	text-align: center;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+}
+.btn:hover,
+.btn:focus-visible {
+	background: var(--c-titre);
+	color: var(--c-blanc);
+	text-decoration: none;
+}
+
+.btn-primaire {
+	padding: 6px 12px;
+	border: 1px solid var(--c-bordeaux);
+	background: var(--c-bordeaux);
+	color: var(--c-blanc);
+	font-size: 14px;
+	line-height: 1.8;
+}
+.btn-primaire:hover,
+.btn-primaire:focus-visible {
+	border-color: #4d011c;
+	background: #4d011c;
+	color: var(--c-blanc);
+}
+
+.btn-bloc {
+	display: block;
+	width: 100%;
+}
+
+/* ---------- Formulaires ---------- */
+
+label {
+	display: inline-block;
+	margin-bottom: 5px;
+	color: var(--c-texte);
+	font-weight: 700;
+	font-size: 13px;
+}
+
+.champ {
+	display: block;
+	width: 100%;
+	height: 30px;
+	padding: 4px 10px;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	background: var(--c-blanc);
+	color: var(--c-texte);
+	font: inherit;
+	font-size: 13px;
+	line-height: 1.5;
+}
+textarea.champ {
+	height: auto;
+	min-height: 145px;
+	resize: vertical;
+}
+.champ:focus {
+	border-color: var(--c-bordeaux);
+	outline: 0;
+	box-shadow: 0 0 0 2px rgb(118 2 43 / 0.2);
+}
+
+/* ---------- Utilitaires ---------- */
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.lien-evitement {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	padding: 10px 15px;
+	background: var(--c-blanc);
+	color: var(--c-bordeaux);
+	font-weight: 700;
+	transform: translateY(-100%);
+}
+.lien-evitement:focus {
+	transform: none;
+}
+
+.icone {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	vertical-align: -0.125em;
+	fill: currentColor;
+	flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}

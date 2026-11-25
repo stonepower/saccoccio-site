@@ -1,0 +1,68 @@
+---
+/**
+ * Formulaire de contact (mise en forme seulement : l'envoi et la protection
+ * anti-spam arriveront avec la vraie page Contact).
+ */
+interface Props {
+	action: string;
+	contacts: readonly string[];
+}
+
+const { action, contacts } = Astro.props;
+---
+
+<form class="formulaire" method="post" action={action}>
+	<div class="formulaire-champ">
+		<label for="contact-nom">Nom / Prénom*</label>
+		<input class="champ" type="text" id="contact-nom" name="nom" autocomplete="name" required />
+	</div>
+	<div class="formulaire-champ">
+		<label for="contact-email">E-mail</label>
+		<input class="champ" type="email" id="contact-email" name="email" autocomplete="email" />
+	</div>
+	<div class="formulaire-champ">
+		<label for="contact-tel">Téléphone :</label>
+		<input class="champ" type="tel" id="contact-tel" name="telephone" autocomplete="tel" />
+	</div>
+	<div class="formulaire-champ">
+		<label for="contact-destinataire">Contact:</label>
+		<select class="champ" id="contact-destinataire" name="destinataire">
+			<option value="">-- Choisissez votre contact --</option>
+			{contacts.map((c) => <option>{c}</option>)}
+		</select>
+	</div>
+	<div class="formulaire-champ formulaire-large">
+		<label for="contact-message">Message:*</label>
+		<textarea class="champ" id="contact-message" name="message" rows="6" required></textarea>
+	</div>
+	<div class="formulaire-champ formulaire-envoi">
+		<button type="submit" class="btn btn-primaire">Envoyer</button>
+	</div>
+</form>
+
+<style>
+	.formulaire {
+		display: grid;
+		gap: 0 var(--gouttiere);
+		padding-top: 30px;
+		border-top: 1px solid var(--c-bordure);
+	}
+	.formulaire-champ {
+		margin-bottom: 15px;
+	}
+	.formulaire .btn-primaire {
+		min-width: 148px;
+		padding-block: 5px;
+	}
+	@media (min-width: 768px) {
+		.formulaire {
+			grid-template-columns: 1fr 1fr;
+		}
+		.formulaire-large {
+			grid-column: 1 / -1;
+		}
+		.formulaire-envoi {
+			grid-column: 2;
+		}
+	}
+</style>
