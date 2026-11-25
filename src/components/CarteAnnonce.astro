@@ -17,7 +17,7 @@ const { href, type, resume, prix, photo, photoAlt } = Astro.props;
 
 <article class="annonce">
 	<a class="annonce-photo" href={href} tabindex="-1" aria-hidden="true">
-		<img src={photo} alt={photoAlt} loading="lazy" decoding="async" />
+		<img src={photo} alt={photoAlt} width="585" height="430" loading="lazy" decoding="async" />
 	</a>
 	<div class="annonce-corps">
 		<h3><a href={href}>{type}</a></h3>

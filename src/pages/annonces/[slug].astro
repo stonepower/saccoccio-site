@@ -1,0 +1,796 @@
+---
+/**
+ * Fiche d'une annonce (capture annonce-detail-bureau.jpg, HTML
+ * reference/design-kit/pages/annonce-detail.html), rendue par le Worker :
+ * une requête D1 au plus (catalogue en cache 60 s), cache HTTP de 5 minutes.
+ *
+ * Mêmes informations que l'ancienne fiche : navigation, galerie, résumé,
+ * texte, caractéristiques, DPE / GES, informations complémentaires (vrai
+ * code postal, et non l'INSEE), carte à l'échelle de la commune (sans
+ * traceur : OpenStreetMap chargé seulement sur demande), contact du
+ * négociateur, colonne de recherche. « Ma sélection » et « Alerte mail » ne
+ * sont pas repris.
+ *
+ * Annonce retirée depuis moins d'un an : 410 ; inconnue : 404.
+ */
+import EtiquetteDpe from "../../components/EtiquetteDpe.astro";
+import RechercheAnnonces from "../../components/RechercheAnnonces.astro";
+import { centreCommune } from "../../data/communes";
+import Base from "../../layouts/Base.astro";
+import { libelleTypeBien, libelleTypeVente, paragraphes, prixAffiche } from "../../lib/annonces";
+import { type Annonce, CACHE_HTTP, chargerCatalogue } from "../../lib/annonces-d1";
+import {
+	caracteristiques,
+	contact,
+	descriptionSeo,
+	donneesStructurees,
+	informations,
+	jsonLd,
+	liensCarte,
+	lieu,
+	lienMail,
+	titreAnnonce,
+	vueDpe,
+} from "../../lib/annonces-fiche";
+import { options } from "../../lib/annonces-recherche";
+
+export const prerender = false;
+
+const slug = Astro.params.slug ?? "";
+let actives: Annonce[] = [];
+let retirees = new Set<string>();
+let indisponible = false;
+try {
+	({ actives, retirees } = await chargerCatalogue());
+} catch (erreur) {
+	console.error(JSON.stringify({ evenement: "annonces", erreur: String(erreur) }));
+	indisponible = true;
+}
+
+const index = actives.findIndex((a) => a.slug === slug);
+const annonce = actives[index];
+const precedente = index > 0 ? actives[index - 1] : undefined;
+const suivante = index >= 0 ? actives[index + 1] : undefined;
+
+let statut = 200;
+if (indisponible) statut = 503;
+else if (!annonce) statut = retirees.has(slug) ? 410 : 404;
+Astro.response.status = statut;
+Astro.response.headers.set(
+	"Cache-Control",
+	statut === 200 ? CACHE_HTTP : statut === 503 ? "no-store" : "public, max-age=300",
+);
+
+const url = new URL(`/annonces/${slug}/`, Astro.url).href;
+const choix = options(actives);
+const a = annonce;
+const titre = a ? titreAnnonce(a) : "";
+const prix = a ? prixAffiche(a) : "";
+const dpe = a ? vueDpe(a) : null;
+const negociateur = a ? contact(a) : null;
+const carte = a ? liensCarte(centreCommune(a.insee), a) : null;
+const objetAnnonce = a ? `Annonce réf. ${a.refClient} – ${titre}` : "";
+const contactAnnonce = `/contact/?service=negociation&objet=${encodeURIComponent(objetAnnonce)}`;
+const corpsMail = a ? `Bonjour, je suis intéressé(e) par cette annonce : ${url}` : "";
+---
+
+{
+	!a ? (
+		<Base
+			title={
+				statut === 410
+					? "Annonce retirée – Saccoccio & Associés, notaires"
+					: statut === 503
+						? "Annonces momentanément indisponibles – Saccoccio & Associés"
+						: "Annonce introuvable – Saccoccio & Associés, notaires"
+			}
+			description="Cette annonce immobilière n'est plus en ligne. Découvrez les autres offres de l'office notarial Saccoccio & Associés."
+			noindex
+		>
+			<section class="section section-grise fiche-absente">
+				<div class="conteneur">
+					<h1>
+						{statut === 410
+							? "Cette annonce n'est plus en ligne"
+							: statut === 503
+								? "Annonces momentanément indisponibles"
+								: "Annonce introuvable"}
+					</h1>
+					<p>
+						{statut === 410
+							? "Le bien a été vendu ou retiré de la vente."
+							: statut === 503
+								? "Réessayez dans quelques minutes."
+								: "L'adresse de cette annonce est inconnue."}
+					</p>
+					<a class="btn btn-primaire" href="/annonces/">
+						Voir toutes nos offres
+					</a>
+				</div>
+			</section>
+		</Base>
+	) : (
+		<Base title={`${titre} – ${prix} – réf. ${a.refClient} – Saccoccio & Associés`} description={descriptionSeo(a)}>
+			<Fragment slot="head">
+				<link rel="canonical" href={url} />
+				{a.photos[0] && <meta property="og:image" content={a.photos[0]} />}
+				<meta property="og:title" content={`${titre} – ${prix}`} />
+				<meta property="og:type" content="website" />
+				<meta property="og:url" content={url} />
+				<script type="application/ld+json" set:html={jsonLd(donneesStructurees(a, url))} />
+			</Fragment>
+
+			<section class="section section-grise fiche-section">
+				<div class="conteneur">
+					<nav class="fiche-nav" aria-label="Navigation dans les annonces">
+						{precedente ? (
+							<a class="btn btn-secondaire" href={`/annonces/${precedente.slug}/`} rel="prev" title="Offre précédente">
+								« Préc.
+							</a>
+						) : (
+							<span />
+						)}
+						<a class="btn btn-primaire" href="/annonces/">
+							Toutes nos offres
+						</a>
+						<a class="btn btn-primaire" href="/annonces/#recherche">
+							Rechercher un logement
+						</a>
+						{suivante ? (
+							<a class="btn btn-secondaire" href={`/annonces/${suivante.slug}/`} rel="next" title="Offre suivante">
+								Suiv. »
+							</a>
+						) : (
+							<span />
+						)}
+					</nav>
+
+					<div class="fiche-grille">
+						<article class="fiche">
+							{a.photos.length > 0 && (
+								<div class="galerie" data-galerie>
+									<div class="galerie-cadre">
+									<ul class="galerie-photos" data-photos tabindex="0" aria-label={`Photos (${a.photos.length})`}>
+										{a.photos.map((photo, i) => (
+											<li id={`photo-${i + 1}`}>
+												<img
+													src={photo}
+													alt={`${titre} : photo ${i + 1} sur ${a.photos.length}`}
+													width="848"
+													height="600"
+													loading={i === 0 ? "eager" : "lazy"}
+													fetchpriority={i === 0 ? "high" : undefined}
+													decoding="async"
+												/>
+											</li>
+										))}
+									</ul>
+									<p class="galerie-etiquettes">
+										<span class="etiquette-prix">{prix}</span>
+										<span class="etiquette-type">{libelleTypeBien(a.typeBien)}</span>
+									</p>
+									{a.photos.length > 1 && (
+										<>
+											<button type="button" class="galerie-bouton galerie-precedent" data-precedent hidden>
+												<span aria-hidden="true">‹</span>
+												<span class="sr-only">Photo précédente</span>
+											</button>
+											<button type="button" class="galerie-bouton galerie-suivant" data-suivant hidden>
+												<span aria-hidden="true">›</span>
+												<span class="sr-only">Photo suivante</span>
+											</button>
+										</>
+									)}
+									</div>
+									{a.photos.length > 1 && (
+										<>
+											<ol class="galerie-vignettes" aria-label="Vignettes">
+												{a.photos.map((photo, i) => (
+													<li>
+														<a href={`#photo-${i + 1}`} data-vignette={i}>
+															<img src={photo} alt={`Photo ${i + 1}`} width="148" height="110" loading="lazy" decoding="async" />
+														</a>
+													</li>
+												))}
+											</ol>
+										</>
+									)}
+								</div>
+							)}
+
+							<div class="fiche-detail">
+								<ul class="fiche-resume">
+									<li>
+										<strong>Type :</strong> {libelleTypeBien(a.typeBien)}
+									</li>
+									<li>
+										<strong>Ville :</strong> {lieu(a)}
+									</li>
+									<li>
+										<strong>Objet :</strong> {libelleTypeVente(a.typeVente)}
+									</li>
+									<li>
+										<strong>Prix :</strong> {prix}
+									</li>
+								</ul>
+
+								<div class="fiche-texte">
+									<h1>{titre}</h1>
+									{paragraphes(a.texte).map((p) => (
+										<p>{p}</p>
+									))}
+
+									{caracteristiques(a).length > 0 && (
+										<>
+											<h2 class="fiche-intertitre">Caractéristiques</h2>
+											<dl class="fiche-liste">
+												{caracteristiques(a).map((l) => (
+													<div>
+														<dt>{l.libelle} :</dt>
+														<dd>{l.valeur}</dd>
+													</div>
+												))}
+											</dl>
+										</>
+									)}
+
+									<h2 class="fiche-intertitre">Diagnostic de performance énergétique</h2>
+									{dpe?.etat === "complet" ? (
+										<>
+											<dl class="fiche-liste">
+												{dpe.energie && (
+													<div>
+														<dt>DPE énergie :</dt>
+														<dd>
+															{dpe.energie.valeur} kWhEP/m².an (classe {dpe.energie.lettre})
+														</dd>
+													</div>
+												)}
+												{dpe.ges && (
+													<div>
+														<dt>DPE gaz à effet de serre :</dt>
+														<dd>
+															{dpe.ges.valeur} kgeqCO2/m².an (classe {dpe.ges.lettre})
+														</dd>
+													</div>
+												)}
+												{dpe.date && (
+													<div>
+														<dt>Date du diagnostic :</dt>
+														<dd>{dpe.date}</dd>
+													</div>
+												)}
+											</dl>
+											<div class="fiche-dpe">
+												{dpe.energie && <EtiquetteDpe type="energie" valeur={dpe.energie.valeur} lettre={dpe.energie.lettre} />}
+												{dpe.ges && <EtiquetteDpe type="ges" valeur={dpe.ges.valeur} lettre={dpe.ges.lettre} />}
+											</div>
+											{dpe.couts && (
+												<p class="fiche-couts">
+													Montant estimé des dépenses annuelles d'énergie pour un usage standard : {dpe.couts}
+													{dpe.anneeReference &&
+														` (prix moyens des énergies indexés au 1er janvier ${dpe.anneeReference}, abonnements compris)`}
+													.
+												</p>
+											)}
+										</>
+									) : (
+										<p>
+											{dpe?.etat === "exempte"
+												? "Bien non soumis au diagnostic de performance énergétique (DPE exempté)."
+												: dpe?.etat === "vierge"
+													? "DPE vierge : consommations non exploitables."
+													: "DPE en cours ou non communiqué."}
+										</p>
+									)}
+								</div>
+							</div>
+
+							<section class="fiche-infos" aria-labelledby="titre-infos">
+								<h2 id="titre-infos">Informations complémentaires</h2>
+								<details class="panneau" open>
+									<summary>Détails complémentaires</summary>
+									<div class="panneau-corps">
+										<h3>{libelleTypeBien(a.typeBien)}</h3>
+										<dl class="fiche-infos-liste">
+											{informations(a).map((l) => (
+												<div>
+													<dt>{l.libelle} :</dt>
+													<dd>{l.valeur}</dd>
+												</div>
+											))}
+										</dl>
+										<div class="fiche-outils">
+											<button type="button" class="btn btn-primaire" data-imprimer hidden>
+												Imprimer cette fiche
+											</button>
+											<a
+												class="btn btn-primaire"
+												href={lienMail("", `Annonce ${titre} – ${prix}`, `Bonjour, cette annonce pourrait t'intéresser : ${url}`)}
+											>
+												Envoyer à un ami
+											</a>
+										</div>
+									</div>
+								</details>
+
+								{carte && (
+									<details class="panneau" data-panneau-carte>
+										<summary>Carte</summary>
+										<div class="panneau-corps">
+											<p class="carte-note">
+												Le bien est situé sur la commune de {a.ville}
+												{a.codePostal && ` (${a.codePostal})`}. Pour préserver la vie privée des vendeurs, la carte
+												est centrée sur la commune, pas sur le bien.
+											</p>
+											{carte.iframe && (
+												<div class="carte-cadre" data-carte={carte.iframe} data-titre={`Plan de ${a.ville}`}>
+													<button type="button" class="btn" data-afficher-carte hidden>
+														Afficher la carte (OpenStreetMap)
+													</button>
+												</div>
+											)}
+											<p>
+												<a href={carte.agrandir} target="_blank" rel="noopener noreferrer">
+													Agrandir le plan<span class="sr-only"> (OpenStreetMap, nouvelle fenêtre)</span>
+												</a>
+											</p>
+										</div>
+									</details>
+								)}
+
+								{negociateur && (
+									<details class="panneau">
+										<summary>Contact</summary>
+										<div class="panneau-corps">
+											<p class="fiche-contact">
+												<strong>{negociateur.nom}</strong>
+												{negociateur.tel && (
+													<>
+														<br />
+														Tél :{" "}
+														{negociateur.telLien ? <a href={negociateur.telLien}>{negociateur.tel}</a> : negociateur.tel}
+													</>
+												)}
+												<br />
+												Email : <a href={`mailto:${negociateur.email}`}>{negociateur.email}</a>
+											</p>
+											<p class="fiche-outils">
+												<a class="btn btn-primaire" href={lienMail(negociateur.email, `Annonce ${titre} (réf. ${a.refClient})`, corpsMail)}>
+													Écrire à propos de cette annonce
+												</a>
+												<a class="btn btn-primaire" href={contactAnnonce}>
+													Contactez-nous à propos de cette annonce
+												</a>
+											</p>
+										</div>
+									</details>
+								)}
+							</section>
+						</article>
+
+						<aside class="fiche-colonne" aria-label="Recherche et contact">
+							<RechercheAnnonces options={choix} variante="colonne" id="recherche-colonne" />
+							<div class="colonne-liens">
+								<a class="btn btn-secondaire btn-bloc" href="/simulateur-pret/">
+									Simuler vos mensualités
+								</a>
+								<a class="btn btn-primaire btn-bloc" href="/contact/?service=negociation&objet=Je%20souhaite%20acheter">
+									Vous souhaitez acheter
+								</a>
+								<a
+									class="btn btn-primaire btn-bloc"
+									href="/contact/?service=negociation&objet=Je%20souhaite%20un%20avis%20de%20valeur"
+								>
+									Vous souhaitez un avis de valeur
+								</a>
+								<a class="btn btn-primaire btn-bloc" href={contactAnnonce}>
+									Contactez-nous à propos de cette annonce
+								</a>
+							</div>
+						</aside>
+					</div>
+				</div>
+			</section>
+		</Base>
+	)
+}
+
+<script>
+	// Galerie (précédent / suivant, vignettes), impression et carte à la
+	// demande. Sans JavaScript : photos défilables, vignettes = ancres, lien
+	// « Agrandir le plan ».
+	const galerie = document.querySelector<HTMLElement>("[data-galerie]");
+	const photos = galerie?.querySelector<HTMLElement>("[data-photos]");
+	if (galerie && photos) {
+		const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const aller = (i: number) => {
+			const n = photos.children.length;
+			const cible = ((i % n) + n) % n;
+			photos.scrollTo({ left: cible * photos.clientWidth, behavior: reduit ? "auto" : "smooth" });
+		};
+		const courante = () => Math.round(photos.scrollLeft / photos.clientWidth);
+		galerie.querySelectorAll<HTMLButtonElement>("[data-precedent], [data-suivant]").forEach((b) => {
+			b.hidden = false;
+			b.addEventListener("click", () => aller(courante() + (b.hasAttribute("data-suivant") ? 1 : -1)));
+		});
+		galerie.querySelectorAll<HTMLAnchorElement>("[data-vignette]").forEach((v) => {
+			v.addEventListener("click", (e) => {
+				e.preventDefault();
+				aller(Number(v.dataset.vignette));
+			});
+		});
+	}
+
+	const ouvrirPanneaux = () => document.querySelectorAll("details.panneau").forEach((d) => d.setAttribute("open", ""));
+	addEventListener("beforeprint", ouvrirPanneaux);
+	document.querySelectorAll<HTMLButtonElement>("[data-imprimer]").forEach((b) => {
+		b.hidden = false;
+		b.addEventListener("click", () => {
+			ouvrirPanneaux();
+			print();
+		});
+	});
+
+	// OpenStreetMap n'est chargé qu'à la demande : aucune requête vers un
+	// tiers tant que la personne n'a pas cliqué.
+	document.querySelectorAll<HTMLElement>("[data-carte]").forEach((cadre) => {
+		const bouton = cadre.querySelector<HTMLButtonElement>("[data-afficher-carte]");
+		if (!bouton) return;
+		bouton.hidden = false;
+		bouton.addEventListener("click", () => {
+			const iframe = document.createElement("iframe");
+			iframe.src = cadre.dataset.carte ?? "";
+			iframe.title = cadre.dataset.titre ?? "Plan";
+			iframe.loading = "lazy";
+			iframe.referrerPolicy = "no-referrer";
+			iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-popups");
+			cadre.replaceChildren(iframe);
+		});
+	});
+</script>
+
+<style>
+	.fiche-absente {
+		text-align: center;
+	}
+	.fiche-section {
+		padding-top: 40px;
+	}
+	.btn-secondaire {
+		border: 1px solid var(--c-bandeau);
+		background: var(--c-bandeau);
+		color: var(--c-blanc);
+	}
+	.btn-secondaire:hover,
+	.btn-secondaire:focus-visible {
+		border-color: var(--c-bordeaux);
+		background: var(--c-bordeaux);
+		color: var(--c-blanc);
+	}
+	.fiche-nav {
+		display: grid;
+		gap: 10px var(--gouttiere);
+		margin-bottom: 40px;
+	}
+	.fiche-nav .btn,
+	.colonne-liens .btn,
+	.fiche-outils .btn {
+		padding: 6px 12px;
+		font-family: var(--f-menu);
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+	.fiche-nav > span:empty {
+		display: none;
+	}
+	.fiche-grille {
+		display: grid;
+		gap: 30px var(--gouttiere);
+	}
+	.fiche {
+		min-width: 0;
+		background: var(--c-blanc);
+	}
+
+	/* Galerie : défilement horizontal avec accroche (CSS) */
+	.galerie {
+		position: relative;
+		padding: 15px 15px 0;
+	}
+	.galerie-photos {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		overflow-x: auto;
+		list-style: none;
+		scroll-snap-type: x mandatory;
+		scrollbar-width: none;
+	}
+	.galerie-photos li {
+		flex: 0 0 100%;
+		scroll-snap-align: start;
+	}
+	.galerie-photos img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 848 / 600;
+		object-fit: cover;
+	}
+	.galerie-cadre {
+		position: relative;
+	}
+	.galerie-etiquettes {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		display: flex;
+		margin: 0;
+		font-family: var(--f-menu);
+		font-size: 13px;
+		font-weight: 700;
+		pointer-events: none;
+	}
+	.galerie-etiquettes span {
+		padding: 6px 15px;
+	}
+	.etiquette-prix {
+		background: var(--c-bordeaux);
+		color: var(--c-blanc);
+	}
+	.etiquette-type {
+		background: var(--c-titre);
+		color: var(--c-blanc);
+	}
+	.galerie-bouton {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 34px;
+		height: 34px;
+		border: 2px solid var(--c-blanc);
+		background: rgb(0 0 0 / 35%);
+		color: var(--c-blanc);
+		font-size: 24px;
+		line-height: 1;
+		cursor: pointer;
+	}
+	.galerie-precedent {
+		left: 10px;
+	}
+	.galerie-suivant {
+		right: 10px;
+	}
+	.galerie-vignettes {
+		display: flex;
+		gap: 10px;
+		margin: 15px 0 0;
+		padding: 0 0 15px;
+		overflow-x: auto;
+		list-style: none;
+	}
+	.galerie-vignettes li {
+		flex: 0 0 auto;
+	}
+	.galerie-vignettes img {
+		display: block;
+		width: 110px;
+		height: 82px;
+		object-fit: cover;
+	}
+
+	/* Détail */
+	.fiche-detail {
+		display: grid;
+		gap: 20px var(--gouttiere);
+		padding: 30px;
+		border-top: 1px solid var(--c-gris);
+	}
+	.fiche-resume {
+		align-self: start;
+		margin: 0;
+		padding: 15px 20px;
+		border: 1px solid var(--c-titre);
+		list-style: none;
+		font-size: 13px;
+	}
+	.fiche-resume strong {
+		color: var(--c-titre);
+	}
+	.fiche-texte h1 {
+		margin-bottom: 25px;
+		color: var(--c-titre);
+	}
+	.fiche-texte p {
+		margin-bottom: 12px;
+		font-size: 13px;
+	}
+	.fiche-intertitre {
+		margin: 25px 0 12px;
+		font-size: 14px;
+	}
+	.fiche-liste {
+		margin: 0 0 15px;
+		font-size: 13px;
+	}
+	.fiche-liste div,
+	.fiche-infos-liste div {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 6px;
+	}
+	.fiche-liste dt {
+		color: var(--c-titre);
+	}
+	.fiche-liste dd,
+	.fiche-infos-liste dd {
+		margin: 0;
+	}
+	.fiche-dpe {
+		display: grid;
+		gap: 20px;
+		margin-bottom: 15px;
+	}
+	.fiche-couts {
+		font-size: 12px;
+	}
+
+	/* Informations complémentaires (accordéon) */
+	.fiche-infos {
+		padding: 0 30px 30px;
+	}
+	.fiche-infos h2 {
+		margin-bottom: 15px;
+		font-size: 16px;
+	}
+	.panneau {
+		margin-bottom: 10px;
+		border: 1px solid var(--c-bordure);
+	}
+	.panneau[open] {
+		border-color: var(--c-titre);
+	}
+	.panneau summary {
+		position: relative;
+		padding: 14px 45px 14px 15px;
+		color: var(--c-titre);
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		list-style: none;
+		cursor: pointer;
+	}
+	.panneau summary::-webkit-details-marker {
+		display: none;
+	}
+	.panneau summary::after {
+		content: "+";
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		font-size: 18px;
+		transform: translateY(-55%);
+	}
+	.panneau[open] summary::after {
+		content: "−";
+	}
+	.panneau-corps {
+		padding: 0 15px 15px;
+		font-size: 13px;
+	}
+	.panneau-corps h3 {
+		font-size: 16px;
+	}
+	.fiche-infos-liste {
+		margin: 0 0 20px;
+	}
+	.fiche-infos-liste div {
+		padding: 8px 15px;
+	}
+	.fiche-infos-liste div:nth-child(even) {
+		background: var(--c-gris);
+	}
+	.fiche-infos-liste dt {
+		color: var(--c-titre);
+		font-weight: 700;
+	}
+	.fiche-outils {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin: 0;
+	}
+	.carte-note {
+		font-size: 12px;
+	}
+	.carte-cadre {
+		display: grid;
+		place-items: center;
+		min-height: 300px;
+		margin-bottom: 10px;
+		background: var(--c-gris);
+	}
+	.carte-cadre :global(iframe) {
+		width: 100%;
+		height: 300px;
+		border: 0;
+	}
+
+	/* Colonne */
+	.colonne-liens {
+		display: grid;
+		gap: 8px;
+		margin-top: 30px;
+	}
+	.colonne-liens .btn {
+		font-size: 11px;
+	}
+
+	@media (min-width: 768px) {
+		.fiche-nav {
+			grid-template-columns: repeat(4, 1fr);
+		}
+		.fiche-nav > span:empty {
+			display: block;
+		}
+		.fiche-detail {
+			grid-template-columns: 1fr 2fr;
+		}
+		.fiche-dpe {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+	@media (min-width: 992px) {
+		.fiche-grille {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+		}
+	}
+
+	/* Impression : la fiche seule, panneaux ouverts (script beforeprint). */
+	@media print {
+		:global(.entete),
+		:global(.pied),
+		:global(.lien-evitement),
+		.fiche-nav,
+		.fiche-colonne,
+		.galerie-bouton,
+		.galerie-vignettes,
+		.fiche-outils,
+		.carte-cadre,
+		.galerie-photos li:not(:first-child) {
+			display: none !important;
+		}
+		.fiche-section {
+			padding: 0;
+			background: none;
+		}
+		.fiche-grille {
+			display: block;
+		}
+		.galerie-photos {
+			overflow: visible;
+		}
+		.galerie-photos img {
+			max-height: 9cm;
+		}
+		.fiche-detail {
+			grid-template-columns: 1fr 2fr;
+			padding: 15px 0;
+		}
+		.fiche-infos {
+			padding: 0;
+		}
+		.panneau summary::after {
+			content: none;
+		}
+		.fiche,
+		.panneau {
+			break-inside: auto;
+		}
+		.fiche-dpe {
+			grid-template-columns: 1fr 1fr;
+			break-inside: avoid;
+		}
+	}
+</style>
