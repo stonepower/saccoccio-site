@@ -111,11 +111,25 @@ jobs:
           retention-days: 30
           if-no-files-found: error
 
-      - name: Migrations D1 (production)
+      # Schéma EmDash, après la sauvegarde ci-dessus. Le script vérifie que
+      # la cible est bien la D1 de production avant toute écriture. En
+      # production, un verrou de migration n'est JAMAIS repris : le job
+      # échoue avec l'id du verrou (voir CLAUDE.md).
+      - name: Migrations EmDash (production)
+        env:
+          EXPECTED_D1_NAME: saccoccio-db-prod
+          EXPECTED_D1_ID: 32fd88c5-38e1-4498-97bc-661dd4c1a3f6
+        run: node scripts/emdash-migrate.mjs production
+
+      # Nos propres tables (dossier migrations/).
+      - name: Migrations D1 du projet (production)
         run: npx wrangler d1 migrations apply saccoccio-db-prod --remote --env production
 
       - name: Déploiement (production)
         run: npx wrangler deploy --env production
+
+      - name: Vérification des migrations EmDash (production)
+        run: npx emdash migrate --check --wrangler-config wrangler.jsonc --wrangler-env production
 
       - name: Smoke test
         run: scripts/smoke-test.sh "$PRODUCTION_URL" production

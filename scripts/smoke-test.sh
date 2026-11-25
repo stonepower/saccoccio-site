@@ -23,6 +23,21 @@ done
 grep -q '<html lang="fr"' "$TMP/home.html" || fail "La page d'accueil n'a pas <html lang=\"fr\">."
 echo "✓ GET / → 200, lang=\"fr\""
 
+# 1 bis. Le site doit rester disponible au-delà d'une minute. Un premier 200
+# ne suffit pas : une migration coupée en cours de requête laisse un verrou,
+# et EmDash ne répond 503 qu'une fois ce verrou vieux de plus de 60 s.
+STABILITY_CHECKS="${SMOKE_STABILITY_CHECKS:-3}"
+STABILITY_INTERVAL="${SMOKE_STABILITY_INTERVAL:-20}"
+for check in $(seq 1 "$STABILITY_CHECKS"); do
+	sleep "$STABILITY_INTERVAL"
+	status="$(curl -sS -o /dev/null -w '%{http_code}' "$URL/" || true)"
+	if [ "$status" = "503" ]; then
+		fail "GET / répond 503 au contrôle de stabilité $check/$STABILITY_CHECKS (migrations EmDash en attente ou verrou bloqué ?)."
+	fi
+	[ "$status" = "200" ] || fail "GET / répond HTTP ${status:-erreur} au contrôle de stabilité $check/$STABILITY_CHECKS."
+	echo "✓ contrôle de stabilité $check/$STABILITY_CHECKS (+$((check * STABILITY_INTERVAL)) s) : GET / → 200"
+done
+
 # 2. Indexation selon l'environnement.
 robots="$(curl -sS -f "$URL/robots.txt")" || fail "robots.txt inaccessible."
 if [ "$ENVIRONMENT" = "staging" ]; then
