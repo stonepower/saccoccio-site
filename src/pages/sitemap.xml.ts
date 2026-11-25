@@ -15,6 +15,7 @@ const CHEMINS = [
 	...PAGES.map((p) => p.url),
 	"/annonces/",
 	"/contact/",
+	"/simulateur-pret/",
 	"/politique-de-confidentialite/",
 	"/plan-du-site/",
 ];
