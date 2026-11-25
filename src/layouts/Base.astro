@@ -11,6 +11,7 @@ import "@fontsource/lato/latin-700.css";
 import "../styles/global.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import { isIndexable } from "../lib/site-env";
 
 interface Props {
 	title: string;
@@ -20,6 +21,12 @@ interface Props {
 }
 
 const { title, description, noindex = false } = Astro.props;
+
+// Hors production, la page porte aussi une meta robots noindex : les pages
+// prérendues sont servies comme assets statiques, sans passer par le
+// middleware qui pose l'en-tête X-Robots-Tag (voir aussi astro.config.mjs,
+// fichier _headers). SITE_ENV est connu au build (CLOUDFLARE_ENV).
+const robotsNoindex = noindex || !isIndexable();
 
 if (noindex) {
 	Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
@@ -33,7 +40,7 @@ if (noindex) {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		{robotsNoindex && <meta name="robots" content="noindex, nofollow" />}
 		<meta name="theme-color" content="#9e093c" />
 		<link rel="icon" href="/favicon.ico" sizes="48x48" />
 		<slot name="head" />

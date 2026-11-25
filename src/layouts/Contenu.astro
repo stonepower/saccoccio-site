@@ -1,0 +1,166 @@
+---
+/**
+ * Gabarit des pages de contenu (capture reference/design-kit/captures/
+ * page-contenu-bureau.jpg) : carrousel, section grise, fil d'Ariane, titre
+ * de la page. Le corps est fourni par la page, dans des `.contenu-section`.
+ *
+ * Les styles du texte importé (`.contenu-texte`) sont globaux à ce gabarit
+ * (`:global`) : le HTML vient du kit, via `set:html`.
+ */
+import Carrousel from "../components/Carrousel.astro";
+import FilAriane from "../components/FilAriane.astro";
+import type { MaillonAriane } from "../data/pages";
+import Base from "./Base.astro";
+
+interface Props {
+	title: string;
+	description: string;
+	h1: string;
+	ariane: readonly MaillonAriane[];
+}
+
+const { title, description, h1, ariane } = Astro.props;
+---
+
+<Base title={title} description={description}>
+	<Carrousel />
+	<div class="section-grise contenu">
+		<div class="conteneur">
+			<FilAriane elements={ariane} />
+			<h1>{h1}</h1>
+			<slot name="entete" />
+		</div>
+		<slot />
+	</div>
+</Base>
+
+<style>
+	.contenu {
+		padding: 40px 0 30px;
+	}
+	.contenu h1 {
+		margin-bottom: 30px;
+	}
+
+	/* Barre de sections (page longue à ancres) */
+	.contenu :global(.sous-nav) {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 4px;
+		padding: 0 0 40px;
+		font-family: var(--f-menu);
+	}
+	.contenu :global(.sous-nav .btn) {
+		padding: 6px 10px;
+		font-family: var(--f-menu);
+		font-size: 13px;
+	}
+
+	/* Sections : grises, ou blanches en encart (une sur deux) */
+	.contenu :global(.contenu-section) {
+		padding: 10px 0 30px;
+		scroll-margin-top: 10px;
+	}
+	.contenu :global(.contenu-section.section-blanche) {
+		padding: 0;
+	}
+	.contenu :global(.section-blanche > .conteneur > .encart) {
+		margin-bottom: 30px;
+		padding: 40px calc(var(--gouttiere) / 2) 20px;
+		background: var(--c-blanc);
+	}
+	.contenu :global(.contenu-titre) {
+		margin-bottom: 30px;
+		color: var(--c-bordeaux);
+		font-size: 20px;
+	}
+
+	/* Texte importé du kit */
+	.contenu :global(.contenu-texte) {
+		padding-left: 15px;
+		overflow-wrap: break-word;
+	}
+	.contenu :global(.contenu-texte h2),
+	.contenu :global(.contenu-texte h3),
+	.contenu :global(.contenu-texte h4),
+	.contenu :global(.contenu-texte h5) {
+		margin: 30px 0 20px;
+		color: var(--c-titre);
+		line-height: 1.2;
+	}
+	.contenu :global(.contenu-texte h2) {
+		font-size: 18px;
+	}
+	.contenu :global(.contenu-texte h3) {
+		font-size: 15px;
+	}
+	.contenu :global(.contenu-texte h4),
+	.contenu :global(.contenu-texte h5) {
+		font-size: 13px;
+	}
+	/* Page à sections : les titres ont été décalés d'un niveau (h2 → h3…) */
+	.contenu :global(.contenu-texte.decale h3) {
+		font-size: 18px;
+	}
+	.contenu :global(.contenu-texte.decale h4) {
+		font-size: 15px;
+	}
+	.contenu :global(.contenu-texte > :first-child) {
+		margin-top: 0;
+	}
+	.contenu :global(.contenu-texte ul),
+	.contenu :global(.contenu-texte ol) {
+		margin: 0 0 20px;
+	}
+	.contenu :global(.contenu-texte blockquote) {
+		margin: 0 0 20px;
+		padding: 10px 20px;
+		border-left: 4px solid var(--c-bordure);
+		font-style: italic;
+	}
+	.contenu :global(.contenu-texte table) {
+		display: block;
+		max-width: 100%;
+		margin-bottom: 20px;
+		overflow-x: auto;
+		border-collapse: collapse;
+	}
+	.contenu :global(.contenu-texte td),
+	.contenu :global(.contenu-texte th) {
+		padding: 4px 8px;
+		border: 1px solid var(--c-bordure);
+		vertical-align: top;
+	}
+	.contenu :global(.contenu-texte [id]) {
+		scroll-margin-top: 10px;
+	}
+
+	/* Équipe : noms et fonctions, sans photo */
+	.contenu :global(.equipe) {
+		display: grid;
+		gap: 10px var(--gouttiere);
+		margin: 0 0 30px;
+		padding: 0;
+		list-style: none;
+	}
+	.contenu :global(.equipe-membre) {
+		line-height: 1.4;
+	}
+	.contenu :global(.equipe-membre strong) {
+		display: block;
+		color: var(--c-titre);
+		font-size: 13px;
+		text-transform: uppercase;
+	}
+	@media (min-width: 768px) {
+		.contenu :global(.equipe) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	@media (min-width: 992px) {
+		.contenu :global(.equipe) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>

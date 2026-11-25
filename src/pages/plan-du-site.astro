@@ -1,0 +1,60 @@
+---
+/**
+ * Plan du site : toutes les pages éditoriales, groupées par rubrique (y
+ * compris celles qui sont hors menu, comme les pages « Conseils »).
+ * Prérendu au build.
+ */
+import { ORDRE_RUBRIQUES, PAGES } from "../data/pages";
+import Contenu from "../layouts/Contenu.astro";
+
+export const prerender = true;
+
+/** Intitulés des rubriques du kit dans le plan du site. */
+const INTITULES: Readonly<Record<string, string>> = {
+	"Office notarial": "L'office notarial",
+	"Pied de page": "Informations légales",
+};
+
+const groupes = ORDRE_RUBRIQUES.map((rubrique) => ({
+	titre: INTITULES[rubrique] ?? rubrique,
+	pages: PAGES.filter((p) => p.rubrique === rubrique),
+})).filter((g) => g.pages.length > 0);
+
+const autres = [
+	{ label: "Accueil", href: "/" },
+	{ label: "Annonces immobilières", href: "/annonces/" },
+	{ label: "Contact", href: "/contact/" },
+];
+---
+
+<Contenu
+	title="Plan du site – Saccoccio & Associés, notaires à Manosque"
+	description="Plan du site de l'office notarial Saccoccio & Associés : l'office, les informations juridiques, les conseils, les contacts et les informations légales."
+	h1="Plan du site"
+	ariane={[{ label: "Plan du site" }]}
+>
+	<section class="contenu-section">
+		<div class="conteneur">
+			<div class="contenu-texte plan">
+				<h2>Le site</h2>
+				<ul>
+					{autres.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+				</ul>
+				{
+					groupes.map((g) => (
+						<>
+							<h2>{g.titre}</h2>
+							<ul>
+								{g.pages.map((p) => (
+									<li>
+										<a href={p.url}>{p.h1}</a>
+									</li>
+								))}
+							</ul>
+						</>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</Contenu>
