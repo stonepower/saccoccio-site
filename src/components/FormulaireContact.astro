@@ -1,44 +1,257 @@
 ---
 /**
- * Formulaire de contact (mise en forme seulement : l'envoi et la protection
- * anti-spam arriveront avec la vraie page Contact).
+ * Formulaire de contact (capture reference/design-kit/captures/contact-*).
+ *
+ * Fonctionne sans JavaScript : POST classique vers `action`, qui redirige
+ * vers /contact/?envoye=1 ou réaffiche la page avec les erreurs et les
+ * champs conservés (src/pages/contact/envoi.astro). Avec JavaScript, l'envoi
+ * se fait sans recharger la page (script ci-dessous) et les messages sont
+ * annoncés par la zone `aria-live`.
+ *
+ * Anti-spam : widget Cloudflare Turnstile (si `siteKey` est fourni), champ
+ * piège caché et limites de taille (mêmes valeurs que src/lib/contact.ts).
  */
+import { EMAIL_ETUDE, TELEPHONE_ETUDE } from "../data/contact";
+import { ACTION_TURNSTILE, CHAMP_PIEGE, type Erreurs, LIMITES, type Valeurs } from "../lib/contact";
+
 interface Props {
 	action: string;
 	contacts: readonly string[];
+	/** Clé publique Turnstile ; sans elle, pas de widget (page de démo). */
+	siteKey?: string;
+	valeurs?: Valeurs;
+	erreurs?: Erreurs;
+	/** Message général (échec, vérification refusée…), affiché dans la zone d'état. */
+	message?: string;
 }
 
-const { action, contacts } = Astro.props;
+const { action, contacts, siteKey, valeurs, erreurs = {}, message } = Astro.props;
+const v = valeurs;
+const aErreurs = Object.keys(erreurs).length > 0;
+const resume = message ?? (aErreurs ? "Le formulaire contient des erreurs : corrigez les champs signalés." : "");
+
+/** Attributs d'accessibilité d'un champ selon son erreur éventuelle. */
+const etat = (champ: keyof Erreurs): { "aria-invalid"?: "true"; "aria-describedby"?: string } =>
+	erreurs[champ] ? { "aria-invalid": "true", "aria-describedby": `erreur-${champ}` } : {};
 ---
 
-<form class="formulaire" method="post" action={action}>
+<form
+	class="formulaire"
+	id="formulaire-contact"
+	method="post"
+	action={action}
+	data-formulaire-contact
+	data-telephone={TELEPHONE_ETUDE}
+>
+	<div
+		id="statut-envoi"
+		class:list={["formulaire-statut", { erreur: resume }]}
+		role="status"
+		aria-live="polite"
+		tabindex="-1"
+		data-statut
+	>
+		{resume && <p>{resume}</p>}
+	</div>
+
 	<div class="formulaire-champ">
 		<label for="contact-nom">Nom / Prénom*</label>
-		<input class="champ" type="text" id="contact-nom" name="nom" autocomplete="name" required />
+		<input
+			class="champ"
+			type="text"
+			id="contact-nom"
+			name="nom"
+			autocomplete="name"
+			required
+			maxlength={LIMITES.nom}
+			value={v?.nom}
+			{...etat("nom")}
+		/>
+		{erreurs.nom && <p class="erreur-champ" id="erreur-nom">{erreurs.nom}</p>}
 	</div>
 	<div class="formulaire-champ">
-		<label for="contact-email">E-mail</label>
-		<input class="champ" type="email" id="contact-email" name="email" autocomplete="email" />
+		<label for="contact-email">E-mail*</label>
+		<input
+			class="champ"
+			type="email"
+			id="contact-email"
+			name="email"
+			autocomplete="email"
+			required
+			maxlength={LIMITES.email}
+			value={v?.email}
+			{...etat("email")}
+		/>
+		{erreurs.email && <p class="erreur-champ" id="erreur-email">{erreurs.email}</p>}
 	</div>
 	<div class="formulaire-champ">
-		<label for="contact-tel">Téléphone :</label>
-		<input class="champ" type="tel" id="contact-tel" name="telephone" autocomplete="tel" />
+		<label for="contact-tel">Téléphone (facultatif) :</label>
+		<input
+			class="champ"
+			type="tel"
+			id="contact-tel"
+			name="telephone"
+			autocomplete="tel"
+			maxlength={LIMITES.telephone}
+			value={v?.telephone}
+			{...etat("telephone")}
+		/>
+		{erreurs.telephone && <p class="erreur-champ" id="erreur-telephone">{erreurs.telephone}</p>}
 	</div>
 	<div class="formulaire-champ">
 		<label for="contact-destinataire">Contact:</label>
-		<select class="champ" id="contact-destinataire" name="destinataire">
+		<select class="champ" id="contact-destinataire" name="destinataire" {...etat("destinataire")}>
 			<option value="">-- Choisissez votre contact --</option>
-			{contacts.map((c) => <option>{c}</option>)}
+			{contacts.map((c) => <option selected={v?.destinataire === c}>{c}</option>)}
 		</select>
+		{erreurs.destinataire && <p class="erreur-champ" id="erreur-destinataire">{erreurs.destinataire}</p>}
 	</div>
 	<div class="formulaire-champ formulaire-large">
 		<label for="contact-message">Message:*</label>
-		<textarea class="champ" id="contact-message" name="message" rows="6" required></textarea>
+		<textarea
+			class="champ"
+			id="contact-message"
+			name="message"
+			rows="6"
+			required
+			maxlength={LIMITES.message}
+			{...etat("message")}>{v?.message}</textarea
+		>
+		{erreurs.message && <p class="erreur-champ" id="erreur-message">{erreurs.message}</p>}
+	</div>
+
+	<!-- Champ piège : caché aux personnes (et aux lecteurs d'écran), rempli par les robots. -->
+	<div class="formulaire-piege" aria-hidden="true">
+		<label for="contact-piege">Ne pas remplir ce champ</label>
+		<input type="text" id="contact-piege" name={CHAMP_PIEGE} tabindex="-1" autocomplete="off" />
+	</div>
+
+	<div class="formulaire-champ formulaire-large formulaire-consentement">
+		<input
+			type="checkbox"
+			id="contact-consentement"
+			name="consentement"
+			value="oui"
+			required
+			checked={v?.consentement}
+			{...etat("consentement")}
+		/>
+		<label for="contact-consentement">
+			J'accepte que les informations saisies soient utilisées par l'étude pour répondre à ma demande. Voir la <a
+				href="/politique-de-confidentialite/">politique de confidentialité</a
+			>.*
+		</label>
+		{erreurs.consentement && <p class="erreur-champ" id="erreur-consentement">{erreurs.consentement}</p>}
+	</div>
+
+	<div class="formulaire-champ formulaire-verification">
+		{
+			siteKey && (
+				<>
+					<div class="cf-turnstile" data-sitekey={siteKey} data-action={ACTION_TURNSTILE} data-language="fr" />
+					<noscript>
+						<p class="erreur-champ">
+							La vérification anti-spam nécessite JavaScript. Vous pouvez aussi appeler l'étude au {TELEPHONE_ETUDE}{" "}
+							ou écrire à <a href={`mailto:${EMAIL_ETUDE}`}>{EMAIL_ETUDE}</a>.
+						</p>
+					</noscript>
+				</>
+			)
+		}
 	</div>
 	<div class="formulaire-champ formulaire-envoi">
 		<button type="submit" class="btn btn-primaire">Envoyer</button>
 	</div>
+	<p class="formulaire-mention formulaire-large">* Champs obligatoires.</p>
 </form>
+
+{siteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+<script>
+	// Amélioration progressive : envoi sans rechargement. Sans ce script, le
+	// formulaire reste un POST classique.
+	type Reponse = {
+		statut: "envoye" | "invalide" | "refuse" | "echec";
+		message: string;
+		erreurs?: Record<string, string>;
+	};
+	type Turnstile = { reset(el?: Element): void };
+
+	const form = document.querySelector<HTMLFormElement>("[data-formulaire-contact]");
+	const statut = form?.querySelector<HTMLElement>("[data-statut]");
+	const succes = document.querySelector<HTMLElement>("[data-message-envoye]");
+
+	function afficher(texte: string, erreur: boolean) {
+		if (!statut) return;
+		statut.classList.toggle("erreur", erreur);
+		statut.textContent = "";
+		const p = document.createElement("p");
+		p.textContent = texte;
+		statut.appendChild(p);
+	}
+
+	function effacerErreurs() {
+		form?.querySelectorAll(".erreur-champ[data-js]").forEach((e) => e.remove());
+		form?.querySelectorAll("[aria-invalid]").forEach((e) => {
+			e.removeAttribute("aria-invalid");
+			e.removeAttribute("aria-describedby");
+		});
+	}
+
+	function erreurChamp(nom: string, texte: string) {
+		const champ = form?.querySelector<HTMLElement>(`[name="${nom}"]`);
+		if (!champ) return;
+		const p = document.createElement("p");
+		p.className = "erreur-champ";
+		p.id = `erreur-${nom}`;
+		p.dataset.js = "";
+		p.textContent = texte;
+		champ.setAttribute("aria-invalid", "true");
+		champ.setAttribute("aria-describedby", p.id);
+		champ.closest(".formulaire-champ")?.appendChild(p);
+	}
+
+	// Retour d'un envoi sans JavaScript (redirection vers ?envoye=1).
+	if (succes && new URLSearchParams(location.search).get("envoye") === "1") {
+		succes.hidden = false;
+		succes.focus();
+	}
+
+	form?.addEventListener("submit", async (evenement) => {
+		evenement.preventDefault();
+		const bouton = form.querySelector<HTMLButtonElement>("button[type=submit]");
+		if (bouton) bouton.disabled = true;
+		effacerErreurs();
+		afficher("Envoi en cours…", false);
+		try {
+			const reponse = await fetch(form.action, {
+				method: "POST",
+				body: new FormData(form),
+				headers: { Accept: "application/json" },
+			});
+			const donnees = (await reponse.json()) as Reponse;
+			if (donnees.statut === "envoye") {
+				form.reset();
+				afficher(donnees.message, false);
+			} else {
+				for (const [nom, texte] of Object.entries(donnees.erreurs ?? {})) erreurChamp(nom, texte);
+				afficher(donnees.message, true);
+			}
+		} catch {
+			afficher(
+				`Votre message n'a pas pu être envoyé. Réessayez plus tard ou appelez l'étude au ${form.dataset.telephone}.`,
+				true,
+			);
+		} finally {
+			if (bouton) bouton.disabled = false;
+			// Un jeton Turnstile ne sert qu'une fois : on en demande un nouveau.
+			const t = (window as unknown as { turnstile?: Turnstile }).turnstile;
+			const widget = form.querySelector(".cf-turnstile");
+			if (t && widget) t.reset(widget);
+			statut?.focus();
+		}
+	});
+</script>
 
 <style>
 	.formulaire {
@@ -54,15 +267,72 @@ const { action, contacts } = Astro.props;
 		min-width: 148px;
 		padding-block: 5px;
 	}
+	.formulaire-statut:empty {
+		display: none;
+	}
+	.formulaire-statut {
+		margin-bottom: 20px;
+		padding: 10px 15px;
+		border-left: 4px solid var(--c-bordeaux);
+		background: var(--c-gris);
+		color: var(--c-titre);
+	}
+	.formulaire-statut :global(p) {
+		margin: 0;
+	}
+	.formulaire-statut.erreur {
+		color: var(--c-bordeaux);
+		font-weight: 700;
+	}
+	.formulaire :global(.erreur-champ) {
+		margin: 5px 0 0;
+		color: var(--c-bordeaux);
+		font-size: 13px;
+	}
+	.formulaire [aria-invalid="true"] {
+		border-color: var(--c-bordeaux);
+	}
+	.formulaire-consentement {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0 10px;
+		align-items: start;
+		font-size: 13px;
+	}
+	.formulaire-consentement label {
+		font-weight: 400;
+	}
+	.formulaire-consentement input {
+		margin-top: 3px;
+	}
+	.formulaire-consentement .erreur-champ {
+		grid-column: 1 / -1;
+	}
+	.formulaire-verification {
+		min-height: 65px;
+	}
+	.formulaire-mention {
+		margin: 0;
+		font-size: 12px;
+	}
+	.formulaire-piege {
+		position: absolute;
+		left: -10000px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
 	@media (min-width: 768px) {
 		.formulaire {
 			grid-template-columns: 1fr 1fr;
 		}
+		.formulaire-statut,
 		.formulaire-large {
 			grid-column: 1 / -1;
 		}
 		.formulaire-envoi {
-			grid-column: 2;
+			align-self: center;
+			justify-self: center;
 		}
 	}
 </style>

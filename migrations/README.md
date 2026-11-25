@@ -1,11 +1,14 @@
 # Migrations D1
 
 EmDash crée et fait évoluer **lui-même** son schéma (tables `_emdash_*`,
-`options`, `users`, etc.) au démarrage du Worker (`migrations.runtime: "auto"`,
-valeur par défaut). Ce dossier est donc vide pour l'instant.
+`options`, `users`, etc.) : les workflows de déploiement l'appliquent avec
+`scripts/emdash-migrate.mjs`. Ce dossier ne contient que **nos** tables,
+appliquées ensuite par `wrangler d1 migrations apply` (table de suivi
+`d1_migrations`, distincte de celle d'EmDash).
 
-Il accueillera nos propres tables (par ex. les annonces Immonot), appliquées
-par `wrangler d1 migrations apply` dans les workflows de déploiement.
+| Migration | Rôle |
+| --- | --- |
+| `0001_contact_messages.sql` | Messages du formulaire de contact en mode `store` (purgés à 30 jours par le Worker, jamais affichés) |
 
 - Nommage : `NNNN_description.sql` (créé avec
   `npx wrangler d1 migrations create saccoccio-db-staging description`).

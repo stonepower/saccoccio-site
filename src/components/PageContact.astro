@@ -1,0 +1,193 @@
+---
+/**
+ * Contenu de la page Contact (capture reference/design-kit/captures/
+ * contact-bureau.jpg et contact-mobile.jpg, HTML reference/design-kit/pages/
+ * contact.html) : coordonnées et horaires des trois études, formulaire, et
+ * colonne « Notaires » / « Service négociation ».
+ *
+ * Utilisé par /contact/ (prérendue) et par /contact/envoi/ (rendue par le
+ * Worker pour réafficher le formulaire avec les erreurs). La carte Google
+ * Maps de l'ancien site est remplacée par des liens vers les plans d'accès
+ * (aucun traceur).
+ */
+import { env } from "cloudflare:workers";
+import { CONTACTS, NEGOCIATION } from "../data/contact";
+import { ETUDE, SITES } from "../data/site";
+import type { Erreurs, Valeurs } from "../lib/contact";
+import Base from "../layouts/Base.astro";
+import Carrousel from "./Carrousel.astro";
+import FormulaireContact from "./FormulaireContact.astro";
+
+interface Props {
+	valeurs?: Valeurs;
+	erreurs?: Erreurs;
+	message?: string;
+	noindex?: boolean;
+}
+
+const { valeurs, erreurs, message, noindex = false } = Astro.props;
+const bureaux = SITES.flatMap((s) => s.bureaux);
+// Colonnes de l'ancienne page : Manosque (2 bureaux), Gréoux, Valensole.
+const colonnes = SITES.map((s) => s.bureaux);
+const telephone = (b: (typeof bureaux)[number]) => b.lignes.find((l) => l.icone === "telephone")?.texte;
+const fax = (b: (typeof bureaux)[number]) => b.lignes.find((l) => l.icone === "fax")?.texte.replace(/^Fax : /, "");
+const adresse = (b: (typeof bureaux)[number]) =>
+	b.lignes
+		.filter((l) => l.icone === "adresse")
+		.map((l) => l.texte)
+		.join(" - ");
+---
+
+<Base
+	title="Contact – Saccoccio & Associés, notaires à Manosque, Gréoux-les-Bains et Valensole"
+	description="Contactez l'office notarial Saccoccio & Associés : coordonnées et horaires des études de Manosque, Gréoux-les-Bains et Valensole, et formulaire de contact."
+	noindex={noindex}
+>
+	<Carrousel />
+	<section class="section contact" aria-labelledby="titre-contact">
+		<div class="conteneur contact-grille">
+			<div>
+				<h1 id="titre-contact" class="sr-only">Contacter l'office notarial</h1>
+
+				<p class="contact-envoye" id="message-envoye" role="status" tabindex="-1" hidden data-message-envoye>
+					Merci, votre message a bien été envoyé à l'étude. Nous vous répondrons dans les meilleurs délais.
+				</p>
+
+				<nav class="contact-liens" aria-label="Accès aux études">
+					<a class="btn" href="/contact/plans-acces-horaires/">Plans d'accès et horaires des trois études</a>
+					<a class="btn" href="/contact/coordonnees/">Liste des coordonnées</a>
+				</nav>
+
+				<div class="contact-sites">
+					{
+						colonnes.map((liste) => (
+							<div>
+								{liste.map((b) => (
+									<div class="contact-bureau">
+										<strong>{b.intitule}</strong>
+										<address>{adresse(b)}</address>
+										<p>
+											<strong>Tél.</strong> {telephone(b)}
+											{fax(b) && (
+												<>
+													<br />
+													<strong>Fax.</strong> {fax(b)}
+												</>
+											)}
+										</p>
+										{b.horaires?.map((h) => (
+											<p>
+												<strong>{h.titre}</strong>
+												{h.lignes.map((l) => (
+													<>
+														<br />
+														{l}
+													</>
+												))}
+											</p>
+										))}
+									</div>
+								))}
+							</div>
+						))
+					}
+				</div>
+
+				<h2 class="sr-only">Formulaire de contact</h2>
+				<FormulaireContact
+					action="/contact/envoi/#statut-envoi"
+					contacts={CONTACTS}
+					siteKey={env.TURNSTILE_SITE_KEY}
+					valeurs={valeurs}
+					erreurs={erreurs}
+					message={message}
+				/>
+			</div>
+			<aside class="contact-cote" aria-label="Interlocuteurs">
+				<h2>Notaires</h2>
+				<ul>{ETUDE.notaires.map((n) => <li>{n}</li>)}</ul>
+				<h2>Service négociation</h2>
+				<ul>
+					<li>{NEGOCIATION.nom}</li>
+					<li>Portable : {NEGOCIATION.portable}</li>
+					<li>Email : <a href={`mailto:${NEGOCIATION.email}`}>{NEGOCIATION.email}</a></li>
+				</ul>
+			</aside>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.contact {
+		padding-top: 50px;
+	}
+	.contact-grille {
+		display: grid;
+		gap: 40px var(--gouttiere);
+	}
+	.contact-envoye {
+		margin: 0 0 30px;
+		padding: 15px;
+		border-left: 4px solid var(--c-bordeaux);
+		background: var(--c-gris);
+		color: var(--c-titre);
+		font-weight: 700;
+	}
+	/* Sans JavaScript : affiché par l'ancre #message-envoye de la redirection. */
+	.contact-envoye:target {
+		display: block;
+	}
+	.contact-liens {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-bottom: 30px;
+	}
+	.contact-liens .btn {
+		font-family: var(--f-menu);
+		font-size: 13px;
+	}
+	.contact-sites {
+		display: grid;
+		gap: 0 var(--gouttiere);
+		font-size: 13px;
+		line-height: 1.5;
+	}
+	.contact-sites strong {
+		color: var(--c-texte);
+	}
+	.contact-bureau {
+		margin-bottom: 20px;
+	}
+	.contact-bureau address {
+		margin-bottom: 15px;
+		font-style: normal;
+	}
+	.contact-bureau p {
+		margin: 0 0 15px;
+	}
+	.contact-cote h2 {
+		margin: 10px 0 25px;
+		font-size: 22px;
+		text-transform: uppercase;
+	}
+	.contact-cote ul {
+		margin: 0 0 40px;
+		padding: 0 0 0 4px;
+		list-style: none;
+		font-size: 13px;
+	}
+	.contact-cote a {
+		overflow-wrap: anywhere;
+	}
+	@media (min-width: 768px) {
+		.contact-sites {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	@media (min-width: 992px) {
+		.contact-grille {
+			grid-template-columns: 3fr 1fr;
+		}
+	}
+</style>

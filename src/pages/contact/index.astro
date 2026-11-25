@@ -1,0 +1,13 @@
+---
+/**
+ * Page Contact, prérendue au build (asset statique : ni CPU ni D1 par
+ * requête). Le formulaire est envoyé à /contact/envoi/ (rendu par le
+ * Worker). La clé publique Turnstile est lue au build (TURNSTILE_SITE_KEY de
+ * l'environnement choisi par CLOUDFLARE_ENV).
+ */
+import PageContact from "../../components/PageContact.astro";
+
+export const prerender = true;
+---
+
+<PageContact />
