@@ -1,7 +1,8 @@
 ---
 /**
  * Fil d'Ariane (absent de l'ancien site : ajouté pour la navigation et le
- * SEO). Le dernier élément est la page courante, sans lien.
+ * SEO). Le dernier élément est la page courante, sans lien. Un élément
+ * intermédiaire sans `href` (rubrique sans page) est affiché sans lien.
  */
 interface Props {
 	elements: readonly { label: string; href?: string }[];
@@ -16,10 +17,12 @@ const { elements } = Astro.props;
 		{
 			elements.map((el, i) => (
 				<li>
-					{el.href && i < elements.length - 1 ? (
+					{i === elements.length - 1 ? (
+						<span aria-current="page">{el.label}</span>
+					) : el.href ? (
 						<a href={el.href}>{el.label}</a>
 					) : (
-						<span aria-current="page">{el.label}</span>
+						<span>{el.label}</span>
 					)}
 				</li>
 			))

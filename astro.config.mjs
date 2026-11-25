@@ -2,6 +2,7 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import { d1, r2 } from "@emdash-cms/cloudflare";
+import { appendFile, readFile } from "node:fs/promises";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 
@@ -21,6 +22,27 @@ const pageDemoDesign = {
 	},
 };
 
+/**
+ * Hors production, X-Robots-Tag: noindex sur les ASSETS statiques aussi
+ * (pages prérendues, PDF, images) : ils sont servis sans passer par le
+ * Worker, donc sans le middleware src/middleware/gate.ts. L'environnement
+ * est connu au build (CLOUDFLARE_ENV) ; sans lui, on désindexe par défaut.
+ * @type {import("astro").AstroIntegration}
+ */
+const noindexAssetsHorsProduction = {
+	name: "saccoccio:noindex-assets",
+	hooks: {
+		"astro:build:done": async ({ dir, logger }) => {
+			if (process.env.CLOUDFLARE_ENV === "production") return;
+			const fichier = new URL("_headers", dir);
+			const existant = await readFile(fichier, "utf8").catch(() => "");
+			if (existant.includes("X-Robots-Tag")) return;
+			await appendFile(fichier, `${existant && !existant.endsWith("\n") ? "\n" : ""}/*\n  X-Robots-Tag: noindex, nofollow\n`);
+			logger.info("X-Robots-Tag: noindex ajouté à _headers (hors production).");
+		},
+	},
+};
+
 export default defineConfig({
 	output: "server",
 	adapter: cloudflare({
@@ -33,6 +55,7 @@ export default defineConfig({
 	}),
 	integrations: [
 		pageDemoDesign,
+		noindexAssetsHorsProduction,
 		react(),
 		emdash({
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
@@ -57,5 +80,20 @@ export default defineConfig({
 			middleware: { outer: "./src/middleware/gate.ts" },
 		}),
 	],
+	vite: {
+		environments: {
+			// Prérendu des pages statiques (pages éditoriales) : il s'exécute au
+			// build dans un worker local (workerd) dont la D1 est locale, vide et
+			// éphémère. Le middleware d'EmDash y vérifie aussi les migrations : en
+			// mode « check », il écrirait la page 503 « Database migrations are
+			// required » à la place du contenu. Dans CET environnement seulement,
+			// le mode « auto » migre la D1 locale du build. Le Worker déployé
+			// (environnement « ssr ») reste en « check » : vérifié par
+			// scripts/check-migrations-mode.sh dans la CI.
+			prerender: {
+				define: { "import.meta.env.EMDASH_MIGRATIONS_MODE": JSON.stringify("auto") },
+			},
+		},
+	},
 	devToolbar: { enabled: false },
 });

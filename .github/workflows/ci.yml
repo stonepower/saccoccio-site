@@ -42,6 +42,11 @@ jobs:
           npx wrangler deploy --dry-run --env staging | tee "$RUNNER_TEMP/dry-run-staging.txt"
           scripts/check-bundle-size.sh "$RUNNER_TEMP/dry-run-staging.txt"
 
+      # Sur le build staging : pages prérendues (h1, images, liens),
+      # redirections 301 et bundle du Worker (mode de migration EmDash).
+      - name: Tests
+        run: npm test
+
       - name: Build et dry-run — production
         run: |
           CLOUDFLARE_ENV=production npm run build

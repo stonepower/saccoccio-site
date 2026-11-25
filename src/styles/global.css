@@ -82,12 +82,12 @@ a {
 	text-decoration: none;
 }
 a:hover,
-amain:focus {
-	outline: none;
+a:focus-visible {
+	text-decoration: underline;
 }
 
-:focus-visible {
-	text-decoration: underline;
+main:focus {
+	outline: none;
 }
 
 :focus-visible {

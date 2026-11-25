@@ -14,11 +14,12 @@ Décisions déjà prises (ne pas les remettre en cause sans l'accord du
 propriétaire du dépôt) :
 
 - français uniquement ;
-- design et contenus repris à l'identique de l'ancien site (39 pages,
-  importées dans une PR ultérieure) ;
+- design et contenus repris à l'identique de l'ancien site (34 pages
+  éditoriales importées, prérendues ; 3 anciennes pages deviennent de simples
+  redirections) ;
 - simulateur de prêt conservé (PR ultérieure) ;
 - nouvelles URLs optimisées pour le SEO, avec redirections 301 depuis les
-  anciennes (PR ultérieure) ;
+  anciennes (`src/lib/redirections.ts`, d'après `urls.csv` du kit) ;
 - **pas de back-office pour l'instant** ;
 - annonces immobilières Immonot importées chaque nuit depuis un XML (PR
   ultérieure). Leurs photos restent hébergées chez Immonot et ne vont **pas**
@@ -56,6 +57,15 @@ Fichiers clés :
 | `src/demo/design.astro` | Page de démonstration du gabarit, `/_design/` (noindex) |
 | `scripts/optimize-images.mjs` | Conversion des images de design en WebP (`public/images/`) |
 | `reference/design-kit/` | Kit de l'ancien site : captures (référence visuelle), HTML, images originales |
+| `reference/contenus-kit/` | Kit de contenus : `pages/*.html` (source des 34 pages), `pages.json`, `urls.csv`, images originales |
+| `src/pages/[...chemin].astro` | Pages éditoriales, **prérendues** au build (une par fiche reprise de `pages.json`) |
+| `src/data/pages.ts` | Liste des pages (d'après `pages.json`), fil d'Ariane par rubrique |
+| `src/lib/contenu.ts` | Préparation du HTML du kit au build (images, équipe sans photo, ancres) |
+| `src/layouts/Contenu.astro` | Gabarit des pages de contenu (carrousel, fil d'Ariane, sections) |
+| `src/lib/redirections.ts` | Redirections 301 des anciennes URL (appelé par `gate.ts`) |
+| `src/pages/plan-du-site.astro`, `src/pages/sitemap.xml.ts` | Plan du site (prérendu) et sitemap (remplace celui d'EmDash) |
+| `public/documents/` | Les 58 PDF (« La lettre de mon notaire », mentions légales), assets statiques |
+| `tests/` | `npm test` après un build : pages, redirections, bundle du Worker |
 
 ## Design
 
@@ -114,6 +124,45 @@ commercial) ne doivent **pas** être récupérés ni versionnés.
 - Les photos des annonces restent chez Immonot (URL distantes).
 - `public/favicon.ico` vient du kit.
 
+### Pages éditoriales (prérendues)
+
+Les 34 pages de `reference/contenus-kit/pages.json` (hors statuts « non
+reprise » et « redirection seule ») sont **prérendues** au build
+(`export const prerender = true`) : fichiers HTML servis comme assets
+statiques, sans code ni contenu dans le Worker, sans D1 et sans CPU par
+requête. Le HTML du kit est la source : il n'est pas réécrit. Au build,
+`src/lib/contenu.ts` ne fait que remplacer les images (liste blanche
+`IMAGES_CONTENU`, WebP), retirer **toute photo de personne** (l'équipe est
+affichée en noms et fonctions), retirer les liens neutralisés du panier et
+poser les ancres du lexique. Une correction de texte se fait dans
+`reference/contenus-kit/pages/*.html`.
+
+- Les assets statiques ne passent **pas** par le middleware : hors
+  production, le `noindex` est assuré par la meta robots de `Base.astro`
+  (SITE_ENV connu au build) et par un `X-Robots-Tag` ajouté au `_headers`
+  (intégration `noindexAssetsHorsProduction` d'`astro.config.mjs`).
+- Le middleware d'EmDash s'exécute aussi pendant le prérendu, sur la D1
+  **locale et vide** du build : en mode « check », il écrirait la page 503
+  à la place du contenu. `astro.config.mjs` force donc
+  `EMDASH_MIGRATIONS_MODE = "auto"` dans l'environnement Vite `prerender`
+  **seulement** (la D1 locale du build est migrée, rien de distant).
+  `tests/worker.test.mjs` vérifie que le Worker déployé n'en hérite pas.
+- Menu (`NAVIGATION`) : celui de l'ancien site. Les pages `/conseils/*`,
+  Situation géographique, Coordonnées et Plans d'accès sont hors menu
+  (comme sur l'ancien site, ou à valider avec l'étude) mais figurent dans
+  `/plan-du-site/` et `sitemap.xml`.
+- `/annonces/`, `/contact/` et `/simulateur-pret/` sont liées mais pas
+  encore créées (404 attendu jusqu'à leurs PR).
+
+### Redirections 301
+
+`src/middleware/gate.ts` redirige les anciennes URL (`product_info.php`,
+`*-p-N.html`, `index.php?cPath=`, `*-c-N.html`, `allprods.php`,
+`contact_us.php`, `CalcAmortEuR2.htm`) **avant** EmDash, d'après
+`reference/contenus-kit/urls.csv` (aucune destination ajoutée à la main ; un
+`products_id` inconnu est une annonce → `/annonces/`). Seuls les chemins en
+`.php`, `.html` ou `.htm` sont examinés.
+
 ### Back-office EmDash fermé
 
 Il n'y a pas d'option EmDash pour retirer l'admin. Le middleware
@@ -132,7 +181,7 @@ par ex. Cloudflare Access). Le serveur MCP et les polices Google sont
 ### Limite de taille du Worker
 
 Le plan gratuit limite un Worker à **3 Mo compressés**. Le bundle actuel
-fait environ 2,4 Mo (l'admin EmDash n'est livré qu'en français pour cela :
+fait environ 2,41 Mo (les pages prérendues et les PDF n'y comptent pas) (l'admin EmDash n'est livré qu'en français pour cela :
 `admin.locales: ["fr"]`). Surveiller la ligne `Total Upload … gzip:` du
 `wrangler deploy --dry-run` de la CI à chaque ajout de dépendance.
 
@@ -208,7 +257,7 @@ environnements GitHub :
 Workflows (`.github/workflows/`) :
 
 - `ci.yml` — chaque PR : typecheck, build et `wrangler deploy --dry-run`
-  pour les deux environnements, contrôle de la taille du Worker ;
+  pour les deux environnements, contrôle de la taille du Worker, `npm test` ;
 - `deploy-staging.yml` — push sur `main` (ou « Run workflow ») : build,
   migrations EmDash, migrations du projet, déploiement,
   `emdash migrate --check`, smoke test (`scripts/smoke-test.sh`). Entrée
@@ -332,6 +381,7 @@ npm ci                               # installer (versions du package-lock)
 npm run dev                          # serveur de dev Astro (local)
 npm run typecheck                    # wrangler types + astro check
 CLOUDFLARE_ENV=staging npm run build # build pour un environnement
+npm test                             # tests (après un build)
 npx wrangler deploy --dry-run --env staging
 ```
 

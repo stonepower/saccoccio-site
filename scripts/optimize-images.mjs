@@ -7,7 +7,8 @@
 // Règles (voir CLAUDE.md, « Images ») :
 // - chaque image est redimensionnée à 2 × sa taille d'affichage au maximum,
 //   sans jamais l'agrandir ;
-// - les originaux restent dans reference/design-kit/images/ et ne sont pas
+// - les originaux restent dans reference/design-kit/images/ (et
+//   reference/contenus-kit/images/ pour les pages de contenu) et ne sont pas
 //   copiés ailleurs ;
 // - les SVG vectoriels restent en SVG (copiés tels quels).
 //
@@ -20,6 +21,8 @@ import sharp from "sharp";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(root, "reference/design-kit/images");
+// Images des pages de contenu (kit de contenus) : servies sous /images/contenu/.
+const SRC_CONTENU = join(root, "reference/contenus-kit/images");
 const OUT = join(root, "public/images");
 
 /**
@@ -55,6 +58,20 @@ const IMAGES = [
 ];
 
 /**
+ * Images des pages de contenu, affichées à leur taille d'origine (190 ou
+ * 280 px de large) : le plafond 2 × n'agrandit rien. Leurs dimensions sont
+ * reportées dans src/lib/contenu.ts (table IMAGES_CONTENU).
+ * Aucune photo de personne : celles de l'équipe ne sont pas dans le kit et
+ * ne doivent pas être publiées.
+ */
+const IMAGES_CONTENU = [
+	{ source: "etude_manosque.jpg", out: "contenu/etude_manosque.webp", width: 380 },
+	{ source: "etude_greoux.jpg", out: "contenu/etude_greoux.webp", width: 380 },
+	{ source: "etude_valensole.jpg", out: "contenu/etude_valensole.webp", width: 380 },
+	{ source: "predecesseurs.jpg", out: "contenu/predecesseurs.webp", width: 560 },
+];
+
+/**
  * Le logo « Notaire conseil en stratégie patrimoniale & familiale » est un
  * SVG qui n'embarque qu'une image PNG de 1856 × 833 px (104 Ko) : on en
  * extrait le PNG pour produire un WebP à 2 × sa taille d'affichage (150 px).
@@ -78,6 +95,10 @@ async function convert({ input, out, width, height, quality = 82, lossless = fal
 
 for (const image of IMAGES) {
 	await convert({ ...image, input: join(SRC, image.source) });
+}
+
+for (const image of IMAGES_CONTENU) {
+	await convert({ ...image, input: join(SRC_CONTENU, image.source) });
 }
 
 for (const image of EMBEDDED_PNG_IN_SVG) {

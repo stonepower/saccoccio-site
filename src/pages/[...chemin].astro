@@ -1,0 +1,93 @@
+---
+/**
+ * Pages éditoriales reprises de l'ancien site (34 pages), à leur nouvelle
+ * URL (reference/contenus-kit/pages.json).
+ *
+ * PRÉRENDUES au build : ce sont des fichiers HTML statiques servis comme
+ * assets du Worker. Aucun code ni contenu dans le bundle du Worker, aucune
+ * requête D1 et aucun CPU par requête. Les autres chemins ne sont pas pris
+ * par cette route (404 du Worker, ou routes serveur).
+ */
+import type { GetStaticPaths } from "astro";
+import { PAGES, type PageEditoriale } from "../data/pages";
+import Contenu from "../layouts/Contenu.astro";
+import { decouperSections, description, preparerHtml } from "../lib/contenu";
+
+export const prerender = true;
+
+const sources = import.meta.glob<string>("../../reference/contenus-kit/pages/*.html", {
+	query: "?raw",
+	import: "default",
+	eager: true,
+});
+
+export const getStaticPaths = (() =>
+	PAGES.map((page) => ({
+		params: { chemin: page.url.replace(/^\/|\/$/g, "") },
+		props: { page },
+	}))) satisfies GetStaticPaths;
+
+interface Props {
+	page: PageEditoriale;
+}
+
+const { page } = Astro.props;
+const source = sources[`../../reference/contenus-kit/pages/${page.fichier}`];
+if (source === undefined) throw new Error(`Fichier de contenu introuvable : ${page.fichier}`);
+
+const html = preparerHtml(source);
+const decoupage = decouperSections(html);
+const title = `${page.h1} – Saccoccio & Associés, notaires à Manosque`;
+const meta = description(html, `${page.h1} : informations de l'office notarial Saccoccio & Associés, à Manosque.`);
+---
+
+<Contenu title={title} description={meta} h1={page.h1} ariane={page.ariane}>
+	{
+		decoupage ? (
+			<>
+				{decoupage.liens.length > 0 && (
+					<nav class="sous-nav" aria-label="Sections de la page" slot="entete">
+						{decoupage.liens.map((lien) => (
+							<a class="btn btn-primaire" href={lien.href}>
+								{lien.label}
+							</a>
+						))}
+					</nav>
+				)}
+				{decoupage.sections.map((section, i) =>
+					i % 2 === 0 ? (
+						<section class="contenu-section" id={section.id} aria-labelledby={`titre-${section.id}`}>
+							<div class="conteneur">
+								<h2 class="contenu-titre" id={`titre-${section.id}`}>
+									{section.titre}
+								</h2>
+								<div class="contenu-texte decale" set:html={section.html} />
+							</div>
+						</section>
+					) : (
+						<section
+							class="contenu-section section-blanche"
+							id={section.id}
+							aria-labelledby={`titre-${section.id}`}
+						>
+							<div class="conteneur">
+								<div class="encart">
+									<h2 class="contenu-titre" id={`titre-${section.id}`}>
+										{section.titre}
+									</h2>
+									<div class="contenu-texte decale" set:html={section.html} />
+								</div>
+							</div>
+						</section>
+					),
+				)}
+			</>
+		) : (
+			<section class="contenu-section">
+				<div class="conteneur">
+					<div class="contenu-texte" set:html={html} />
+				</div>
+			</section>
+		)
+	}
+</Contenu>

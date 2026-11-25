@@ -2,8 +2,9 @@
  * Informations publiques de l'étude, reprises de l'ancien site, et
  * navigation commune (en-tête, menu et pied de page).
  *
- * Les URL pointent vers les futures pages (import des contenus dans une PR
- * ultérieure) : elles répondent 404 pour l'instant, c'est normal.
+ * Les pages éditoriales existent (voir src/data/pages.ts). /annonces/,
+ * /contact/ et /simulateur-pret/ arrivent dans des PR ultérieures : ces liens
+ * répondent 404 pour l'instant, c'est normal.
  */
 
 export const ETUDE = {
@@ -33,19 +34,29 @@ export interface NavItem {
 	children?: readonly NavItem[];
 }
 
-/** Menu principal (le drapeau anglais de l'ancien site est supprimé). */
+/**
+ * Menu principal, aligné sur celui de l'ancien site (le drapeau anglais est
+ * supprimé). Comme sur l'ancien site, le sous-menu de l'office pointe vers
+ * les pages séparées, sauf « Historique » qui n'existe que dans la page
+ * longue /office-notarial/.
+ *
+ * Hors menu, comme sur l'ancien site : Situation géographique, Liste des
+ * coordonnées, Plans d'accès, et les pages d'information juridique (liées
+ * depuis le pied de page). Les 4 pages /conseils/ restent hors menu en
+ * attendant l'avis de l'étude. Toutes figurent dans le plan du site.
+ */
 export const NAVIGATION: readonly NavItem[] = [
 	{
 		label: "L'office notarial",
 		href: "/office-notarial/",
 		children: [
 			{ label: "Historique", href: "/office-notarial/#historique" },
-			{ label: "Fonctions de l'Étude", href: "/office-notarial/#fonctions" },
-			{ label: "Profession Notaire", href: "/office-notarial/#profession" },
-			{ label: "L'équipe", href: "/office-notarial/#equipe" },
-			{ label: "Lexique", href: "/office-notarial/#lexique" },
-			{ label: "Tarifs", href: "/office-notarial/#tarifs" },
-			{ label: "Prédécesseurs", href: "/office-notarial/#predecesseurs" },
+			{ label: "Fonctions de l'Étude", href: "/office-notarial/fonctions/" },
+			{ label: "Profession Notaire", href: "/office-notarial/profession-notaire/" },
+			{ label: "L'équipe", href: "/office-notarial/equipe/" },
+			{ label: "Lexique", href: "/office-notarial/lexique/" },
+			{ label: "Tarifs", href: "/office-notarial/tarifs/" },
+			{ label: "Prédécesseurs", href: "/office-notarial/predecesseurs/" },
 		],
 	},
 	{ label: "Annonces immobilières", href: "/annonces/" },
@@ -141,13 +152,14 @@ export interface LienPied {
 
 /** Liens du pied de page, dans l'ordre d'affichage (grille de 3 colonnes). */
 export const LIENS_PIED: readonly (LienPied | readonly LienPied[])[] = [
-	{ label: "Les divers Droits", href: "/office-notarial/les-divers-droits/" },
+	{ label: "Les divers Droits", href: "/informations-juridiques/" },
 	{ label: "Conseil Supérieur des notaires", href: "https://www.notaires.fr", externe: true },
 	{ label: "Conseil régional des notaires", href: "http://www.cr-aixenprovence.notaires.fr/", externe: true },
 	{ label: "La lettre de mon notaire", href: "/lettre-du-notaire/" },
 	{ label: "Liens utiles", href: "/liens-utiles/" },
 	[
 		{ label: "Mentions légales", href: "/mentions-legales/" },
+		{ label: "Plan du site", href: "/plan-du-site/" },
 		{ label: "Contact", href: "/contact/" },
 	],
 ];
