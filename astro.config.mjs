@@ -5,6 +5,22 @@ import { d1, r2 } from "@emdash-cms/cloudflare";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 
+/**
+ * Page de démonstration du gabarit sur /_design/ : Astro ignore les fichiers
+ * de src/pages/ dont le nom commence par « _ », d'où cette route injectée.
+ * La page est en noindex (meta et en-tête X-Robots-Tag) dans tous les
+ * environnements.
+ * @type {import("astro").AstroIntegration}
+ */
+const pageDemoDesign = {
+	name: "saccoccio:page-demo-design",
+	hooks: {
+		"astro:config:setup": ({ injectRoute }) => {
+			injectRoute({ pattern: "/_design", entrypoint: "./src/demo/design.astro" });
+		},
+	},
+};
+
 export default defineConfig({
 	output: "server",
 	adapter: cloudflare({
@@ -16,6 +32,7 @@ export default defineConfig({
 		imageService: "passthrough",
 	}),
 	integrations: [
+		pageDemoDesign,
 		react(),
 		emdash({
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),

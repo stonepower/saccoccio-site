@@ -49,6 +49,70 @@ Fichiers clés :
 | `scripts/smoke-test.sh` | Smoke test après déploiement (dont 503 différé) |
 | `src/live.config.ts` | Chargeur EmDash (ne pas modifier) |
 | `migrations/` | Migrations D1 du projet |
+| `src/layouts/Base.astro` | Gabarit commun (`<head>`, polices, en-tête, pied de page) |
+| `src/components/` | En-tête, pied de page, carrousel, pictogrammes, carte d'annonce, formulaire… |
+| `src/data/site.ts` | Infos publiques de l'étude, menu, liens du pied de page, photos du bandeau |
+| `src/styles/global.css` | Variables (couleurs, polices, grille) et styles de base |
+| `src/demo/design.astro` | Page de démonstration du gabarit, `/_design/` (noindex) |
+| `scripts/optimize-images.mjs` | Conversion des images de design en WebP (`public/images/`) |
+| `reference/design-kit/` | Kit de l'ancien site : captures (référence visuelle), HTML, images originales |
+
+## Design
+
+Le design de l'ancien site est reproduit **à l'identique** : la référence
+visuelle est `reference/design-kit/captures/` (bureau 1280 px, mobile
+390 px). `reference/rendu/` contient les captures du nouveau rendu au moment
+de la PR « design ». Les fichiers du thème d'origine (probablement
+commercial) ne doivent **pas** être récupérés ni versionnés.
+
+### Conventions CSS
+
+- **Notre propre CSS**, sans Bootstrap, jQuery ni Font Awesome.
+- Les couleurs, polices et la grille sont des **variables** dans
+  `src/styles/global.css` (`--c-bordeaux`, `--c-bandeau`, `--f-texte`,
+  `--conteneur`…) : ne pas écrire de couleur en dur dans un composant
+  quand une variable existe.
+- `global.css` ne contient que la base (typographie, `.conteneur`,
+  `.grille`, `.section`, `.btn`, `.btn-primaire`, `.champ`, `.sr-only`).
+  Le reste va dans le `<style>` du composant ou de la page (portée Astro ;
+  `:global(...)` pour cibler un composant enfant, comme `.icone`).
+- Grille Bootstrap 3 reproduite : conteneur de 750 / 970 / 1170 px à partir
+  de 768 / 992 / 1200 px, gouttière de 30 px ; menu « burger » sous 768 px.
+  Mise en page en CSS grid/flex.
+- Noms de classes en français, sans préfixe (`.bandeau`, `.pied-liens`…).
+- Polices **auto-hébergées** via `@fontsource` (sous-ensemble **latin**
+  uniquement : `@fontsource/raleway/latin-400.css`, etc.) : Raleway 400/700
+  (texte), Lato 400/700 (menu, annonces). **Jamais de Google Fonts** (RGPD).
+  Rochester n'est pas utilisée.
+- Pictogrammes : SVG en ligne via `src/components/Icone.astro` (tracés
+  Material Icons, Apache 2.0). Ajouter un tracé plutôt qu'une bibliothèque.
+- JavaScript : le moins possible. Le carrousel est en CSS pur ; seul le
+  menu mobile a quelques lignes de JS (sans JS, le menu reste déplié).
+  Respecter `prefers-reduced-motion`.
+- Accessibilité : `lang="fr"`, `alt` sur chaque image, navigation au
+  clavier (sous-menus ouverts au `:focus-within`), lien d'évitement,
+  `<title>` et meta description propres à chaque page (props de `Base`).
+- Aucun traceur (ni Google Analytics, ni Google Maps).
+
+### Images
+
+- Les images de design sont des **assets statiques** du Worker, dans
+  `public/images/`, au format **WebP**. Elles ne vont **pas** dans R2 et ne
+  comptent pas dans la taille du Worker.
+- Elles sont produites par `node scripts/optimize-images.mjs` (devDependency
+  `sharp`) à partir des originaux de `reference/design-kit/images/` :
+  redimensionnées à **2 × leur taille d'affichage au maximum**, jamais
+  agrandies. Pour en ajouter une : déposer l'original dans `reference/`,
+  l'ajouter à la table `IMAGES` du script, relancer le script et versionner
+  le WebP produit. Ne pas versionner d'originaux ailleurs que dans
+  `reference/`.
+- Les SVG vectoriels restent en SVG. Exception : le logo « Notaire conseil
+  en stratégie » était un SVG qui n'embarquait qu'un PNG de 1856 px ; le
+  script en extrait un WebP de 300 px.
+- Toujours renseigner `width` et `height` (pas de décalage au chargement)
+  et `loading="lazy"` sous la ligne de flottaison.
+- Les photos des annonces restent chez Immonot (URL distantes).
+- `public/favicon.ico` vient du kit.
 
 ### Back-office EmDash fermé
 

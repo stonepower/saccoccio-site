@@ -1,0 +1,181 @@
+---
+/**
+ * Pied de page commun : les trois sites de l'étude, les liens, les mentions
+ * et le paragraphe SEO de l'ancien site.
+ */
+import { ETUDE, LIENS_PIED, SITES, TEXTE_SEO, type LienPied } from "../data/site";
+import Icone from "./Icone.astro";
+
+const annee = new Date().getFullYear();
+const cible = (lien: LienPied) => (lien.externe ? { target: "_blank", rel: "noopener" } : {});
+---
+
+<footer class="pied">
+	<div class="conteneur">
+		<div class="pied-sites">
+			{
+				SITES.map((site) => (
+					<section class="pied-site" aria-label={site.ville}>
+						<h2>{site.ville}</h2>
+						<div class="pied-site-corps">
+							<img src={site.blason} alt={site.blasonAlt} width="100" height="100" loading="lazy" />
+							<div>
+								{site.bureaux.map((bureau) => (
+									<address>
+										<strong>{bureau.titre}</strong>
+										{bureau.lignes.map((ligne) => (
+											<span class="pied-ligne">
+												<Icone nom={ligne.icone} />
+												{ligne.texte}
+											</span>
+										))}
+									</address>
+								))}
+							</div>
+						</div>
+					</section>
+				))
+			}
+		</div>
+
+		<ul class="pied-liens">
+			{
+				LIENS_PIED.map((entree) => (
+					<li>
+						{"label" in entree ? (
+							<a href={entree.href} {...cible(entree)}>
+								{entree.label}
+							</a>
+						) : (
+							entree.map((lien, i) => (
+								<>
+									{i > 0 && " - "}
+									<a href={lien.href} {...cible(lien)}>
+										{lien.label}
+									</a>
+								</>
+							))
+						)}
+					</li>
+				))
+			}
+		</ul>
+
+		<div class="pied-mentions">
+			<p>
+				Étude de notaires : {ETUDE.notaires.join(" - ")}<br />
+				Notaires salariés : {ETUDE.notairesSalaries.join(" - ")}<br />
+				Numéro d'agrément : {ETUDE.agrement}
+			</p>
+			<img
+				class="pied-label"
+				src="/images/logo-conseil-strategie.webp"
+				alt="Notaire conseil en stratégie patrimoniale & familiale"
+				width="150"
+				height="68"
+				loading="lazy"
+			/>
+			<p>
+				Une réalisation <a href="https://www.stonepower.fr/" target="_blank" rel="noopener"
+					><strong>stone</strong>power</a
+				> agence web marseille<br />
+				&copy; {ETUDE.debutCopyright}-{annee}
+			</p>
+			<p class="pied-seo">{TEXTE_SEO}</p>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.pied {
+		padding: 60px 0 20px;
+		background: var(--c-pied);
+		color: var(--c-pied-texte);
+	}
+	.pied h2 {
+		margin: 0 0 25px;
+		color: var(--c-blanc);
+		font-size: 14px;
+	}
+	.pied-sites {
+		display: grid;
+		gap: 0 var(--gouttiere);
+	}
+	.pied-site-corps {
+		display: grid;
+		gap: 0 var(--gouttiere);
+	}
+	.pied-site-corps img {
+		width: 100%;
+		max-width: 100px;
+	}
+	address {
+		margin-bottom: 20px;
+		line-height: 1.5;
+	}
+	address strong {
+		display: block;
+		color: #eee;
+	}
+	.pied-ligne {
+		display: block;
+	}
+	.pied-ligne :global(.icone) {
+		width: 0.95em;
+		height: 0.95em;
+		margin-right: 4px;
+	}
+
+	.pied-liens {
+		display: grid;
+		margin: 0;
+		padding: 20px 15px;
+		border-top: 1px solid #2a2a2a;
+		list-style: none;
+		font-size: 13px;
+		font-weight: 700;
+		line-height: 2;
+	}
+	.pied-liens li {
+		color: var(--c-blanc);
+	}
+
+	.pied-mentions {
+		padding: 20px 0;
+		border-top: 1px solid #2a2a2a;
+	}
+	.pied-mentions p {
+		margin: 0;
+	}
+	.pied-label {
+		display: block;
+		width: 150px;
+		margin: 10px 0 26px;
+	}
+	.pied-mentions a {
+		font-weight: 400;
+	}
+	.pied-seo {
+		margin-top: 25px !important;
+		padding-bottom: 40px;
+	}
+
+	@media (max-width: 767px) {
+		.pied-site-corps img {
+			max-width: 80px;
+			margin: 0 10px 5px;
+		}
+	}
+	@media (min-width: 768px) {
+		.pied-sites {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+		.pied-site-corps {
+			grid-template-columns: 1fr 3fr;
+		}
+		.pied-liens {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			column-gap: var(--gouttiere);
+		}
+	}
+</style>

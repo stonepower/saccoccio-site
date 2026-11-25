@@ -1,24 +1,182 @@
 ---
+import Carrousel from "../components/Carrousel.astro";
+import Icone from "../components/Icone.astro";
 import Base from "../layouts/Base.astro";
+
+const liensUtiles = [
+	{
+		titre: "UNOFI",
+		texte: "Union Notariale Financière",
+		href: "https://www.unofi.fr/",
+	},
+	{
+		titre: "Service Public",
+		texte: "Le site officiel de l'administration française",
+		href: "https://www.service-public.fr",
+	},
+	{
+		titre: "Actualités des notaires",
+		texte:
+			"La Lettre de mon Notaire vous tient informé sur l'actualité notariale en éclairant chaque mois un nouveau sujet de questionnement.",
+		href: "https://www.notaires.fr/fr/newsletters/lettre-notaires-France",
+	},
+];
 ---
 
 <Base
-	title="Site en construction – Saccoccio & Associés, notaires à Manosque"
-	description="Le nouveau site de l'étude Saccoccio & Associés, notaires à Manosque, est en construction."
+	title="Saccoccio & Associés, notaires à Manosque, Gréoux-les-Bains et Valensole"
+	description="Office notarial Saccoccio & Associés (SAS Notaires Experts Sud04) à Manosque, Gréoux-les-Bains et Valensole : conseil juridique, actes et annonces immobilières dans les Alpes-de-Haute-Provence."
 >
-	<main>
-		<h1>Site en construction</h1>
-		<p>Le nouveau site de l'étude Saccoccio &amp; Associés, notaires à Manosque, sera bientôt en ligne.</p>
-	</main>
+	<h1 class="sr-only">Saccoccio &amp; Associés, notaires à Manosque, Gréoux-les-Bains et Valensole</h1>
+
+	<Carrousel />
+
+	<section class="section accueil">
+		<div class="conteneur grille grille-3">
+			<div class="accueil-col">
+				<h2>Découvrez l'office</h2>
+				<p>
+					<img src="/images/accueil-office.webp" alt="Les panonceaux de l'office notarial" width="360" height="220" />
+				</p>
+				<p>
+					Depuis toujours, les notaires apportent des réponses juridiques et fiscales aux questions des familles au
+					sujet de leur patrimoine.
+				</p>
+				<a href="/office-notarial/" class="btn">En savoir plus</a>
+			</div>
+
+			<div class="accueil-col">
+				<a href="/annonces/" class="accueil-carte">
+					<h2>Annonces immobilières</h2>
+					<p>
+						<img src="/images/accueil-annonces.webp" alt="Les toits de Manosque" width="360" height="220" />
+					</p>
+					<p>
+						Vous souhaitez acheter ou vendre un bien immobilier à Manosque, Gréoux-les-Bains ou Valensole, découvrez
+						nos offres.
+					</p>
+					<span class="btn">Voir nos offres</span>
+				</a>
+			</div>
+
+			<div class="accueil-col">
+				<h2>Liens utiles</h2>
+				<div class="accordeon">
+					{
+						liensUtiles.map((lien, i) => (
+							<details name="liens-utiles" open={i === 0}>
+								<summary>{lien.titre}</summary>
+								<p>
+									{lien.texte}{" "}
+									<a href={lien.href} target="_blank" rel="noopener">
+										<Icone nom="lien" />
+										<span class="sr-only">{lien.titre} (nouvelle fenêtre)</span>
+									</a>
+								</p>
+							</details>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section actualites" aria-labelledby="titre-actualites">
+		<div class="conteneur">
+			<h2 id="titre-actualites">Actualités</h2>
+			<hr />
+			<div class="lettre">
+				<h2>La lettre de mon notaire</h2>
+				<a class="btn btn-primaire" href="/lettre-du-notaire/">Lire la lettre</a>
+			</div>
+		</div>
+	</section>
 </Base>
 
 <style>
-	main {
-		max-width: 40rem;
-		margin: 4rem auto;
-		padding: 0 1rem;
-		font-family: system-ui, sans-serif;
-		line-height: 1.5;
-		text-align: center;
+	.accueil {
+		padding-bottom: 30px;
+	}
+	.accueil-col {
+		margin-bottom: 26px;
+	}
+	.accueil-col img {
+		display: block;
+		width: 100%;
+	}
+	.accueil-col p {
+		margin-bottom: 25px;
+	}
+	.accueil-carte {
+		display: block;
+	}
+	.accueil-carte:hover,
+	.accueil-carte:focus-visible {
+		text-decoration: none;
+	}
+	.accueil-carte:hover .btn,
+	.accueil-carte:focus-visible .btn {
+		background: var(--c-titre);
+		color: var(--c-blanc);
+	}
+
+	/* Liens utiles : accordéon natif (<details name> : un seul ouvert à la fois) */
+	.accordeon details {
+		margin-bottom: 10px;
+		border: 1px solid var(--c-bordure);
+	}
+	.accordeon details[open] {
+		border-color: var(--c-titre);
+	}
+	.accordeon summary {
+		position: relative;
+		padding: 18px 45px 18px 20px;
+		color: var(--c-titre);
+		font-size: 12px;
+		font-weight: 700;
+		line-height: 1.1;
+		text-transform: uppercase;
+		list-style: none;
+		cursor: pointer;
+	}
+	.accordeon summary::-webkit-details-marker {
+		display: none;
+	}
+	.accordeon summary::after {
+		content: "+";
+		position: absolute;
+		top: 50%;
+		right: 20px;
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 1;
+		transform: translateY(-55%);
+	}
+	.accordeon details[open] summary::after {
+		content: "−";
+	}
+	.accordeon details p {
+		margin: 0;
+		padding: 0 20px 18px;
+	}
+
+	.actualites {
+		padding-top: 54px;
+		padding-bottom: 30px;
+	}
+	.actualites hr {
+		margin: 0 -15px;
+	}
+	.lettre {
+		padding: 52px 15px 0;
+	}
+	.lettre h2 {
+		margin-bottom: 38px;
+	}
+
+	@media (max-width: 991px) {
+		.accueil-col {
+			margin-bottom: 40px;
+		}
 	}
 </style>

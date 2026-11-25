@@ -1,10 +1,29 @@
 ---
+/**
+ * Gabarit commun à toutes les pages : <head>, en-tête, pied de page.
+ * Chaque page fournit son propre <title> et sa meta description.
+ */
+// Polices auto-hébergées (pas de Google Fonts : RGPD), sous-ensemble latin.
+import "@fontsource/raleway/latin-400.css";
+import "@fontsource/raleway/latin-700.css";
+import "@fontsource/lato/latin-400.css";
+import "@fontsource/lato/latin-700.css";
+import "../styles/global.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+
 interface Props {
 	title: string;
-	description?: string;
+	description: string;
+	/** Page à ne jamais indexer (en plus du noindex global hors production). */
+	noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
+
+if (noindex) {
+	Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
+}
 ---
 
 <!doctype html>
@@ -13,9 +32,18 @@ const { title, description } = Astro.props;
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
-		{description && <meta name="description" content={description} />}
+		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<meta name="theme-color" content="#9e093c" />
+		<link rel="icon" href="/favicon.ico" sizes="48x48" />
+		<slot name="head" />
 	</head>
 	<body>
-		<slot />
+		<a class="lien-evitement" href="#contenu">Aller au contenu</a>
+		<SiteHeader />
+		<main id="contenu" tabindex="-1">
+			<slot />
+		</main>
+		<SiteFooter />
 	</body>
 </html>
