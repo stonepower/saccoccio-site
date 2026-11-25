@@ -1,0 +1,70 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	// Configuration de premier niveau : développement local uniquement
+	// (`npm run dev`). Ne jamais déployer sans `--env` (voir CLAUDE.md).
+	"name": "saccoccio-local",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-11-20",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": false,
+	"vars": {
+		"SITE_ENV": "development",
+		"EMDASH_ADMIN_ENABLED": "true",
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "saccoccio-db-staging",
+			"database_id": "cc9d552e-65cf-46b6-af5c-e98426505cc4",
+			"migrations_dir": "migrations",
+		},
+	],
+	"kv_namespaces": [{ "binding": "CACHE", "id": "27394cd344784462a26ec2a090b66f37" }],
+	"r2_buckets": [{ "binding": "MEDIA", "bucket_name": "saccoccio-media-staging" }],
+	"observability": { "enabled": true },
+
+	"env": {
+		"staging": {
+			"name": "saccoccio-staging",
+			"workers_dev": true,
+			"preview_urls": false,
+			// Aucune route de domaine pour l'instant.
+			"vars": {
+				"SITE_ENV": "staging",
+				// Back-office EmDash fermé (404 sur /_emdash/*).
+				"EMDASH_ADMIN_ENABLED": "false",
+			},
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "saccoccio-db-staging",
+					"database_id": "cc9d552e-65cf-46b6-af5c-e98426505cc4",
+					"migrations_dir": "migrations",
+				},
+			],
+			"kv_namespaces": [{ "binding": "CACHE", "id": "27394cd344784462a26ec2a090b66f37" }],
+			"r2_buckets": [{ "binding": "MEDIA", "bucket_name": "saccoccio-media-staging" }],
+		},
+		"production": {
+			"name": "saccoccio-prod",
+			"workers_dev": true,
+			"preview_urls": false,
+			// Aucune route de domaine pour l'instant.
+			"vars": {
+				"SITE_ENV": "production",
+				// Back-office EmDash fermé (404 sur /_emdash/*).
+				"EMDASH_ADMIN_ENABLED": "false",
+			},
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "saccoccio-db-prod",
+					"database_id": "32fd88c5-38e1-4498-97bc-661dd4c1a3f6",
+					"migrations_dir": "migrations",
+				},
+			],
+			"kv_namespaces": [{ "binding": "CACHE", "id": "e42be39228ab49478e2f6c2c593e62d2" }],
+			"r2_buckets": [{ "binding": "MEDIA", "bucket_name": "saccoccio-media-prod" }],
+		},
+	},
+}
