@@ -21,6 +21,9 @@ import {
 	SEUILS_GES,
 } from "./annonces.ts";
 import type { Annonce } from "./annonces-d1.ts";
+import { couper, DESCRIPTION_MAX, ID_ETUDE, jsonLd, TITRE_MAX } from "./seo.ts";
+
+export { jsonLd };
 
 export interface Ligne {
 	libelle: string;
@@ -204,25 +207,85 @@ export function lienMail(destinataire: string, objet: string, corps: string): st
 	return `mailto:${destinataire}?subject=${encodeURIComponent(objet)}&body=${encodeURIComponent(corps)}`;
 }
 
-/** Description SEO (≤ 160 caractères environ). */
-export function descriptionSeo(a: Annonce): string {
-	const morceaux = [
-		`${libelleTypeBien(a.typeBien)} à vendre à ${lieu(a)}`,
-		a.surfaceHabitable ? formaterSurface(a.surfaceHabitable) : "",
-		a.nbPieces ? `${a.nbPieces} pièce${a.nbPieces > 1 ? "s" : ""}` : "",
-		a.surfaceTerrain ? `terrain de ${formaterSurface(a.surfaceTerrain)}` : "",
-		prixAffiche(a),
-	].filter(Boolean);
-	return `${morceaux.join(", ")}. Réf. ${a.refClient}, office notarial Saccoccio & Associés.`;
+/** « à Valensole », ou le département si l'étude masque la commune. */
+function lieuSeo(a: Pick<Annonce, "ville" | "afficheCommune" | "departement">): string {
+	return a.afficheCommune ? `à ${a.ville}` : `(département ${a.departement ?? "04"})`;
 }
 
-/** Données structurées schema.org (RealEstateListing + Offer). */
+/** Surface principale arrondie (« 126 m² ») : habitable, sinon terrain. */
+function surfaceSeo(a: Pick<Annonce, "surfaceHabitable" | "surfaceTerrain">): string {
+	const s = a.surfaceHabitable || a.surfaceTerrain;
+	return s ? `${formaterNombre(Math.round(s))}\u00a0m²` : "";
+}
+
+/** Prix sans mention (« 280 280 € »), ou « prix sur demande ». */
+function prixSeo(a: Pick<Annonce, "prix" | "affichePrix">): string {
+	return a.affichePrix && a.prix && a.prix > 0 ? formaterPrix(a.prix) : "prix sur demande";
+}
+
+/** Premier candidat qui tient en `max` caractères, sinon le dernier coupé. */
+function premierQuiTient(candidats: string[], max: number): string {
+	const propres = candidats.map((c) => c.replace(/\s+/g, " ").replace(/ ,/g, ",").trim());
+	return propres.find((c) => c.length <= max) ?? couper(propres[propres.length - 1] ?? "", max);
+}
+
+/**
+ * <title> d'une fiche (≤ TITRE_MAX caractères) : type de bien, commune,
+ * surface et prix, plus la référence (qui le rend unique).
+ * « Maison à Valensole, 126 m², 280 280 € – réf. 025/1912 »
+ */
+export function titreSeo(a: Annonce): string {
+	const debut = `${libelleTypeBien(a.typeBien)} ${lieuSeo(a)}`;
+	const surf = surfaceSeo(a);
+	const prix = prixSeo(a);
+	const avecSurface = surf ? `${debut}, ${surf}, ${prix}` : `${debut}, ${prix}`;
+	return premierQuiTient(
+		[
+			`${avecSurface} – réf. ${a.refClient}`,
+			`${debut}, ${prix} – réf. ${a.refClient}`,
+			`Réf. ${a.refClient} – ${debut}, ${prix}`,
+		],
+		TITRE_MAX,
+	);
+}
+
+/**
+ * Meta description d'une fiche (≤ DESCRIPTION_MAX caractères), unique grâce à
+ * la référence : type, commune, surfaces, pièces, prix.
+ */
+export function descriptionSeo(a: Annonce): string {
+	const debut = `${libelleTypeBien(a.typeBien)} à vendre ${lieuSeo(a)}`;
+	const habitable = a.surfaceHabitable ? formaterSurface(a.surfaceHabitable) : "";
+	const pieces = a.nbPieces ? `${a.nbPieces} pièce${a.nbPieces > 1 ? "s" : ""}` : "";
+	const terrain = a.surfaceTerrain ? `terrain de ${formaterSurface(a.surfaceTerrain)}` : "";
+	const prix = prixAffiche(a);
+	const phrase = (morceaux: string[], fin: string) => `${[debut, ...morceaux].filter(Boolean).join(", ")}. ${fin}`;
+	const complet = `Réf. ${a.refClient}, office notarial Saccoccio & Associés.`;
+	const court = `Réf. ${a.refClient}.`;
+	return premierQuiTient(
+		[
+			phrase([habitable, pieces, terrain, prix], complet),
+			phrase([habitable, pieces, prix], complet),
+			phrase([habitable, pieces, terrain, prix], court),
+			phrase([habitable, prix], court),
+			`${court} ${debut}, ${prix}.`,
+		],
+		DESCRIPTION_MAX,
+	);
+}
+
+/**
+ * Données structurées schema.org (RealEstateListing + Offer) : prix, commune
+ * et code postal. JAMAIS d'adresse exacte ni de coordonnées (le flux en
+ * contient : elles ne sont pas importées). Le vendeur est l'étude.
+ */
 export function donneesStructurees(a: Annonce, url: string): Record<string, unknown> {
 	const offre: Record<string, unknown> = {
 		"@type": "Offer",
 		businessFunction: "http://purl.org/goodrelations/v1#Sell",
 		availability: "https://schema.org/InStock",
 		url,
+		seller: { "@id": ID_ETUDE },
 	};
 	if (a.affichePrix && a.prix) {
 		offre.price = a.prix;
@@ -236,6 +299,7 @@ export function donneesStructurees(a: Annonce, url: string): Record<string, unkn
 	return {
 		"@context": "https://schema.org",
 		"@type": "RealEstateListing",
+		"@id": `${url}#annonce`,
 		name: titreAnnonce(a),
 		description: descriptionSeo(a),
 		url,
@@ -252,11 +316,6 @@ export function donneesStructurees(a: Annonce, url: string): Record<string, unkn
 			...(a.nbPieces ? { numberOfRooms: a.nbPieces } : {}),
 		},
 	};
-}
-
-/** JSON pour <script type="application/ld+json"> (sans « </ » qui fermerait la balise). */
-export function jsonLd(donnees: unknown): string {
-	return JSON.stringify(donnees).replace(/</g, "\\u003c");
 }
 
 /** Centre de la commune (OpenStreetMap) : lien et cadre de l'iframe. */

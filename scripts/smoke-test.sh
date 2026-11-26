@@ -51,6 +51,7 @@ else
 	if grep -qx 'Disallow: /' <<<"$robots"; then
 		fail "robots.txt de production interdit tout le site."
 	fi
+	grep -q '^Sitemap: https://' <<<"$robots" || fail "robots.txt de production sans ligne « Sitemap: »."
 	echo "✓ production indexable"
 fi
 

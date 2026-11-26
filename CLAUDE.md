@@ -65,6 +65,8 @@ Fichiers clés :
 | `src/lib/contenu.ts` | Préparation du HTML du kit au build (images, équipe sans photo, ancres) |
 | `src/layouts/Contenu.astro` | Gabarit des pages de contenu (carrousel, fil d'Ariane, sections) |
 | `src/lib/redirections.ts` | Redirections 301 des anciennes URL (appelé par `gate.ts`) |
+| `src/lib/seo.ts` | SEO : longueurs des title / description, URL canoniques (`URL_SITE`), JSON-LD (Notary, BreadcrumbList) |
+| `src/lib/pages-contenu.ts` | Sources HTML des pages éditoriales et leurs meta descriptions uniques (build) |
 | `src/pages/plan-du-site.astro`, `src/pages/sitemap.xml.ts` | Plan du site (prérendu) et sitemap (remplace celui d'EmDash) |
 | `src/pages/contact/`, `src/components/PageContact.astro` | Page Contact (prérendue) et traitement du formulaire (`/contact/envoi/`, Worker) |
 | `src/lib/contact.ts`, `src/lib/mime.ts`, `src/lib/contact-worker.ts` | Formulaire : validation, anti-spam, stockage D1 ou e-mail (voir `docs/formulaire-contact.md`) |
@@ -165,6 +167,29 @@ poser les ancres du lexique. Une correction de texte se fait dans
   `/plan-du-site/` et `sitemap.xml`.
 - `/simulateur-pret/` est liée mais pas encore créée (404 attendu jusqu'à
   sa PR). `/annonces/` est rendue par le Worker (voir « Annonces »).
+
+### SEO
+
+Voir `src/lib/seo.ts`, `src/layouts/Base.astro` et `tests/seo.test.mjs`.
+
+- `URL_SITE` (`src/data/site.ts`) : domaine de **production**, base des
+  canonical, d'Open Graph, du JSON-LD, du sitemap et de la ligne `Sitemap:`
+  de `robots.txt`, dans tous les environnements.
+- Chaque page indexable a un `<title>` (≤ 60 caractères) et une meta
+  description (≤ 155) **uniques**, une canonical absolue, Open Graph et
+  Twitter (`fr_FR`, image par défaut `IMAGE_PARTAGE`), un seul `<h1>`, un
+  `alt` sur chaque image. Les fiches d'annonces construisent les leurs à
+  partir du type, de la commune, de la surface, du prix et de la référence.
+- JSON-LD en un seul graphe par page : `WebSite`, `Notary` (Manosque et ses
+  annexes de Gréoux-les-Bains et Valensole, d'après `SITES`),
+  `BreadcrumbList`, et `RealEstateListing` + `Offer` sur les fiches (prix,
+  commune, code postal ; **jamais** d'adresse ni de coordonnées).
+- Liste des annonces : `/annonces/` (jamais `?page=1`), pages suivantes
+  canoniques vers elles-mêmes ; une recherche filtrée est en
+  `noindex, follow`.
+- `sitemap.xml` (Worker) : URL canoniques, annonces actives de D1 avec
+  `lastmod` ; XML gardé avec le catalogue en cache 60 s (une requête D1 au
+  plus).
 
 ### Formulaire de contact
 

@@ -15,6 +15,7 @@ import { libelleTypeBien, prixAffiche, resume } from "../../lib/annonces";
 import { type Annonce, CACHE_HTTP, chargerCatalogue } from "../../lib/annonces-d1";
 import { lieu } from "../../lib/annonces-fiche";
 import { aDesFiltres, correspond, lireCriteres, options, paginer, urlRecherche } from "../../lib/annonces-recherche";
+import { titrePage } from "../../lib/seo";
 
 export const prerender = false;
 
@@ -36,19 +37,31 @@ const choix = options(actives);
 Astro.response.headers.set("Cache-Control", indisponible ? "no-store" : CACHE_HTTP);
 if (indisponible) Astro.response.status = 503;
 
-const titre =
-	pagination.page > 1
-		? `Annonces immobilières (page ${pagination.page}) – Saccoccio & Associés, notaires`
-		: "Annonces immobilières – Saccoccio & Associés, notaires à Manosque";
-const canonique = new URL(pagination.page > 1 && !filtre ? urlRecherche(criteres) : "/annonces/", Astro.url).href;
+// Title, description et canonical propres à chaque page de la liste. La
+// page 1 est /annonces/ (jamais ?page=1). Une recherche filtrée n'est pas
+// indexée (noindex, follow : les fiches restent découvertes par les liens),
+// avec sa propre URL canonique.
+const suffixePage = pagination.page > 1 ? ` (page ${pagination.page})` : "";
+const titre = filtre
+	? titrePage(`Recherche d'annonces immobilières${suffixePage}`)
+	: pagination.page > 1
+		? titrePage(`Annonces immobilières, page ${pagination.page}`)
+		: "Annonces immobilières – Saccoccio & Associés, notaires";
+const description =
+	pagination.page > 1 && !filtre
+		? `Maisons, appartements, terrains à vendre par l'office notarial Saccoccio & Associés : page ${pagination.page} sur ${pagination.pages} des annonces.`
+		: "Maisons, appartements, terrains et commerces à vendre par l'office notarial Saccoccio & Associés à Manosque, Gréoux-les-Bains et Valensole.";
+const canonique = urlRecherche(criteres, pagination.page);
 const pluriel = (n: number) => (n > 1 ? "s" : "");
 ---
 
 <Base
 	title={titre}
-	description="Maisons, appartements, terrains et commerces à vendre par l'office notarial Saccoccio & Associés à Manosque, Gréoux-les-Bains, Valensole et dans les Alpes-de-Haute-Provence."
+	description={description}
+	canonical={canonique}
+	noindex={filtre ? "follow" : false}
+	ariane={[{ label: "Annonces immobilières" }]}
 >
-	<link slot="head" rel="canonical" href={canonique} />
 	<h1 class="sr-only">Annonces immobilières de l'office notarial</h1>
 
 	<div class="recherche-bandeau" id="recherche">

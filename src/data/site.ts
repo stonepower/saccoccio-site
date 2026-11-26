@@ -7,6 +7,14 @@
  * ultérieures : ces liens répondent 404 pour l'instant, c'est normal.
  */
 
+/**
+ * URL de PRODUCTION du site (sans « / » final) : base des URL canoniques,
+ * d'Open Graph, des données structurées, du sitemap et de la ligne
+ * « Sitemap: » de robots.txt, dans TOUS les environnements (staging reste en
+ * noindex). Le domaine bascule plus tard vers le Worker de production.
+ */
+export const URL_SITE = "https://www.saccoccio-et-associes-manosque-notaires.fr";
+
 export const ETUDE = {
 	nom: "Saccoccio & Associés",
 	raisonSociale: "SAS NOTAIRES EXPERTS SUD04",
@@ -214,6 +222,17 @@ export const LIENS_PIED: readonly (LienPied | readonly LienPied[])[] = [
 
 export const TEXTE_SEO =
 	"Votre notaire vous propose un service de négociation et d'expertise, que vous soyez vendeur ou acquéreur vous trouverez des annonces immobilières dans le département des Alpes de Haute Provence et plus largement dans la région PACA. De plus, il pourra vous offrir des conseils juridiques sur plusieurs secteurs d'activités comme la famille, le patrimoine, l'entreprise, l'urbanisme et l'immobilier pour la vente ou l'achat d'un bien immobilier garantissant la bonne fin de vos opérations.";
+
+/**
+ * Image de partage par défaut (Open Graph, Twitter) quand la page n'en a pas
+ * de propre : la façade de l'office (photo du bandeau).
+ */
+export const IMAGE_PARTAGE = {
+	src: "/images/bandeau/photo-1.webp",
+	alt: "La façade de l'office notarial à Manosque",
+	width: 950,
+	height: 269,
+} as const;
 
 /** Photos du carrousel (bandeau sous le menu), 950 × 269 px. */
 export const BANDEAU = [
