@@ -94,7 +94,7 @@ function annoncesDesFlux(): Annonce[] {
 	const parRef = new Map<string, Annonce>();
 	for (const f of readdirSync(dossier).filter((n) => n.endsWith(".xml"))) {
 		const { annonces } = lireFlux(new Uint8Array(readFileSync(new URL(f, dossier))));
-		for (const a of annonces) parRef.set(a.refClient, { ...a, slug: construireSlug(a), majLe: 0 } as unknown as Annonce);
+		for (const a of annonces) parRef.set(a.refClient, { ...a, slug: construireSlug(a), modifieLe: null } as unknown as Annonce);
 	}
 	return [...parRef.values()];
 }

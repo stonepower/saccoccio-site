@@ -10,6 +10,7 @@ appliquées ensuite par `wrangler d1 migrations apply` (table de suivi
 | --- | --- |
 | `0001_contact_messages.sql` | Messages du formulaire de contact en mode `store` (purgés à 30 jours par le Worker, jamais affichés) |
 | `0002_annonces.sql` | Annonces Immonot (import par différence, voir `docs/annonces.md`) ; jamais d'adresse ni de coordonnées précises |
+| `0003_annonces_empreinte_contenu.sql` | Annonces : `empreinte_contenu` (sans `dateMAJ`) et `modifie_le` (vraie modification, `lastmod` du sitemap) ; `modifie_le` initialisé depuis `maj_le` (copie de colonne, aucune donnée) |
 
 - Nommage : `NNNN_description.sql` (créé avec
   `npx wrangler d1 migrations create saccoccio-db-staging description`).

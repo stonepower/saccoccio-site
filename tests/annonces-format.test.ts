@@ -93,7 +93,7 @@ test("DPE : classes et échelles", () => {
 /** Annonces du kit telles que le Worker les lit (après passage par D1). */
 function annoncesDuKit(): Annonce[] {
 	const { annonces } = lireFlux(new Uint8Array(readFileSync(new URL("../reference/annonces-kit/xml/04025_20261124011818.xml", import.meta.url))));
-	return annonces.map((a) => ({ ...a, slug: construireSlug(a), majLe: 0 }) as unknown as Annonce);
+	return annonces.map((a) => ({ ...a, slug: construireSlug(a), modifieLe: null }) as unknown as Annonce);
 }
 
 test("fiche 025/1912 : caractéristiques, informations, DPE, contact", () => {

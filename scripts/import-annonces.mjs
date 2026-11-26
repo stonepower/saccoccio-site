@@ -94,6 +94,7 @@ export async function importer({ source, base, dryRun = false, maintenant = Date
 	for (const a of diff.insertions) journal(`  + ${a.refClient} /annonces/${a.slug}/`);
 	for (const a of diff.reactivations) journal(`  + ${a.refClient} /annonces/${a.slug}/ (réactivée)`);
 	for (const a of diff.misesAJour) journal(`  ~ ${a.refClient} /annonces/${a.slug}/`);
+	for (const a of diff.initialisations) journal(`  = ${a.refClient} /annonces/${a.slug}/ (empreinte initialisée)`);
 	for (const r of diff.retraits) journal(`  − /annonces/${r.slug}/`);
 	if (dryRun) {
 		journal("--dry-run : aucune modification.");

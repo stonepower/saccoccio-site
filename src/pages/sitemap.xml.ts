@@ -16,8 +16,10 @@ import { urlCanonique } from "../lib/seo";
  * Les URL sont les URL CANONIQUES (domaine de production, URL_SITE), comme
  * les <link rel="canonical"> des pages. Seules les pages publiées et
  * indexables sont listées. `lastmod` n'est renseigné que lorsqu'il est connu :
- * date de mise à jour de chaque annonce (flux Immonot), et la plus récente
- * pour /annonces/. Les pages prérendues n'ont pas de date fiable.
+ * pour chaque annonce, `modifie_le` (dernière modification RÉELLE de son
+ * contenu, posée par l'import), jamais le `dateMAJ` d'Immonot, qui change
+ * chaque nuit sur toutes les annonces ; la plus récente pour /annonces/. Les
+ * pages prérendues n'ont pas de date fiable.
  */
 const CHEMINS: readonly string[] = [
 	"/",
@@ -35,11 +37,11 @@ const ligne = (chemin: string, lastmod?: number) =>
 
 function construire(catalogue: Catalogue | null): string {
 	const actives = catalogue?.actives ?? [];
-	const plusRecente = actives.reduce((max, a) => Math.max(max, a.majLe || 0), 0);
+	const plusRecente = actives.reduce((max, a) => Math.max(max, a.modifieLe ?? 0), 0);
 	const lignes = [
 		...CHEMINS.map((c) => ligne(c)),
 		ligne("/annonces/", plusRecente || undefined),
-		...actives.map((a) => ligne(`/annonces/${a.slug}/`, a.majLe || undefined)),
+		...actives.map((a) => ligne(`/annonces/${a.slug}/`, a.modifieLe ?? undefined)),
 	];
 	return [
 		'<?xml version="1.0" encoding="UTF-8"?>',

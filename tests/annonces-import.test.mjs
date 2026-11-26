@@ -2,14 +2,14 @@
 // kit, différence successive 20261001 → 20261110 → 20261124, garde-fous,
 // slug stable et absence de toute adresse dans le SQL généré.
 // Hors ligne : le SQL est exécuté sur une base SQLite en mémoire (node:sqlite)
-// avec la vraie migration migrations/0002_annonces.sql. Pas besoin de build.
+// avec les vraies migrations du projet (0002, 0003). Pas besoin de build.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import { test } from "node:test";
 import { CHAMPS_INTERDITS, ErreurFlux, lireFlux } from "../scripts/annonces/flux.mjs";
 import { sourceFichier } from "../scripts/annonces/sources.mjs";
-import { calculerDifference, ErreurGardeFou, genererSql, REQUETE_ETAT, sql } from "../scripts/annonces/synchro.mjs";
+import { calculerDifference, ErreurGardeFou, formaterResume, genererSql, REQUETE_ETAT, sql } from "../scripts/annonces/synchro.mjs";
 import { analyserXml, decoder } from "../scripts/annonces/xml.mjs";
 import { importer } from "../scripts/import-annonces.mjs";
 
@@ -25,7 +25,7 @@ const lire = (url) => new Uint8Array(readFileSync(url));
 /** Base SQLite en mémoire avec les migrations du projet, vue comme la D1. */
 function nouvelleBase() {
 	const db = new DatabaseSync(":memory:");
-	for (const m of ["0001_contact_messages.sql", "0002_annonces.sql"]) db.exec(readFileSync(new URL(`migrations/${m}`, racine), "utf8"));
+	for (const m of ["0001_contact_messages.sql", "0002_annonces.sql", "0003_annonces_empreinte_contenu.sql"]) db.exec(readFileSync(new URL(`migrations/${m}`, racine), "utf8"));
 	const base = {
 		db,
 		sql: [],
@@ -41,6 +41,19 @@ function nouvelleBase() {
 }
 
 const silencieux = () => {};
+
+/** Annonces communes à deux flux dont le contenu (hors dateMAJ et rang) diffère. */
+function vraiesModifications(avant, apres) {
+	const sans = ({ dateMaj: _d, rang: _r, empreinte: _e, ...reste }) => JSON.stringify(reste);
+	const parId = new Map(lireFlux(lire(avant)).annonces.map((a) => [a.immonotId, sans(a)]));
+	return lireFlux(lire(apres)).annonces.filter((a) => parId.has(a.immonotId) && parId.get(a.immonotId) !== sans(a)).length;
+}
+
+/** Le même flux, avec tous les dateMAJ décalés (comme Immonot chaque nuit). */
+function fluxDateMajDecalee(url, decalageMs) {
+	const xml = readFileSync(url, "utf8").replace(/dateMAJ="(\d+)"/g, (_, v) => `dateMAJ="${Number(v) + decalageMs}"`);
+	return { nom: "test", recupererFlux: async () => ({ octets: new TextEncoder().encode(xml), origine: "test" }) };
+}
 const importerFichier = (base, url, options = {}) =>
 	importer({ source: sourceFichier(url.pathname), base, journal: silencieux, ...options });
 
@@ -104,7 +117,7 @@ test("différence 20261001 → 20261110 (+5 / −3) → 20261124 (−2), slugs s
 
 	// Premier import : tout est inséré.
 	const r1 = await importerFichier(base, FLUX.octobre, { maintenant: t0 });
-	assert.deepEqual(r1.diff.resume, { ajouts: 25, reactivations: 0, misesAJour: 0, retraits: 0, total: 25 });
+	assert.deepEqual(r1.diff.resume, { ajouts: 25, reactivations: 0, misesAJour: 0, initialisations: 0, retraits: 0, total: 25 });
 	const slugs1 = new Map(base.db.prepare("SELECT immonot_id, slug FROM annonces").all().map((l) => [l.immonot_id, l.slug]));
 	assert.equal(
 		slugs1.get("0000010172__w17567318563254440"),
@@ -114,17 +127,23 @@ test("différence 20261001 → 20261110 (+5 / −3) → 20261124 (−2), slugs s
 
 	// Rejouer le même flux : aucune modification.
 	const bis = await importerFichier(base, FLUX.octobre, { maintenant: t0 + 1 });
-	assert.deepEqual(bis.diff.resume, { ajouts: 0, reactivations: 0, misesAJour: 0, retraits: 0, total: 25 });
+	assert.deepEqual(bis.diff.resume, { ajouts: 0, reactivations: 0, misesAJour: 0, initialisations: 0, retraits: 0, total: 25 });
 	assert.equal(bis.requetes, "");
 
 	const r2 = await importerFichier(base, FLUX.novembre, { maintenant: t0 + 2 });
 	assert.equal(r2.diff.resume.ajouts, 5);
 	assert.equal(r2.diff.resume.retraits, 3);
-	assert.equal(r2.diff.resume.misesAJour, 22, "dateMAJ modifiée pour 22 annonces");
+	// 22 annonces ont un dateMAJ différent, mais seules les 4 dont le CONTENU a
+	// changé (prix de 025/1912, 025/1937 et 025/1940, DPE de 025/1941) comptent.
+	assert.equal(r2.diff.resume.misesAJour, 4, "vraies modifications seulement");
+	assert.equal(vraiesModifications(FLUX.octobre, FLUX.novembre), 4);
 
 	const r3 = await importerFichier(base, FLUX.fin, { maintenant: t0 + 3 });
 	assert.equal(r3.diff.resume.ajouts, 0);
 	assert.equal(r3.diff.resume.retraits, 2);
+	// Les 25 dateMAJ changent ; seules les photos de 025/1961 ont changé.
+	assert.equal(r3.diff.resume.misesAJour, 1);
+	assert.equal(vraiesModifications(FLUX.novembre, FLUX.fin), 1);
 
 	const compte = (where) => base.db.prepare(`SELECT count(*) AS n FROM annonces WHERE ${where}`).get().n;
 	assert.equal(compte("actif = 1"), 25);
@@ -135,10 +154,13 @@ test("différence 20261001 → 20261110 (+5 / −3) → 20261124 (−2), slugs s
 	for (const l of base.db.prepare("SELECT immonot_id, slug FROM annonces").all()) {
 		if (slugs1.has(l.immonot_id)) assert.equal(l.slug, slugs1.get(l.immonot_id));
 	}
-	// cree_le conservé, maj_le avancé.
+	// cree_le conservé ; modifie_le avancé à la vraie modification (prix,
+	// flux du 10/11), pas au flux suivant qui ne change que dateMAJ.
 	const valensole = base.db.prepare("SELECT * FROM annonces WHERE ref_client = '025/1912'").get();
 	assert.equal(valensole.cree_le, t0);
-	assert.equal(valensole.maj_le, t0 + 3);
+	assert.equal(valensole.modifie_le, t0 + 2);
+	assert.equal(valensole.maj_le, t0 + 2);
+	assert.equal(base.db.prepare("SELECT modifie_le FROM annonces WHERE ref_client = '025/1961'").get().modifie_le, t0 + 3);
 	assert.equal(JSON.parse(valensole.photos)[0], "https://photos.immonotpro.com/photos/d/w17567318563254440_1756733115483.jpg");
 
 	// Réapparition d'une annonce retirée : réactivée avec le même slug.
@@ -159,6 +181,66 @@ test("un changement de contenu sans dateMAJ est détecté", async () => {
 	const r = await importer({ source, base, journal: silencieux, maintenant: 2 });
 	assert.equal(r.diff.resume.misesAJour, 1);
 	assert.equal(base.db.prepare("SELECT prix FROM annonces WHERE ref_client = '025/1912'").get().prix, 275000);
+});
+
+test("deux flux qui ne diffèrent que par dateMAJ : +0 ~0 −0, rien n'est écrit, modifie_le inchangé", async () => {
+	const base = nouvelleBase();
+	await importerFichier(base, FLUX.fin, { maintenant: 1000 });
+	const deuxJours = 2 * 24 * 3600 * 1000;
+	const source = fluxDateMajDecalee(FLUX.fin, deuxJours);
+	const { annonces } = lireFlux((await source.recupererFlux()).octets);
+	assert.ok(annonces.every((a, i) => a.dateMaj !== lireFlux(lire(FLUX.fin)).annonces[i].dateMaj), "tous les dateMAJ changent");
+
+	// Simulation puis import : même résumé, aucune requête.
+	for (const dryRun of [true, false]) {
+		const r = await importer({ source, base, journal: silencieux, maintenant: 2000, dryRun });
+		assert.equal(formaterResume(r.diff.resume), "+0 ~0 −0 (25 annonce(s) dans le flux)");
+		assert.equal(r.requetes, "");
+	}
+	assert.equal(base.sql.length, 1, "seul le premier import a écrit");
+	const dates = base.db.prepare("SELECT DISTINCT modifie_le, maj_le FROM annonces").all().map((l) => ({ ...l }));
+	assert.deepEqual(dates, [{ modifie_le: 1000, maj_le: 1000 }]);
+});
+
+test("une vraie modification fait avancer modifie_le (lastmod du sitemap), pas les autres", async () => {
+	const base = nouvelleBase();
+	await importerFichier(base, FLUX.fin, { maintenant: 1000 });
+	const xml = readFileSync(FLUX.fin, "utf8")
+		.replace(/dateMAJ="(\d+)"/g, (_, v) => `dateMAJ="${Number(v) + 86_400_000}"`)
+		.replace("<PVB>280280.0</PVB>", "<PVB>275000.0</PVB>");
+	const source = { nom: "test", recupererFlux: async () => ({ octets: new TextEncoder().encode(xml), origine: "test" }) };
+	const r = await importer({ source, base, journal: silencieux, maintenant: 2000 });
+	assert.equal(formaterResume(r.diff.resume), "+0 ~1 −0 (25 annonce(s) dans le flux)");
+	const modifiees = base.db.prepare("SELECT ref_client FROM annonces WHERE modifie_le = 2000").all().map((l) => ({ ...l }));
+	assert.deepEqual(modifiees, [{ ref_client: "025/1912" }]);
+	assert.equal(base.db.prepare("SELECT count(*) AS n FROM annonces WHERE modifie_le = 1000").get().n, 24);
+});
+
+test("lignes antérieures à la migration 0003 : empreinte initialisée sans compter de modification", async () => {
+	const base = nouvelleBase();
+	await importerFichier(base, FLUX.fin, { maintenant: 1000 });
+	// État juste après la migration 0003 : empreinte_contenu NULL, modifie_le = maj_le.
+	base.db.exec("UPDATE annonces SET empreinte_contenu = NULL, modifie_le = maj_le");
+	const r = await importer({ source: fluxDateMajDecalee(FLUX.fin, 86_400_000), base, journal: silencieux, maintenant: 2000 });
+	assert.equal(r.diff.resume.misesAJour, 0);
+	assert.equal(r.diff.resume.initialisations, 25);
+	assert.match(formaterResume(r.diff.resume), /^\+0 ~0 −0 \(25 annonce\(s\) dans le flux, 25 empreinte\(s\) initialisée\(s\)\)$/);
+	assert.equal(base.db.prepare("SELECT count(*) AS n FROM annonces WHERE empreinte_contenu IS NULL").get().n, 0);
+	assert.equal(base.db.prepare("SELECT count(*) AS n FROM annonces WHERE modifie_le = 1000").get().n, 25, "modifie_le conservé");
+	// Import suivant : plus rien à faire.
+	const r2 = await importer({ source: fluxDateMajDecalee(FLUX.fin, 2 * 86_400_000), base, journal: silencieux, maintenant: 3000 });
+	assert.equal(r2.requetes, "");
+});
+
+test("migration 0003 sur une base existante : modifie_le repris de maj_le", () => {
+	const db = new DatabaseSync(":memory:");
+	db.exec(readFileSync(new URL("migrations/0002_annonces.sql", racine), "utf8"));
+	db.exec(
+		"INSERT INTO annonces (immonot_id, ref_client, slug, type_bien, type_vente, ville, empreinte, cree_le, maj_le) " +
+			"VALUES ('x', 'r', 's', 'MAIS', 'VENT', 'Manosque', 'e', 10, 20)",
+	);
+	db.exec(readFileSync(new URL("migrations/0003_annonces_empreinte_contenu.sql", racine), "utf8"));
+	assert.deepEqual({ ...db.prepare("SELECT empreinte_contenu, modifie_le FROM annonces").get() }, { empreinte_contenu: null, modifie_le: 20 });
 });
 
 test("garde-fou : moins de 50 % des annonces actives → échec, rien n'est modifié", async () => {
@@ -242,7 +324,7 @@ test("analyseur XML : document mal formé refusé", () => {
 
 test("différence : slug en collision suffixé", () => {
 	const a = lireFlux(lire(FLUX.fin)).annonces[0];
-	const diff = calculerDifference([a], [{ immonot_id: "autre", slug: "maison-valensole-025-1912", actif: 0, date_maj: 0, empreinte: "", rang: 0 }]);
+	const diff = calculerDifference([a], [{ immonot_id: "autre", slug: "maison-valensole-025-1912", actif: 0, empreinte_contenu: "", rang: 0 }]);
 	assert.equal(diff.insertions[0].slug, "maison-valensole-025-1912-2");
 	assert.match(genererSql(diff, 1), /^INSERT INTO annonces/);
 });

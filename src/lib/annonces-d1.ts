@@ -83,7 +83,12 @@ export interface Annonce {
 	negoTel: string | null;
 	negoEmail: string | null;
 	dateCreation: number | null;
-	majLe: number;
+	/**
+	 * Dernière modification réelle du contenu (colonne `modifie_le`, posée par
+	 * l'import ; jamais le `dateMAJ` d'Immonot, qui change chaque nuit) :
+	 * `lastmod` du sitemap. null si inconnue.
+	 */
+	modifieLe: number | null;
 }
 
 export interface Catalogue {
@@ -136,7 +141,7 @@ function versAnnonce(l: Ligne): Annonce {
 		negoTel: texte(l.nego_tel),
 		negoEmail: texte(l.nego_email),
 		dateCreation: nombre(l.date_creation),
-		majLe: nombre(l.maj_le) ?? 0,
+		modifieLe: nombre(l.modifie_le),
 	};
 }
 
@@ -144,7 +149,7 @@ const COLONNES =
 	"slug, ref_client, type_bien, sous_nature, type_vente, ville, code_postal, insee, departement, " +
 	"affiche_commune, affiche_prix, prix, prix_net_vendeur, frais_nego, frais_acte, mode_nego, charge_nego, " +
 	"surface_habitable, surface_terrain, nb_pieces, nb_chambres, texte, photos, details, " +
-	"nego_nom, nego_tel, nego_email, date_creation, maj_le";
+	"nego_nom, nego_tel, nego_email, date_creation, modifie_le";
 
 async function lireCatalogue(): Promise<Catalogue> {
 	const [actives, retirees] = await env.DB.batch<Ligne>([

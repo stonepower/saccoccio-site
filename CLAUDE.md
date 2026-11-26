@@ -188,7 +188,7 @@ Voir `src/lib/seo.ts`, `src/layouts/Base.astro` et `tests/seo.test.mjs`.
   canoniques vers elles-mêmes ; une recherche filtrée est en
   `noindex, follow`.
 - `sitemap.xml` (Worker) : URL canoniques, annonces actives de D1 avec
-  `lastmod` ; XML gardé avec le catalogue en cache 60 s (une requête D1 au
+  `lastmod` = `modifie_le` (jamais `dateMAJ`) ; XML gardé avec le catalogue en cache 60 s (une requête D1 au
   plus).
 
 ### Formulaire de contact
@@ -211,7 +211,10 @@ lancé à la main pour l'instant ; production depuis un tag `v*`, avec
 approbation). **Jamais** d'`<Adresse>` ni de coordonnées plus précises que la
 commune ; le négociateur (nom, téléphone, e-mail du flux) est affiché.
 Garde-fous de l'import : flux absent, vide, invalide ou < 50 % des annonces
-actives → rien n'est modifié. Les pages lisent un catalogue en une requête
+actives → rien n'est modifié. Immonot change `dateMAJ` chaque nuit sur toutes
+les annonces : une ligne n'est réécrite que si `empreinte_contenu` (SHA-256
+sans `dateMAJ`, migration 0003) change, et seulement alors `modifie_le`
+avance ; c'est le `lastmod` du sitemap (jamais `dateMAJ`). Les pages lisent un catalogue en une requête
 D1 (`batch`), gardé 60 s dans l'isolat. Annonce retirée : 410.
 
 ### Redirections 301
