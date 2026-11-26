@@ -1,7 +1,12 @@
 ---
 /**
  * Gabarit commun à toutes les pages : <head>, en-tête, pied de page.
- * Chaque page fournit son propre <title> et sa meta description.
+ * Chaque page fournit son propre <title> (TITRE_MAX caractères au plus) et sa
+ * meta description (DESCRIPTION_MAX), uniques : vérifié par tests/seo.test.mjs.
+ *
+ * SEO commun (src/lib/seo.ts) : URL canonique absolue sur le domaine de
+ * production (URL_SITE), Open Graph et Twitter, données structurées JSON-LD
+ * (site, étude Notary, fil d'Ariane, données propres à la page).
  */
 // Polices auto-hébergées (pas de Google Fonts : RGPD), sous-ensemble latin.
 import "@fontsource/raleway/latin-400.css";
@@ -11,25 +16,50 @@ import "@fontsource/lato/latin-700.css";
 import "../styles/global.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import type { MaillonAriane } from "../data/pages";
+import { IMAGE_PARTAGE } from "../data/site";
+import { donneesEtude, filArianeLd, grapheLd, jsonLd, ressourceAbsolue, urlCanonique } from "../lib/seo";
 import { isIndexable } from "../lib/site-env";
 
 interface Props {
 	title: string;
 	description: string;
-	/** Page à ne jamais indexer (en plus du noindex global hors production). */
-	noindex?: boolean;
+	/**
+	 * Page à ne jamais indexer (en plus du noindex global hors production) :
+	 * `true` → noindex, nofollow ; `"follow"` → noindex, follow (résultats de
+	 * recherche : les liens vers les annonces restent suivis).
+	 */
+	noindex?: boolean | "follow";
+	/**
+	 * Chemin canonique, paramètres compris (« /annonces/?page=2 ») ; par défaut
+	 * le chemin de la page, sans paramètres. Toujours sur le domaine URL_SITE.
+	 */
+	canonical?: string;
+	/** Image de partage (Open Graph, Twitter) ; par défaut IMAGE_PARTAGE. */
+	image?: { src: string; alt: string; width?: number; height?: number };
+	/** og:type (« website » par défaut). */
+	type?: string;
+	/** Fil d'Ariane (sans « Accueil ») pour le JSON-LD BreadcrumbList. */
+	ariane?: readonly MaillonAriane[];
+	/** Données structurées propres à la page (annonce…), ajoutées au graphe. */
+	donnees?: readonly Record<string, unknown>[];
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, image = IMAGE_PARTAGE, type = "website", ariane = [], donnees = [] } =
+	Astro.props;
+const canonique = urlCanonique(Astro.props.canonical ?? Astro.url.pathname);
+const imageUrl = ressourceAbsolue(image.src);
+const graphe = grapheLd([...donneesEtude(), filArianeLd(ariane, canonique), ...donnees]);
+const robots = noindex === "follow" ? "noindex, follow" : "noindex, nofollow";
 
 // Hors production, la page porte aussi une meta robots noindex : les pages
 // prérendues sont servies comme assets statiques, sans passer par le
 // middleware qui pose l'en-tête X-Robots-Tag (voir aussi astro.config.mjs,
 // fichier _headers). SITE_ENV est connu au build (CLOUDFLARE_ENV).
-const robotsNoindex = noindex || !isIndexable();
+const robotsNoindex = !!noindex || !isIndexable();
 
 if (noindex) {
-	Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
+	Astro.response.headers.set("X-Robots-Tag", robots);
 }
 ---
 
@@ -40,7 +70,24 @@ if (noindex) {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		{robotsNoindex && <meta name="robots" content="noindex, nofollow" />}
+		{robotsNoindex && <meta name="robots" content={noindex ? robots : "noindex, nofollow"} />}
+		<link rel="canonical" href={canonique} />
+		<meta property="og:locale" content="fr_FR" />
+		<meta property="og:site_name" content="Saccoccio & Associés, notaires" />
+		<meta property="og:type" content={type} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonique} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:alt" content={image.alt} />
+		{image.width && <meta property="og:image:width" content={String(image.width)} />}
+		{image.height && <meta property="og:image:height" content={String(image.height)} />}
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+		<meta name="twitter:image:alt" content={image.alt} />
+		<script type="application/ld+json" set:html={jsonLd(graphe)} />
 		<meta name="theme-color" content="#9e093c" />
 		<link rel="icon" href="/favicon.ico" sizes="48x48" />
 		<slot name="head" />

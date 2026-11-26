@@ -4,7 +4,13 @@
  *
  * - insertion : annonce absente de la base ;
  * - réactivation : annonce retirée qui réapparaît (comptée avec les ajouts) ;
- * - mise à jour : `dateMAJ` ou contenu (empreinte) différent ;
+ * - mise à jour : contenu différent (empreinte, calculée SANS `dateMAJ` :
+ *   Immonot le change chaque nuit même quand rien d'autre ne bouge). Seule
+ *   une vraie modification réécrit la ligne et fait avancer `modifie_le`
+ *   (le `lastmod` du sitemap) ;
+ * - initialisation : ligne importée avant la migration 0003, sans
+ *   `empreinte_contenu` : la ligne est réécrite et l'empreinte enregistrée,
+ *   sans compter de modification ni faire avancer `modifie_le` ;
  * - retrait : annonce active absente du flux (`actif = 0`, `retire_le`) ;
  * - rang : seul l'ordre a changé (non compté comme une mise à jour).
  *
@@ -56,7 +62,9 @@ const COLONNES = {
 	nego_email: (a) => a.negoEmail,
 	date_creation: (a) => a.dateCreation,
 	date_maj: (a) => a.dateMaj,
+	// Même valeur dans les deux colonnes : `empreinte` (0002) n'est plus comparée.
 	empreinte: (a) => a.empreinte,
+	empreinte_contenu: (a) => a.empreinte,
 };
 
 /** Littéral SQL sûr pour SQLite / D1. */
@@ -79,7 +87,7 @@ const colonne = (nom) => {
 };
 
 /**
- * @typedef {{ immonot_id: string, slug: string, actif: number, date_maj: number | null, empreinte: string, rang: number }} LigneExistante
+ * @typedef {{ immonot_id: string, slug: string, actif: number, empreinte_contenu: string | null, rang: number }} LigneExistante
  */
 
 /**
@@ -113,6 +121,7 @@ export function calculerDifference(annonces, existantes, { seuil = SEUIL_MINIMUM
 	const insertions = [];
 	const reactivations = [];
 	const misesAJour = [];
+	const initialisations = [];
 	const rangs = [];
 	for (const a of annonces) {
 		const ligne = parId.get(a.immonotId);
@@ -123,7 +132,9 @@ export function calculerDifference(annonces, existantes, { seuil = SEUIL_MINIMUM
 			insertions.push({ ...a, slug });
 		} else if (Number(ligne.actif) !== 1) {
 			reactivations.push({ ...a, slug: ligne.slug });
-		} else if (Number(ligne.date_maj ?? 0) !== Number(a.dateMaj ?? 0) || ligne.empreinte !== a.empreinte) {
+		} else if (!ligne.empreinte_contenu) {
+			initialisations.push({ ...a, slug: ligne.slug });
+		} else if (ligne.empreinte_contenu !== a.empreinte) {
 			misesAJour.push({ ...a, slug: ligne.slug });
 		} else if (Number(ligne.rang) !== a.rang) {
 			rangs.push({ immonotId: a.immonotId, rang: a.rang });
@@ -135,22 +146,28 @@ export function calculerDifference(annonces, existantes, { seuil = SEUIL_MINIMUM
 		insertions,
 		reactivations,
 		misesAJour,
+		initialisations,
 		retraits: retraits.map((l) => ({ immonotId: l.immonot_id, slug: l.slug })),
 		rangs,
 		resume: {
 			ajouts: insertions.length + reactivations.length,
 			reactivations: reactivations.length,
 			misesAJour: misesAJour.length,
+			initialisations: initialisations.length,
 			retraits: retraits.length,
 			total: annonces.length,
 		},
 	};
 }
 
-/** « +5 ~22 −3 (27 annonces dans le flux) ». */
+/**
+ * « +5 ~2 −3 (27 annonces dans le flux) » : « ~ » ne compte que les vraies
+ * modifications de contenu (jamais un simple changement de `dateMAJ`).
+ */
 export function formaterResume(r) {
 	const dont = r.reactivations ? ` dont ${r.reactivations} réactivée(s)` : "";
-	return `+${r.ajouts}${dont} ~${r.misesAJour} −${r.retraits} (${r.total} annonce(s) dans le flux)`;
+	const init = r.initialisations ? `, ${r.initialisations} empreinte(s) initialisée(s)` : "";
+	return `+${r.ajouts}${dont} ~${r.misesAJour} −${r.retraits} (${r.total} annonce(s) dans le flux${init})`;
 }
 
 /**
@@ -167,18 +184,22 @@ export function genererSql(diff, maintenant) {
 
 	for (const a of diff.insertions) {
 		lignes.push(
-			`INSERT INTO annonces (immonot_id, slug, ${noms.join(", ")}, actif, cree_le, maj_le, retire_le) ` +
-				`VALUES (${sql(a.immonotId)}, ${sql(a.slug)}, ${valeurs(a).join(", ")}, 1, ${t}, ${t}, NULL);`,
+			`INSERT INTO annonces (immonot_id, slug, ${noms.join(", ")}, actif, cree_le, maj_le, modifie_le, retire_le) ` +
+				`VALUES (${sql(a.immonotId)}, ${sql(a.slug)}, ${valeurs(a).join(", ")}, 1, ${t}, ${t}, ${t}, NULL);`,
 		);
 	}
-	for (const a of [...diff.reactivations, ...diff.misesAJour]) {
+	const reecrire = (a, modifieLe) => {
 		const v = valeurs(a);
 		const affectations = noms.map((n, i) => `${n} = ${v[i]}`).join(", ");
 		lignes.push(
-			`UPDATE annonces SET ${affectations}, actif = 1, retire_le = NULL, maj_le = ${t} ` +
+			`UPDATE annonces SET ${affectations}, actif = 1, retire_le = NULL, maj_le = ${t}, modifie_le = ${modifieLe} ` +
 				`WHERE immonot_id = ${sql(a.immonotId)};`,
 		);
-	}
+	};
+	// Vraie modification (ou retour en ligne) : modifie_le avance.
+	for (const a of [...diff.reactivations, ...diff.misesAJour]) reecrire(a, t);
+	// Empreinte initialisée : modifie_le garde sa valeur (copie de maj_le, migration 0003).
+	for (const a of diff.initialisations ?? []) reecrire(a, `COALESCE(modifie_le, maj_le, ${t})`);
 	for (const r of diff.rangs) {
 		lignes.push(`UPDATE annonces SET rang = ${sql(r.rang)} WHERE immonot_id = ${sql(r.immonotId)};`);
 	}
@@ -192,4 +213,4 @@ export function genererSql(diff, maintenant) {
 }
 
 /** Requête de lecture de l'état de la base (une seule). */
-export const REQUETE_ETAT = "SELECT immonot_id, slug, actif, date_maj, empreinte, rang FROM annonces";
+export const REQUETE_ETAT = "SELECT immonot_id, slug, actif, empreinte_contenu, rang FROM annonces";

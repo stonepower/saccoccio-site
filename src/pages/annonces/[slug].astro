@@ -25,14 +25,15 @@ import {
 	descriptionSeo,
 	donneesStructurees,
 	informations,
-	jsonLd,
 	liensCarte,
 	lieu,
 	lienMail,
 	titreAnnonce,
+	titreSeo,
 	vueDpe,
 } from "../../lib/annonces-fiche";
 import { options } from "../../lib/annonces-recherche";
+import { urlAbsolue } from "../../lib/seo";
 
 export const prerender = false;
 
@@ -61,7 +62,9 @@ Astro.response.headers.set(
 	statut === 200 ? CACHE_HTTP : statut === 503 ? "no-store" : "public, max-age=300",
 );
 
+// URL publique (lien « Envoyer à un ami ») et URL canonique (domaine de production).
 const url = new URL(`/annonces/${slug}/`, Astro.url).href;
+const canonique = urlAbsolue(`/annonces/${slug}/`);
 const choix = options(actives);
 const a = annonce;
 const titre = a ? titreAnnonce(a) : "";
@@ -110,15 +113,14 @@ const corpsMail = a ? `Bonjour, je suis intéressé(e) par cette annonce : ${url
 			</section>
 		</Base>
 	) : (
-		<Base title={`${titre} – ${prix} – réf. ${a.refClient} – Saccoccio & Associés`} description={descriptionSeo(a)}>
-			<Fragment slot="head">
-				<link rel="canonical" href={url} />
-				{a.photos[0] && <meta property="og:image" content={a.photos[0]} />}
-				<meta property="og:title" content={`${titre} – ${prix}`} />
-				<meta property="og:type" content="website" />
-				<meta property="og:url" content={url} />
-				<script type="application/ld+json" set:html={jsonLd(donneesStructurees(a, url))} />
-			</Fragment>
+		<Base
+			title={titreSeo(a)}
+			description={descriptionSeo(a)}
+			canonical={canonique}
+			image={a.photos[0] ? { src: a.photos[0], alt: `${titre} : photo 1` } : undefined}
+			ariane={[{ label: "Annonces immobilières", href: "/annonces/" }, { label: titre }]}
+			donnees={[donneesStructurees(a, canonique)]}
+		>
 
 			<section class="section section-grise fiche-section">
 				<div class="conteneur">

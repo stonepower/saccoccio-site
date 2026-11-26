@@ -11,34 +11,37 @@
 import type { GetStaticPaths } from "astro";
 import { PAGES, type PageEditoriale } from "../data/pages";
 import Contenu from "../layouts/Contenu.astro";
-import { decouperSections, description, preparerHtml } from "../lib/contenu";
+import { decouperSections, fusionnerSections, preparerHtml } from "../lib/contenu";
+import { descriptionsPages, sourcePage } from "../lib/pages-contenu";
+import { titrePage } from "../lib/seo";
 
 export const prerender = true;
 
-const sources = import.meta.glob<string>("../../reference/contenus-kit/pages/*.html", {
-	query: "?raw",
-	import: "default",
-	eager: true,
-});
-
-export const getStaticPaths = (() =>
-	PAGES.map((page) => ({
+export const getStaticPaths = (() => {
+	// Descriptions uniques (≤ 155 caractères), calculées une fois pour toutes les pages.
+	const metas = descriptionsPages();
+	return PAGES.map((page) => ({
 		params: { chemin: page.url.replace(/^\/|\/$/g, "") },
-		props: { page },
-	}))) satisfies GetStaticPaths;
+		props: { page, meta: metas.get(page.url) ?? "" },
+	}));
+}) satisfies GetStaticPaths;
 
 interface Props {
 	page: PageEditoriale;
+	meta: string;
 }
 
-const { page } = Astro.props;
-const source = sources[`../../reference/contenus-kit/pages/${page.fichier}`];
+const { page, meta } = Astro.props;
+const source = sourcePage(page);
 if (source === undefined) throw new Error(`Fichier de contenu introuvable : ${page.fichier}`);
 
 const html = preparerHtml(source);
-const decoupage = decouperSections(html);
-const title = `${page.h1} – Saccoccio & Associés, notaires à Manosque`;
-const meta = description(html, `${page.h1} : informations de l'office notarial Saccoccio & Associés, à Manosque.`);
+// /office-notarial/ : les sections dont le texte est celui d'une page séparée
+// sont raccourcies (lien « Lire la suite »), voir SECTIONS_FUSIONNEES.
+const sections = decouperSections(html);
+const decoupage = sections && page.url === "/office-notarial/" ? fusionnerSections(sections) : sections;
+// Title unique et court (≤ 60 caractères) : le h1 et la marque.
+const title = titrePage(page.h1);
 ---
 
 <Contenu title={title} description={meta} h1={page.h1} ariane={page.ariane}>

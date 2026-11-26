@@ -181,9 +181,13 @@ export function normaliserClef(clef, rang) {
 	return { ...annonce, empreinte: empreinte(annonce) };
 }
 
-/** SHA-256 du contenu normalisé (hors rang) : détecte un changement sans dateMAJ. */
+/**
+ * SHA-256 du contenu normalisé, hors rang et hors `dateMAJ` : Immonot change
+ * `dateMAJ` chaque nuit sur toutes les annonces, même sans autre changement.
+ * Seule une différence d'empreinte compte comme une modification.
+ */
 export function empreinte(annonce) {
-	const { rang: _rang, empreinte: _e, ...contenu } = annonce;
+	const { rang: _rang, dateMaj: _dateMaj, empreinte: _e, ...contenu } = annonce;
 	return createHash("sha256").update(JSON.stringify(contenu)).digest("hex");
 }
 

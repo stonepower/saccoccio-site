@@ -20,6 +20,7 @@ import {
 	SEUILS_ENERGIE,
 	slugifier,
 } from "../src/lib/annonces.ts";
+import { centreCommune } from "../src/data/communes.ts";
 import type { Annonce } from "../src/lib/annonces-d1.ts";
 import {
 	caracteristiques,
@@ -92,7 +93,7 @@ test("DPE : classes et échelles", () => {
 /** Annonces du kit telles que le Worker les lit (après passage par D1). */
 function annoncesDuKit(): Annonce[] {
 	const { annonces } = lireFlux(new Uint8Array(readFileSync(new URL("../reference/annonces-kit/xml/04025_20261124011818.xml", import.meta.url))));
-	return annonces.map((a) => ({ ...a, slug: construireSlug(a), majLe: 0 }) as unknown as Annonce);
+	return annonces.map((a) => ({ ...a, slug: construireSlug(a), modifieLe: null }) as unknown as Annonce);
 }
 
 test("fiche 025/1912 : caractéristiques, informations, DPE, contact", () => {
@@ -149,8 +150,8 @@ test("données structurées schema.org et carte à l'échelle de la commune", ()
 	assert.equal((d.offers as Record<string, unknown>).price, 280280);
 	assert.ok(!JSON.stringify(d).match(/latitude|streetAddress/i));
 	assert.ok(!jsonLd({ t: "</script>" }).includes("</"));
-	const carte = liensCarte({ lat: 43.837, lon: 5.983 }, a);
-	assert.equal(carte?.agrandir, "https://www.openstreetmap.org/#map=13/43.8370/5.9830");
+	const carte = liensCarte(centreCommune("04230"), a);
+	assert.equal(carte?.agrandir, "https://www.openstreetmap.org/#map=13/43.8390/5.9390");
 	assert.match(carte?.iframe ?? "", /^https:\/\/www\.openstreetmap\.org\/export\/embed\.html\?bbox=/);
 	assert.equal(liensCarte(null, a)?.iframe, null);
 	assert.equal(liensCarte(null, { ...a, afficheCommune: false }), null);

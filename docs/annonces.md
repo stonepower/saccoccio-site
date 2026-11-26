@@ -28,7 +28,8 @@ Immonot ──(dépôt du XML : source à définir)──▶ GitHub Action « im
 
 ## Données (D1)
 
-Migration `migrations/0002_annonces.sql`, appliquée par les workflows de
+Migrations `migrations/0002_annonces.sql` et
+`0003_annonces_empreinte_contenu.sql`, appliquées par les workflows de
 déploiement. Une ligne par annonce, clé `immonot_id` (`Clef/@id`, stable).
 
 | Colonne | Rôle |
@@ -42,8 +43,11 @@ déploiement. Une ligne par annonce, clé `immonot_id` (`Clef/@id`, stable).
 | `photos` | JSON : URL https |
 | `details` | JSON : chauffage, DPE, copropriété, taxe foncière… (valeurs non vides) |
 | `nego_*` | négociateur |
-| `empreinte` | SHA-256 du contenu normalisé |
-| `actif`, `cree_le`, `maj_le`, `retire_le` | suivi de la synchronisation |
+| `date_maj` | `dateMAJ` du flux, à titre indicatif : **jamais** utilisé pour détecter un changement ni pour le sitemap |
+| `empreinte_contenu` | SHA-256 du contenu normalisé, **sans `dateMAJ`** ni rang (0003) |
+| `empreinte` | même valeur (0002 ; elle incluait `dateMAJ`, elle n'est plus comparée) |
+| `modifie_le` | dernière modification **réelle** du contenu (date du site) : `lastmod` du sitemap |
+| `actif`, `cree_le`, `maj_le`, `retire_le` | suivi de la synchronisation (`maj_le` : dernière écriture de la ligne) |
 
 Le slug suit `<type>-<ville>-<référence>` : `maison-valensole-025-1912`. En
 cas de collision, un suffixe `-2`, `-3`… est ajouté.
@@ -59,9 +63,19 @@ cas de collision, un suffixe `-2`, `-3`… est ajouté.
 3. **Normalisation** (`scripts/annonces/flux.mjs`) : nombres, booléens,
    photos en https, champs vides retirés, CRPCEN vérifié (`04025`).
 4. **Différence** avec la base (`scripts/annonces/synchro.mjs`), une requête
-   de lecture : insertions, mises à jour (si `dateMAJ` **ou** l'empreinte du
-   contenu change), retraits (`actif = 0`, `retire_le`), réactivations
-   (annonce retirée qui revient, même slug).
+   de lecture : insertions, mises à jour, retraits (`actif = 0`,
+   `retire_le`), réactivations (annonce retirée qui revient, même slug).
+   Une mise à jour n'a lieu que si **l'empreinte du contenu** change :
+   Immonot change `dateMAJ` chaque nuit sur toutes les annonces, même quand
+   rien d'autre ne bouge (vérifié : entre deux flux successifs, les 25
+   annonces ne diffèrent que par `dateMAJ`). Un tel flux donne `+0 ~0 −0` et
+   n'écrit rien ; `modifie_le` n'avance qu'à une vraie modification (ou à
+   une création, une réactivation). Le « ~N » du résumé, en simulation comme
+   en import, ne compte que ces vraies modifications.
+   Les lignes importées avant la migration 0003 n'ont pas d'empreinte : le
+   premier import qui suit la calcule (« N empreinte(s) initialisée(s) »),
+   sans compter de modification ni changer `modifie_le` (repris de `maj_le`
+   par la migration).
 5. **Application** en un seul fichier SQL par
    `wrangler d1 execute --remote --file` (valeurs échappées : D1 n'accepte
    pas de paramètres liés dans un fichier).

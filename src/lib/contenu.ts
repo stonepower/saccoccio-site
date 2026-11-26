@@ -149,3 +149,73 @@ export function decouperSections(html: string): PageDecoupee | null {
 	});
 	return { liens, sections };
 }
+
+/**
+ * Sections de la page longue /office-notarial/ dont le contenu est celui
+ * d'une page séparée (comparaison section par section du kit, voir la PR) :
+ * la page séparée, visée par le sous-menu, reste la seule URL du texte ;
+ * dans /office-notarial/, la section est raccourcie (titre, une phrase
+ * d'introduction, lien « Lire la suite »). Son `id` est conservé : les
+ * anciennes ancres (/office-notarial/#fonctions…) mènent toujours à elle.
+ *
+ * Non fusionnées, car le contenu diffère vraiment : Historique (pas de page
+ * séparée), L'équipe (listes différentes, en attente de la liste à jour de
+ * l'étude), Tarifs (barèmes différents), Prédécesseurs (un nom en plus).
+ */
+export const SECTIONS_FUSIONNEES: Readonly<Record<string, { href: string; intro?: string }>> = {
+	// Identique à la page séparée, aux apostrophes et guillemets près.
+	fonctions: { href: "/office-notarial/fonctions/" },
+	// Identique.
+	profession: { href: "/office-notarial/profession-notaire/" },
+	// Identique à la typographie près ; la page séparée a en plus le texte
+	// complet d'un article tronqué dans la page longue. Pas de paragraphe
+	// d'introduction (la section commence par l'index A – T) : intro rédigée.
+	lexique: {
+		href: "/office-notarial/lexique/",
+		intro: "Les définitions des principaux termes juridiques et immobiliers employés par le notaire, classées de A à T.",
+	},
+};
+
+/** Longueur maximale de la phrase d'introduction d'une section raccourcie (au plus la limite des « paragraphes longs » du test des doublons). */
+const INTRO_MAX = 200;
+
+const echapperHtml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/**
+ * Phrase d'introduction tirée du texte : la première phrase du premier
+ * paragraphe significatif, arrêtée avant une énumération (« : ») et coupée
+ * à INTRO_MAX caractères au besoin.
+ */
+export function phraseIntroduction(html: string): string {
+	for (const [, contenu] of html.matchAll(/<p>([\s\S]*?)<\/p>/g)) {
+		const texte = texteBrut(contenu ?? "");
+		if (texte.length < 60) continue;
+		const phrase = (/^.*?[.!?](?=\s|$)/.exec(texte)?.[0] ?? texte).split(/\s+:\s/)[0]?.replace(/[\s,;:]+$/, "") ?? "";
+		const fin = /[.!?…]$/.test(phrase) ? phrase : `${phrase}.`;
+		if (fin.length <= INTRO_MAX) return fin;
+		const coupe = fin.slice(0, INTRO_MAX - 1);
+		return `${coupe.slice(0, coupe.lastIndexOf(" ")).replace(/[\s,;:.–-]+$/, "")}…`;
+	}
+	return "";
+}
+
+/** Remplace les sections fusionnées par leur titre, leur introduction et un lien. */
+export function fusionnerSections(
+	decoupage: PageDecoupee,
+	fusions: Readonly<Record<string, { href: string; intro?: string }>> = SECTIONS_FUSIONNEES,
+): PageDecoupee {
+	return {
+		...decoupage,
+		sections: decoupage.sections.map((section) => {
+			const fusion = fusions[section.id];
+			if (!fusion) return section;
+			const intro = fusion.intro ?? phraseIntroduction(section.html);
+			return {
+				...section,
+				html:
+					`<p>${echapperHtml(intro)}</p>\n` +
+					`<p><a class="btn btn-primaire" href="${fusion.href}">Lire la suite<span class="sr-only"> : ${echapperHtml(section.titre)}</span></a></p>`,
+			};
+		}),
+	};
+}
