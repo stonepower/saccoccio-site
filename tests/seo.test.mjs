@@ -389,3 +389,24 @@ test("/office-notarial/ : Fonctions, Profession et Lexique raccourcies, ancienne
 	assert.match(html, /Cette donation entre époux|Depuis toujours, les notaires apportent/);
 	assert.match(html, /Au troisième siècle de notre ère/, "Historique complet");
 });
+
+// ---------------------------------------------------------------------------
+// Code postal de Manosque : 04100 partout (choix de l'étude), plus jamais le
+// code CEDEX 04101. Seule adresse CEDEX tolérée : celle de l'ADSN à Venelles
+// (organisme tiers, fichier des dernières volontés), citée par les pages
+// « L'héritage » et « Ma Famille ».
+const CEDEX_TIERS = /13107 VENELLES CEDEX/g;
+
+test("aucune page ne contient « 04101 » ni « CEDEX » (hors adresse de l'ADSN)", () => {
+	const pages = [...pagesPrerendues()];
+	for (const [chemin, r] of rendues) pages.push([chemin, r.html]);
+	assert.ok(pages.length >= 38);
+	for (const [chemin, html] of pages) {
+		assert.doesNotMatch(html, /04101/, `04101 (${chemin})`);
+		assert.doesNotMatch(html.replace(CEDEX_TIERS, ""), /cedex/i, `CEDEX (${chemin})`);
+	}
+	for (const chemin of ["/mentions-legales/", "/office-notarial/situation-geographique/", "/contact/plans-acces-horaires/"]) {
+		assert.match(pagesPrerendues().get(chemin), /04100 MANOSQUE|MANOSQUE 04100/, chemin);
+	}
+	assert.match(pagesPrerendues().get("/mentions-legales/"), /BP 103/, "boîte postale conservée");
+});
