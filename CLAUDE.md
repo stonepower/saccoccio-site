@@ -151,6 +151,15 @@ affichée en noms et fonctions), retirer les liens neutralisés du panier et
 poser les ancres du lexique. Une correction de texte se fait dans
 `reference/contenus-kit/pages/*.html`.
 
+- `/office-notarial/` (page longue) : les sections identiques à une page
+  séparée (Fonctions, Profession, Lexique : `SECTIONS_FUSIONNEES` de
+  `src/lib/contenu.ts`) sont raccourcies (titre, une phrase d'introduction,
+  « Lire la suite » vers la page séparée, seule URL du texte), leur `id`
+  restant la cible des anciennes ancres. Historique, Équipe, Tarifs et
+  Prédécesseurs restent complets (contenus différents). `tests/seo.test.mjs`
+  refuse tout paragraphe de plus de 200 caractères présent sur deux pages,
+  hors doublons connus du kit (pages `/conseils/*`, Tarifs…).
+
 - Les assets statiques ne passent **pas** par le middleware : hors
   production, le `noindex` est assuré par la meta robots de `Base.astro`
   (SITE_ENV connu au build) et par un `X-Robots-Tag` ajouté au `_headers`
@@ -180,8 +189,9 @@ Voir `src/lib/seo.ts`, `src/layouts/Base.astro` et `tests/seo.test.mjs`.
   Twitter (`fr_FR`, image par défaut `IMAGE_PARTAGE`), un seul `<h1>`, un
   `alt` sur chaque image. Les fiches d'annonces construisent les leurs à
   partir du type, de la commune, de la surface, du prix et de la référence.
-- JSON-LD en un seul graphe par page : `WebSite`, `Notary` (Manosque et ses
-  annexes de Gréoux-les-Bains et Valensole, d'après `SITES`),
+- JSON-LD en un seul graphe par page : `WebSite`, `Notary` (Manosque, avec
+  en `department` le second bureau de Manosque, L'Agora, et les annexes de
+  Gréoux-les-Bains et Valensole, d'après `SITES` ; code postal 04100),
   `BreadcrumbList`, et `RealEstateListing` + `Offer` sur les fiches (prix,
   commune, code postal ; **jamais** d'adresse ni de coordonnées).
 - Liste des annonces : `/annonces/` (jamais `?page=1`), pages suivantes

@@ -47,27 +47,47 @@ test("téléphones au format international", () => {
 	assert.equal(telephoneInternational("Fax : 04 92 70 14 32"), "+33 4 92 70 14 32");
 });
 
-test("Notary : les 3 études, adresses et téléphones du pied de page", () => {
+test("Notary : les 3 études et le second bureau de Manosque, adresses et téléphones du pied de page", () => {
 	const [, etude] = donneesEtude() as Record<string, any>[];
 	assert.equal(etude?.["@type"], "Notary");
 	const etudes = [etude, ...etude?.department];
 	assert.deepEqual(
 		etudes.map((e) => e.address.addressLocality),
-		SITES.map((s) => s.ville),
+		SITES.flatMap((s) => s.bureaux.map(() => s.ville)),
 	);
+	assert.deepEqual(
+		etudes.map((e) => e.name),
+		[
+			"Saccoccio & Associés",
+			"Saccoccio & Associés – Manosque, L’Agora Bât E",
+			"Saccoccio & Associés – annexe de Gréoux-les-Bains",
+			"Saccoccio & Associés – annexe de Valensole",
+		],
+	);
+	assert.equal(new Set(etudes.map((e) => e["@id"])).size, 4, "@id distincts");
 	assert.deepEqual(etude?.address, {
 		"@type": "PostalAddress",
 		streetAddress: "29 Avenue Jean Giono",
 		postOfficeBoxNumber: "103",
-		postalCode: "04101",
+		postalCode: "04100",
 		addressLocality: "Manosque",
 		addressRegion: "Alpes-de-Haute-Provence",
 		addressCountry: "FR",
 	});
-	assert.equal(etudes[1].address.streetAddress, "237 chemin Sainte Annette");
-	assert.equal(etudes[1].telephone, "+33 4 92 70 14 40");
-	assert.equal(etudes[2].address.postalCode, "04210");
-	assert.equal(etudes[2].faxNumber, "+33 4 92 70 14 32");
+	assert.deepEqual(etudes[1].address, {
+		"@type": "PostalAddress",
+		streetAddress: "Chemin des champs de Pruniers, L’Agora Bât E",
+		postalCode: "04100",
+		addressLocality: "Manosque",
+		addressRegion: "Alpes-de-Haute-Provence",
+		addressCountry: "FR",
+	});
+	assert.equal(etudes[1].telephone, "+33 4 92 74 96 03");
+	assert.equal(etudes[2].address.streetAddress, "237 chemin Sainte Annette");
+	assert.equal(etudes[2].telephone, "+33 4 92 70 14 40");
+	assert.equal(etudes[3].address.postalCode, "04210");
+	assert.equal(etudes[3].faxNumber, "+33 4 92 70 14 32");
+	assert.doesNotMatch(JSON.stringify(etudes), /04101|CEDEX/);
 	for (const e of etudes) assert.doesNotMatch(JSON.stringify(e), /geo|latitude/i);
 });
 

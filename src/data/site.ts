@@ -113,7 +113,8 @@ export const SITES: readonly Site[] = [
 				intitule: "MANOSQUE - Office",
 				lignes: [
 					{ icone: "adresse", texte: "29 Avenue Jean Giono - B.P. 103" },
-					{ icone: "adresse", texte: "04101 MANOSQUE CEDEX" },
+					// Code postal de la commune (04100), et non le code CEDEX 04101 de l'ancien site.
+					{ icone: "adresse", texte: "04100 MANOSQUE" },
 					{ icone: "telephone", texte: "04 92 70 70 70" },
 					{ icone: "fax", texte: "Fax : 04 92 70 70 79" },
 				],

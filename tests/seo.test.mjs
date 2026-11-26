@@ -7,7 +7,8 @@
 // Pour chaque page indexable : lang="fr", un seul <h1>, un alt sur chaque
 // image, <title> (≤ 60) et meta description (≤ 155) présents et UNIQUES,
 // canonical absolue sur le domaine de production, Open Graph et Twitter,
-// JSON-LD valide (WebSite, Notary avec ses 3 études, BreadcrumbList,
+// JSON-LD valide (WebSite, Notary avec ses 3 études et le second bureau de
+// Manosque, BreadcrumbList,
 // RealEstateListing sans adresse ni coordonnées). Puis le sitemap (toutes ces
 // pages et seulement elles) et robots.txt / noindex de staging.
 import assert from "node:assert/strict";
@@ -195,10 +196,15 @@ function graphe(html) {
 	return ld[0]["@graph"];
 }
 
-const TELEPHONES = { Manosque: "+33 4 92 70 70 70", "Gréoux-les-Bains": "+33 4 92 70 14 40", Valensole: "+33 4 92 70 14 30" };
-const CODES_POSTAUX = { Manosque: "04101", "Gréoux-les-Bains": "04800", Valensole: "04210" };
+/** Bureaux attendus : [commune, code postal, téléphone] (pied de page). */
+const BUREAUX = [
+	["Manosque", "04100", "+33 4 92 70 70 70"],
+	["Manosque", "04100", "+33 4 92 74 96 03"],
+	["Gréoux-les-Bains", "04800", "+33 4 92 70 14 40"],
+	["Valensole", "04210", "+33 4 92 70 14 30"],
+];
 
-test("JSON-LD : Notary (3 études), WebSite et BreadcrumbList valides sur chaque page", { skip: !disponible }, () => {
+test("JSON-LD : Notary (3 études + second bureau de Manosque), WebSite et BreadcrumbList valides sur chaque page", { skip: !disponible }, () => {
 	for (const [chemin, html] of pagesIndexables()) {
 		const noeuds = graphe(html);
 		for (const n of noeuds) assert.ok(typeof n["@type"] === "string", `@type ${chemin}`);
@@ -207,13 +213,14 @@ test("JSON-LD : Notary (3 études), WebSite et BreadcrumbList valides sur chaque
 		const etude = noeuds.find((n) => n["@type"] === "Notary");
 		assert.ok(etude, `Notary absent (${chemin})`);
 		const etudes = [etude, ...etude.department];
-		assert.equal(etudes.length, 3);
+		assert.deepEqual(
+			etudes.map((e) => [e.address.addressLocality, e.address.postalCode, e.telephone]),
+			BUREAUX,
+			`bureaux (${chemin})`,
+		);
 		for (const e of etudes) {
 			assert.equal(e["@type"], "Notary");
-			const ville = e.address.addressLocality;
-			assert.equal(e.telephone, TELEPHONES[ville], `téléphone ${ville}`);
-			assert.equal(e.address.postalCode, CODES_POSTAUX[ville], `code postal ${ville}`);
-			assert.ok(e.address.streetAddress, `adresse ${ville}`);
+			assert.ok(e.address.streetAddress, `adresse ${e.name}`);
 			assert.equal(e.address.addressCountry, "FR");
 		}
 		const fil = noeuds.find((n) => n["@type"] === "BreadcrumbList");
@@ -293,4 +300,92 @@ test("staging : robots.txt interdit tout, noindex en meta et en X-Robots-Tag", {
 	}
 	assert.match(rendues.get("/").entetes.get("x-robots-tag") ?? "", /noindex/);
 	assert.match(readFileSync(new URL("_headers", client), "utf8"), /X-Robots-Tag: noindex/);
+});
+
+// ---------------------------------------------------------------------------
+// Contenus en double. /office-notarial/ ne reprend plus le texte des pages
+// séparées identiques (Fonctions, Profession, Lexique) : titre, introduction
+// et lien « Lire la suite ». Aucun paragraphe long (> 200 caractères) ne
+// doit figurer sur deux pages, hormis les doublons CONNUS ci-dessous, hérités
+// du kit et en attente d'une décision (listés dans la PR).
+
+const LONG = 200;
+
+/** Texte comparable : sans balises, entités décodées, typographie unifiée. */
+const comparable = (html) =>
+	decoder(html.replace(/<[^>]+>/g, " "))
+		.replace(/[’‘]/g, "'")
+		.replace(/[«»“”]/g, '"')
+		.replace(/&[a-z]+;/g, "")
+		.replace(/\s+/g, " ")
+		.trim();
+
+/** Paragraphes (p, li, td, blockquote) du contenu principal d'une page. */
+function paragraphes(html) {
+	const main = html.slice(html.indexOf("<main"), html.indexOf("</main>"));
+	return [...main.matchAll(/<(p|li|td|blockquote)\b[^>]*>([\s\S]*?)<\/\1>/g)].map((m) => comparable(m[2]));
+}
+
+/**
+ * Doublons connus, hérités du kit, non fusionnés (voir la PR) :
+ * - les pages /conseils/* (hors menu) compilent des paragraphes des pages de
+ *   droit et de l'office : leur sort reste à décider avec l'étude ;
+ * - Tarifs : la section de /office-notarial/ et la page séparée ont des
+ *   barèmes différents (contenu réellement différent : pas de fusion), mais
+ *   partagent quelques paragraphes ;
+ * - Fonctions de l'Étude reprend des paragraphes des pages de droit
+ *   immobilier et des informations juridiques, qui se recoupent aussi.
+ */
+function doublonConnu(a, b) {
+	const paire = [a, b].sort().join(" ");
+	if (a.startsWith("/conseils/") || b.startsWith("/conseils/")) return true;
+	return [
+		"/office-notarial/ /office-notarial/tarifs/",
+		"/droit-immobilier/achat-et-vente/ /office-notarial/fonctions/",
+		"/informations-juridiques/ /office-notarial/fonctions/",
+		"/droit-immobilier/achat-et-vente/ /droit-immobilier/location/",
+	].includes(paire);
+}
+
+test("aucun paragraphe long (> 200 caractères) sur deux pages, hors doublons connus", () => {
+	const pages = new Map();
+	for (const [chemin, html] of pagesPrerendues()) {
+		for (const p of paragraphes(html)) {
+			if (p.length <= LONG) continue;
+			if (!pages.has(p)) pages.set(p, new Set());
+			pages.get(p).add(chemin);
+		}
+	}
+	const fautifs = [];
+	for (const [p, chemins] of pages) {
+		const liste = [...chemins];
+		for (let i = 0; i < liste.length; i++) {
+			for (let j = i + 1; j < liste.length; j++) {
+				if (!doublonConnu(liste[i], liste[j])) fautifs.push(`${liste[i]} et ${liste[j]} : « ${p.slice(0, 80)}… »`);
+			}
+		}
+	}
+	assert.deepEqual(fautifs, []);
+});
+
+test("/office-notarial/ : Fonctions, Profession et Lexique raccourcies, anciennes ancres conservées", () => {
+	const html = pagesPrerendues().get("/office-notarial/");
+	for (const [id, href] of [
+		["fonctions", "/office-notarial/fonctions/"],
+		["profession", "/office-notarial/profession-notaire/"],
+		["lexique", "/office-notarial/lexique/"],
+	]) {
+		const section = new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`).exec(html)?.[0];
+		assert.ok(section, `section #${id} absente (ancre /office-notarial/#${id})`);
+		assert.match(section, new RegExp(`href="${href}"[^>]*>Lire la suite`));
+		assert.ok(paragraphes(section).every((p) => p.length <= LONG), `section #${id} raccourcie`);
+	}
+	// Non fusionnées (contenus différents) : texte complet conservé.
+	for (const id of ["historique", "equipe", "tarifs", "predecesseurs"]) {
+		const section = new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`).exec(html)?.[0];
+		assert.ok(section, `section #${id} absente`);
+		assert.doesNotMatch(section, /Lire la suite/, `#${id} non fusionnée`);
+	}
+	assert.match(html, /Cette donation entre époux|Depuis toujours, les notaires apportent/);
+	assert.match(html, /Au troisième siècle de notre ère/, "Historique complet");
 });

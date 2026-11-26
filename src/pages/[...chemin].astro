@@ -11,7 +11,7 @@
 import type { GetStaticPaths } from "astro";
 import { PAGES, type PageEditoriale } from "../data/pages";
 import Contenu from "../layouts/Contenu.astro";
-import { decouperSections, preparerHtml } from "../lib/contenu";
+import { decouperSections, fusionnerSections, preparerHtml } from "../lib/contenu";
 import { descriptionsPages, sourcePage } from "../lib/pages-contenu";
 import { titrePage } from "../lib/seo";
 
@@ -36,7 +36,10 @@ const source = sourcePage(page);
 if (source === undefined) throw new Error(`Fichier de contenu introuvable : ${page.fichier}`);
 
 const html = preparerHtml(source);
-const decoupage = decouperSections(html);
+// /office-notarial/ : les sections dont le texte est celui d'une page séparée
+// sont raccourcies (lien « Lire la suite »), voir SECTIONS_FUSIONNEES.
+const sections = decouperSections(html);
+const decoupage = sections && page.url === "/office-notarial/" ? fusionnerSections(sections) : sections;
 // Title unique et court (≤ 60 caractères) : le h1 et la marque.
 const title = titrePage(page.h1);
 ---
